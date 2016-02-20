@@ -1,0 +1,46 @@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@ DATABASE TABLE EXISTENCE
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+SELECT 
+     Name
+FROM 
+    MSysObjects 
+WHERE 
+    (Left([Name],1)<>"~") 
+    AND (Left([Name],4) <> "MSys") 
+    AND ([Type] In (1, 4, 6))
+
+
+
+SELECT 
+     Name
+FROM 
+    MSysObjects 
+WHERE 
+    (Left([Name],1)<>"~") 
+    AND (Left([Name],4) <> "MSys") 
+    AND ([Type] In (1, 4, 6))
+and name = 'mst_fayear'
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+http://databases.aspfaq.com/database/how-do-i-determine-if-a-column-exists-in-a-given-table.html
+
+select name from SYSCOLUMNS where id=(select id from MSysObjects where name='mst_fayear')
+
+
+
+28-08-2010
+
+http://www.eggheadcafe.com/software/aspnet/31528090/checking-for-table-existence.aspx
+
+http://www.dotnetspider.com/resources/36852-Check-if-particular-table-exists-MS-Access.aspx
+
+
+
+@@@@@@@ VERY IMPORTANT LINK @@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+http://www.dotnetspider.com/resources/29782-Determine-if-particular-column-exists-MS.aspx
+

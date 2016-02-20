@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillingSystem", "BillingSystem.csproj", "{8CEE4CA9-D6E6-46DB-8944-7B5D22E8DED7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eBackup", "..\eBackup\eBackup.csproj", "{841FE784-DCF8-4B40-AD1E-4AACAA1F8961}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eUpdateApplication", "..\eUpdateApplication\eUpdateApplication.csproj", "{021F0D48-2630-4311-ACF3-EDDF9AD7E12C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UninstallBS", "..\UnInstalleBS\UninstallBS.csproj", "{D3B9A6EA-4617-45D1-A086-E29256027ED2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8CEE4CA9-D6E6-46DB-8944-7B5D22E8DED7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CEE4CA9-D6E6-46DB-8944-7B5D22E8DED7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CEE4CA9-D6E6-46DB-8944-7B5D22E8DED7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CEE4CA9-D6E6-46DB-8944-7B5D22E8DED7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{841FE784-DCF8-4B40-AD1E-4AACAA1F8961}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{841FE784-DCF8-4B40-AD1E-4AACAA1F8961}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{841FE784-DCF8-4B40-AD1E-4AACAA1F8961}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{841FE784-DCF8-4B40-AD1E-4AACAA1F8961}.Release|Any CPU.Build.0 = Release|Any CPU
+		{021F0D48-2630-4311-ACF3-EDDF9AD7E12C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{021F0D48-2630-4311-ACF3-EDDF9AD7E12C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{021F0D48-2630-4311-ACF3-EDDF9AD7E12C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{021F0D48-2630-4311-ACF3-EDDF9AD7E12C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3B9A6EA-4617-45D1-A086-E29256027ED2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3B9A6EA-4617-45D1-A086-E29256027ED2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3B9A6EA-4617-45D1-A086-E29256027ED2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

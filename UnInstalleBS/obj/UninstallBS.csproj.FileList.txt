@@ -1,0 +1,5 @@
+..\BillingSystem\bin\Debug\UninstallBS.exe
+..\BillingSystem\bin\Debug\UninstallBS.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\UninstallBS.exe
+obj\Debug\UninstallBS.pdb

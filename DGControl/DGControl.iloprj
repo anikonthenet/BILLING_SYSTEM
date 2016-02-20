@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<NineRays.ILOMD.Options.Project>
+  <SaveToDirectory>.\Spices_output</SaveToDirectory>
+  <AssemblyList>
+    <NineRays.ILOMD.Options.AssemblyFileName>
+      <ObfuscationOptions>
+        <NineRays.ILOMD.Options.Options>
+          <SoftwareWatermark>
+          </SoftwareWatermark>
+        </NineRays.ILOMD.Options.Options>
+      </ObfuscationOptions>
+      <Name>DG Control\bin\Debug\DGControl.dll</Name>
+      <Flags>VSProject</Flags>
+    </NineRays.ILOMD.Options.AssemblyFileName>
+  </AssemblyList>
+</NineRays.ILOMD.Options.Project>

@@ -1,0 +1,518 @@
+#region Programmer Information
+
+/*
+____________________________________________________________________________________________________________________
+Author			: Ripan Paul
+Module Name		: TrnInvoiceEntry
+Version			: 2.0
+Start Date		: 09-06-2011
+End Date		: 
+Tables Used     : 
+Module Desc		: Invoice Entry
+____________________________________________________________________________________________________________________
+
+*/
+
+#endregion
+
+#region Refered Namespaces & Classes
+
+// System Namespaces
+using System;
+using System.Collections;
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+
+// This namespace are using for using VB6 component
+using Microsoft.VisualBasic.Compatibility.VB6;
+
+// User Namespaces
+using BillingSystem.FormCmn;
+using BillingSystem.Classes;
+using BillingSystem.FormTrn.PopUp;
+
+using JAYA.VB;
+
+#endregion
+
+namespace BillingSystem.FormTrn.NormalEntries
+{
+    public partial class TrnBankEntry : BillingSystem.FormGen.GenForm
+    {
+        #region Default Constructor
+        public TrnBankEntry()
+        {
+            InitializeComponent();
+        }
+        #endregion
+
+        #region Objects & Variables decleration
+
+        // Variables and objects declaration
+        DMLService dmlService = new DMLService();
+        CommonService cmnService = new CommonService();
+        DateService dtService = new DateService();
+
+        DataSet dsetGridClone = new DataSet();  
+
+        JVBCommon mainVB = new JVBCommon();
+
+        //-----------------------------------------------------------------------
+        string strSQL;						//For Storing the Local SQL Query
+        string strQuery;			        //For Storing the general SQL Query
+        string strOrderBy;					//For Sotring the Order By Values
+        string strCheckFields;				//For Sotring the Where Values
+        //-----------------------------------------------------------------------
+        
+
+        int intTempGridPosition = 0;
+        bool blnAmount;
+
+        long lngSearchId = 0;
+
+        string[,] strMatrix;
+
+        
+        #endregion
+
+        #region User Defined Events
+
+        #region BankEntry_Load
+        private void BankEntry_Load(object sender, EventArgs e)
+        {
+            lblMode.Text = J_Mode.View;
+            cmnService.J_StatusButton(this, lblMode.Text);
+
+            lblTitle.Text = this.Text;
+            
+            
+            strSQL = "SELECT COMPANY_ID," +
+                         "       COMPANY_NAME " +
+                         "FROM   MST_COMPANY " +
+                         "WHERE  BRANCH_ID  = " + J_Var.J_pBranchId + " " +
+                         "AND    COMPANY_ID = 2 " +
+                         "ORDER BY COMPANY_NAME ";
+            if (dmlService.J_PopulateComboBox(strSQL, ref cmbCompany) == false) return;
+        }
+        #endregion
+
+        #region BtnEdit_Click
+        private void BtnEdit_Click(object sender, System.EventArgs e)
+        {
+            try
+            {
+                if (ViewGrid.CurrentRowIndex >= 0)
+                {
+                    ControlVisible(true);
+                    ClearControls();
+
+                    // A particular id wise retriving the data from database
+                    if (ShowRecord(Convert.ToInt64(ViewGrid[ViewGrid.CurrentRowIndex, 0].ToString())) == false)
+                    {
+                        ControlVisible(false);
+                        if (dsetGridClone == null) return;
+                        dmlService.J_setGridPosition(ref ViewGrid, dsetGridClone, "INVOICE_HEADER_ID", lngSearchId);
+                    }
+
+                    lblMode.Text = J_Mode.Edit;
+                    cmnService.J_StatusButton(this, lblMode.Text);
+                    lblSearchMode.Text = J_Mode.General;
+
+                    strCheckFields = "";
+                }
+                else
+                {
+                    cmnService.J_UserMessage("No record selected");
+                    if (dsetGridClone == null) return;
+                    dmlService.J_setGridPosition(ref ViewGrid, dsetGridClone, "INVOICE_HEADER_ID", lngSearchId);
+                }
+            }
+            catch (Exception err_handler)
+            {
+                ControlVisible(false);
+                cmnService.J_UserMessage(err_handler.Message);
+            }
+        }
+        #endregion
+
+        #region BtnCancel_Click
+
+        private void BtnCancel_Click(object sender, System.EventArgs e)
+        {
+            try
+            {
+                //-------------------------------------------
+                lblMode.Text = J_Mode.View;
+                cmnService.J_StatusButton(this, lblMode.Text);		//Status[i.e. Enable/Visible] of Button, Frame, Grid
+                //-------------------------------------------
+                //DisableControls();
+                //-------------------------------------------
+
+                ControlVisible(false);
+                ClearControls();					//Clear all the Controls
+
+                //-----------------------------------------------------------
+                strSQL = strQuery + "ORDER BY " + strOrderBy;
+                //-----------------------------------------------------------
+                if (dsetGridClone != null) dsetGridClone.Clear();
+                dsetGridClone = dmlService.J_ShowDataInGrid(ref ViewGrid, strSQL, strMatrix);       //Show Data into the Grid
+                if (dsetGridClone == null) return;
+                //-------------------------------------------
+                if (dmlService.J_setGridPosition(ref ViewGrid, dsetGridClone, "INVOICE_HEADER_ID", lngSearchId) == false)
+                    BtnAdd.Select();
+                //-------------------------------------------
+            }
+            catch (Exception err_handler)
+            {
+                cmnService.J_UserMessage(err_handler.Message);
+            }
+        }
+
+        #endregion
+
+        #region BtnSave_Click
+        private void BtnSave_Click(object sender, EventArgs e)
+        {
+            Insert_Update_Delete_Data();
+        }
+        #endregion
+
+        #region cmbCompany_SelectedIndexChanged
+        private void cmbCompany_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            //1. HeaderText,
+            //2. Width,
+            //3. Format,
+            //4. Alignment,
+            //5. NullToText,
+            //6. Visible,
+            //7. AutoSizeMode
+
+            string[,] strMatrix1 =  {{"Invoice Header Id", "0", "", "Right", "", "false", ""},
+							         {"Invoice No.", "120", "", "", "", "", ""},
+							         {"Invoice Date", "80", "dd/MM/yyyy", "", "", "", ""},
+							         {"Party", "230", "", "", "", "", "fill"},
+							         {"Net Amount.", "80", "0.00", "Right", "", "", ""},
+                                     {"Payment Type.", "80", "", "", "", "", ""},
+                                     {"Bank", "80", "", "", "", "", ""},
+                                     {"Reference No", "80", "", "", "", "", ""},
+                                     {"A/c Entry Date", "80", "dd/MM/yyyy", "", "", "", ""},
+                                     {"Bank Date", "80", "dd/MM/yyyy", "", "", "", ""}};
+
+            strMatrix = strMatrix1;
+
+            strQuery = @"SELECT TRN_INVOICE_HEADER.INVOICE_HEADER_ID       AS INVOICE_HEADER_ID,              
+                              TRN_INVOICE_HEADER.INVOICE_NO              AS INVOICE_NO,
+                              " + cmnService.J_SQLDBFormat("TRN_INVOICE_HEADER.INVOICE_DATE", J_SQLColFormat.DateFormatDDMMYYYY) + @" AS INVOICE_DATE, 
+                              MST_PARTY.PARTY_NAME                       AS PARTY_NAME,
+                              TRN_INVOICE_HEADER.NET_AMOUNT              AS NET_AMOUNT,
+                              MST_PAYMENT_TYPE.PAYMENT_TYPE_DESCRIPTION  AS PAYMENT_TYPE_DESCRIPTION,
+                              MST_BANK.BANK_NAME                         AS BANK_NAME,
+                              TRN_INVOICE_HEADER.REFERENCE_NO            AS REFERENCE_NO,
+                              " + cmnService.J_SQLDBFormat("TRN_INVOICE_HEADER.ACCOUNT_ENTRY_DATE", J_SQLColFormat.DateFormatDDMMYYYY) + @" AS ACCOUNT_ENTRY_DATE, 
+                              " + cmnService.J_SQLDBFormat("TRN_INVOICE_HEADER.BANK_STATEMENT_DATE", J_SQLColFormat.DateFormatDDMMYYYY) + @" AS BANK_STATEMENT_DATE
+                       FROM   (((TRN_INVOICE_HEADER
+                       INNER JOIN MST_PARTY 
+                               ON TRN_INVOICE_HEADER.PARTY_ID        = MST_PARTY.PARTY_ID)
+                       LEFT JOIN MST_PAYMENT_TYPE
+                               ON TRN_INVOICE_HEADER.PAYMENT_TYPE_ID = MST_PAYMENT_TYPE.PAYMENT_TYPE_ID)
+                       LEFT JOIN MST_BANK
+                               ON TRN_INVOICE_HEADER.BANK_ID         = MST_BANK.BANK_ID)";
+            
+            if (cmbCompany.SelectedIndex <= 0)
+            {
+                strQuery += "WHERE 1 = 2 ";
+            }
+            else
+            {
+                strQuery += "WHERE  TRN_INVOICE_HEADER.COMPANY_ID = " + cmnService.J_GetComboBoxItemId(ref cmbCompany, cmbCompany.SelectedIndex) + " " +
+                            "AND    TRN_INVOICE_HEADER.FAYEAR_ID  = " + J_Var.J_pFAYearId + " ";
+            }
+
+            strOrderBy = "TRN_INVOICE_HEADER.INVOICE_HEADER_ID DESC";
+
+            //-----------------------------------------------------------
+            strSQL = strQuery + "ORDER BY " + strOrderBy;
+            //-----------------------------------------------------------
+            if (dsetGridClone != null) dsetGridClone.Clear();
+            dsetGridClone = dmlService.J_ShowDataInGrid(ref ViewGrid, strSQL, strMatrix);       //Show Data into the Grid
+
+
+        }
+
+
+
+        #endregion
+
+        #region ViewGrid_Click
+        private void ViewGrid_Click(object sender, System.EventArgs e)
+        {
+            if (Convert.ToInt64(ViewGrid.CurrentRowIndex.ToString()) < 0)
+            {
+                BtnAdd.Focus();
+                return;
+            }
+            lngSearchId = Convert.ToInt64(ViewGrid[ViewGrid.CurrentRowIndex, 0].ToString());
+
+            ViewGrid.Select(ViewGrid.CurrentRowIndex);
+            ViewGrid.Select();
+            ViewGrid.Focus();
+        }
+        #endregion
+
+        #region ViewGrid_DoubleClick
+        private void ViewGrid_DoubleClick(object sender, System.EventArgs e)
+        {
+            BtnEdit_Click(sender, e);
+        }
+        #endregion
+
+        #region ViewGrid_KeyDown
+        private void ViewGrid_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            try
+            {
+                if (ViewGrid.CurrentRowIndex == -1) return;
+                lngSearchId = Convert.ToInt64(ViewGrid[ViewGrid.CurrentRowIndex, 0].ToString());
+                if (e.KeyCode == Keys.Enter) BtnEdit_Click(sender, e);
+
+                if (e.KeyCode == Keys.Delete) BtnDelete_Click(sender, e);
+
+            }
+            catch (Exception err_handler)
+            {
+                cmnService.J_UserMessage(err_handler.Message);
+            }
+        }
+        #endregion
+
+        #region ViewGrid_CurrentCellChanged
+        private void ViewGrid_CurrentCellChanged(object sender, System.EventArgs e)
+        {
+            lngSearchId = Convert.ToInt64(ViewGrid[ViewGrid.CurrentRowIndex, 0].ToString());
+        }
+        #endregion
+
+        #region ViewGrid_MouseMove
+        private void ViewGrid_MouseMove(object sender, MouseEventArgs e)
+        {
+            cmnService.J_GridToolTip(ViewGrid, e.X, e.Y);
+        }
+        #endregion
+
+        #region ViewGrid_MouseUp
+        private void ViewGrid_MouseUp(object sender, MouseEventArgs e)
+        {
+            ViewGrid_Click(sender, e);
+        }
+        #endregion
+
+
+
+        #endregion
+
+        #region User Defined Functions
+
+        #region ControlVisible
+        private void ControlVisible(bool bVisible)
+        {
+            pnlControls.Visible = bVisible;
+        }
+        #endregion
+
+        #region ClearControls
+        private void ClearControls()
+        {
+            lblInvoiceNo.Text = "";
+            lblInvoiceDate.Text = "";
+            lblPartyName.Text = "";
+            lblAmount.Text = "";
+
+            //Populating Payment Type Combo
+            strSQL = "SELECT PAYMENT_TYPE_ID," +
+                     "       PAYMENT_TYPE_DESCRIPTION " +
+                     "FROM   MST_PAYMENT_TYPE " +
+                     "ORDER BY PAYMENT_TYPE_ID ";
+            if (dmlService.J_PopulateComboBox(strSQL, ref cmbPaymentType) == false) return;
+
+            //Populating Bank Combo
+            strSQL = "SELECT BANK_ID," +
+                     "       BANK_NAME " +
+                     "FROM   MST_BANK " +
+                     "ORDER BY BANK_NAME ";
+            if (dmlService.J_PopulateComboBox(strSQL, ref cmbBank) == false) return;
+
+            txtReference.Text = "";
+            mskAccountEntryDate.Text = "";
+            mskBankDate.Text = "";
+
+            
+
+        }
+        #endregion
+
+        #region ShowRecord
+        private bool ShowRecord(long Id)
+        {
+            IDataReader drdShowRecord = null;
+            IDataReader reader = null;
+
+            try
+            {
+               // SQL Query
+                strSQL = @"SELECT TRN_INVOICE_HEADER.INVOICE_HEADER_ID       AS INVOICE_HEADER_ID,              
+                              TRN_INVOICE_HEADER.INVOICE_NO              AS INVOICE_NO,
+                              " + cmnService.J_SQLDBFormat("TRN_INVOICE_HEADER.INVOICE_DATE", J_SQLColFormat.DateFormatDDMMYYYY) + @" AS INVOICE_DATE, 
+                              MST_PARTY.PARTY_NAME                       AS PARTY_NAME,
+                              TRN_INVOICE_HEADER.NET_AMOUNT              AS NET_AMOUNT,
+                              MST_PAYMENT_TYPE.PAYMENT_TYPE_DESCRIPTION  AS PAYMENT_TYPE_DESCRIPTION,
+                              MST_BANK.BANK_NAME                         AS BANK_NAME,
+                              TRN_INVOICE_HEADER.REFERENCE_NO            AS REFERENCE_NO,
+                              " + cmnService.J_SQLDBFormat("TRN_INVOICE_HEADER.ACCOUNT_ENTRY_DATE", J_SQLColFormat.DateFormatDDMMYYYY) + @" AS ACCOUNT_ENTRY_DATE, 
+                              " + cmnService.J_SQLDBFormat("TRN_INVOICE_HEADER.BANK_STATEMENT_DATE", J_SQLColFormat.DateFormatDDMMYYYY) + @" AS BANK_STATEMENT_DATE
+                       FROM   (((TRN_INVOICE_HEADER
+                       INNER JOIN MST_PARTY 
+                               ON TRN_INVOICE_HEADER.PARTY_ID        = MST_PARTY.PARTY_ID)
+                       LEFT JOIN MST_PAYMENT_TYPE
+                               ON TRN_INVOICE_HEADER.PAYMENT_TYPE_ID = MST_PAYMENT_TYPE.PAYMENT_TYPE_ID)
+                       LEFT JOIN MST_BANK
+                               ON TRN_INVOICE_HEADER.BANK_ID         = MST_BANK.BANK_ID)
+                       WHERE  TRN_INVOICE_HEADER.INVOICE_HEADER_ID = " + Id;
+                drdShowRecord = dmlService.J_ExecSqlReturnReader(strSQL);
+                if (drdShowRecord == null) return false;
+
+                while (drdShowRecord.Read())
+                {
+                    lngSearchId = Id;
+
+                    lblInvoiceNo.Text = drdShowRecord["INVOICE_NO"].ToString();
+                    lblInvoiceDate.Text = drdShowRecord["INVOICE_DATE"].ToString();
+                    lblPartyName.Text = drdShowRecord["PARTY_NAME"].ToString();
+
+                    lblAmount.Text = string.Format("{0:0.00}", drdShowRecord["NET_AMOUNT"].ToString());
+
+                    cmbPaymentType.Text = drdShowRecord["PAYMENT_TYPE_DESCRIPTION"].ToString();
+                    cmbBank.Text = drdShowRecord["BANK_NAME"].ToString();
+                    txtReference.Text = drdShowRecord["REFERENCE_NO"].ToString();
+
+                    mskAccountEntryDate.Text = drdShowRecord["ACCOUNT_ENTRY_DATE"].ToString();
+                    mskBankDate.Text = drdShowRecord["BANK_STATEMENT_DATE"].ToString();
+            
+                    drdShowRecord.Close();
+                    drdShowRecord.Dispose();
+
+                    return true;
+                }
+                drdShowRecord.Close();
+                drdShowRecord.Dispose();
+
+                cmnService.J_UserMessage(J_Msg.RecNotExist);
+
+                if (dsetGridClone != null) dsetGridClone.Clear();
+                dsetGridClone = dmlService.J_ShowDataInGrid(ref ViewGrid, strSQL, strMatrix);       //Show Data into the Grid
+
+                return false;
+            }
+            catch (Exception err_handler)
+            {
+                drdShowRecord.Close();
+                drdShowRecord.Dispose();
+
+                cmnService.J_UserMessage(err_handler.Message);
+                return false;
+            }
+        }
+        #endregion
+
+        #region Insert_Update_Delete_Data
+        private void Insert_Update_Delete_Data()
+        {
+            try
+            {
+                switch (lblMode.Text)
+                {
+                    case J_Mode.Add:
+                       
+                        break;
+                    case J_Mode.Edit:
+                        //*****  For Modify
+                        //-----------------------------------------------------------
+                        //if (ValidateFields() == false) return;
+
+                        //--Assigning Cancellation Status to a variable
+
+                        //-----------------------------------------------------------
+                        dmlService.J_BeginTransaction();
+                        //-----------------------------------------------------------
+
+                        string strAccountEntryDate = "null";
+                        string strBankDate = "null";
+
+                        if (!dtService.J_IsBlankDateCheck(ref mskAccountEntryDate, J_ShowMessage.NO))
+                        {
+                            strAccountEntryDate = cmnService.J_DateOperator() + dtService.J_ConvertMMddyyyy(mskAccountEntryDate.Text) + cmnService.J_DateOperator();
+                        }
+
+                        if (!dtService.J_IsBlankDateCheck(ref mskBankDate, J_ShowMessage.NO))
+                        {
+                            strBankDate = cmnService.J_DateOperator() + dtService.J_ConvertMMddyyyy(mskBankDate.Text) + cmnService.J_DateOperator();
+                        }
+                        //UPDATING HEADER RECORD
+
+                        strSQL = "UPDATE TRN_INVOICE_HEADER " +
+                                 "SET    PAYMENT_TYPE_ID     =  " + Support.GetItemData(cmbPaymentType, cmbPaymentType.SelectedIndex) + ", " +
+                                 "       BANK_ID             =  " + Support.GetItemData(cmbBank, cmbBank.SelectedIndex) + ", " +
+                                 "       REFERENCE_NO        = '" + cmnService.J_ReplaceQuote(txtReference.Text) + "', " +
+                                 "       ACCOUNT_ENTRY_DATE  =  " + strAccountEntryDate + ", " +
+                                 "       BANK_STATEMENT_DATE =  " + strBankDate + " " +
+                                 "WHERE  INVOICE_HEADER_ID = " + lngSearchId;
+                        //----------------------------------------------------------
+                        if (dmlService.J_ExecSql(dmlService.J_pCommand, strSQL) == false)
+                        {
+                            cmbPaymentType.Select();
+                            return;
+                        }
+
+                        //-----------------------------------------------------------
+                        dmlService.J_Commit();
+                        cmnService.J_PanelMessage(0, J_Msg.EditModeSave);
+                        //-----------------------------------------------------------
+                        ClearControls();
+
+                        //-----------------------------------------------------------
+                        strSQL = strQuery + "ORDER BY " + strOrderBy;
+                        //-----------------------------------------------------------
+                        if (dsetGridClone != null) dsetGridClone.Clear();
+                        dsetGridClone = dmlService.J_ShowDataInGrid(ref ViewGrid, strSQL, strMatrix);       //Show Data into the Grid
+                        if (dsetGridClone == null) return;
+                        //-----------------------------------------------------------
+                        lblMode.Text = J_Mode.View;
+                        cmnService.J_StatusButton(this, lblMode.Text);
+
+                        //-----------------------------------------------------------
+                        ControlVisible(false);
+                        //-----------------------------------------------------------
+                        dmlService.J_setGridPosition(ref this.ViewGrid, dsetGridClone, "INVOICE_HEADER_ID", lngSearchId);
+                        break;
+                    case J_Mode.Delete:
+
+                        break;
+                }
+            }
+            catch (Exception err_handler)
+            {
+                dmlService.J_Rollback();
+                cmnService.J_UserMessage(err_handler.Message);
+            }
+        }
+        #endregion
+
+
+        #endregion
+
+    }
+}
+

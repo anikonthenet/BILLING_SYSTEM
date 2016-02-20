@@ -1,0 +1,1230 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8CEE4CA9-D6E6-46DB-8944-7B5D22E8DED7}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BillingSystem</RootNamespace>
+    <AssemblyName>BillingSystem</AssemblyName>
+    <ApplicationIcon>Icons\Popup.ico</ApplicationIcon>
+    <StartupObject>BillingSystem.Program</StartupObject>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <TargetZone>LocalIntranet</TargetZone>
+    <GenerateManifests>false</GenerateManifests>
+    <PublishUrl>http://localhost/BillingSystem/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AxInterop.MSHierarchicalFlexGridLib, Version=6.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=10.2.3600.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Enterprise.Framework, Version=10.2.3600.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Enterprise.InfoStore, Version=10.2.3600.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=10.2.3600.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=10.2.3600.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Web, Version=10.2.3600.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=10.2.3600.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="DGControl, Version=1.0.3008.25840, Culture=neutral">
+      <HintPath>..\Dependencies File\DGControl.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DGVControl, Version=1.0.4462.28741, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.1.271, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\NETProj TDSMAN - F.Y 2016-17\TDSMAN\bin\Debug\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.MSHierarchicalFlexGridLib, Version=6.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="JAYA.VB, Version=1.0.2908.24191, Culture=neutral" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
+    <Reference Include="Microsoft.VisualBasic.Compatibility" />
+    <Reference Include="msdatasrc, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\msdatasrc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Web.Services, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\WINDOWS\assembly\GAC_MSIL\System.Web.Services\2.0.0.0__b03f5f7f11d50a3a\System.Web.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="vjslib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\BillingSystem.cs" />
+    <Compile Include="Classes\CommonService.cs" />
+    <Compile Include="Classes\DateService.cs" />
+    <Compile Include="Classes\DMLService.cs" />
+    <Compile Include="Classes\ExcelService.cs" />
+    <Compile Include="Classes\FingerPrint.cs" />
+    <Compile Include="Classes\GlobalENUM.cs" />
+    <Compile Include="Classes\InputBox.cs" />
+    <Compile Include="Classes\ReportService.cs" />
+    <Compile Include="Classes\XMLService.cs" />
+    <Compile Include="FormGen\GenForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormGen\GenForm.designer.cs">
+      <DependentUpon>GenForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormCmn\CmnChangePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCmn\CmnChangePassword.designer.cs">
+      <DependentUpon>CmnChangePassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormCmn\CmnCreate1stFAYear.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCmn\CmnCreate1stFAYear.Designer.cs">
+      <DependentUpon>CmnCreate1stFAYear.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormCmn\CmnHelp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCmn\CmnHelp.designer.cs">
+      <DependentUpon>CmnHelp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormCmn\CmnLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCmn\CmnLogin.designer.cs">
+      <DependentUpon>CmnLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormCmn\CmnPopUp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCmn\CmnPopUp.designer.cs">
+      <DependentUpon>CmnPopUp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMst\NormalEntries\MstEmailCategory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMst\NormalEntries\MstEmailCategory.designer.cs">
+      <DependentUpon>MstEmailCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMst\NormalEntries\MstCompany.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMst\NormalEntries\MstCompany.designer.cs">
+      <DependentUpon>MstCompany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMst\NormalEntries\MstInvoiceSeries.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMst\NormalEntries\MstInvoiceSeries.designer.cs">
+      <DependentUpon>MstInvoiceSeries.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMst\NormalEntries\MstItem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMst\NormalEntries\MstItem.designer.cs">
+      <DependentUpon>MstItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMst\NormalEntries\MstParty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMst\NormalEntries\MstParty.designer.cs">
+      <DependentUpon>MstParty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMst\NormalEntries\MstSetup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMst\NormalEntries\MstSetup.designer.cs">
+      <DependentUpon>MstSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMst\NormalEntries\MstTax.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMst\NormalEntries\MstTax.designer.cs">
+      <DependentUpon>MstTax.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSys\mdiBillingSystem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSys\mdiBillingSystem.designer.cs">
+      <DependentUpon>mdiBillingSystem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSys\SysServerInfoLocalBrowser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSys\SysServerInfoLocalBrowser.designer.cs">
+      <DependentUpon>SysServerInfoLocalBrowser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormPar\MstFAYear.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPar\MstFAYear.designer.cs">
+      <DependentUpon>MstFAYear.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMst\NormalEntries\MstUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMst\NormalEntries\MstUser.designer.cs">
+      <DependentUpon>MstUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRpt\RptDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRpt\RptDialog.designer.cs">
+      <DependentUpon>RptDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRpt\RptPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRpt\RptPreview.designer.cs">
+      <DependentUpon>RptPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSys\SysBackup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSys\SysBackup.Designer.cs">
+      <DependentUpon>SysBackup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSys\SysBuildIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSys\SysBuildIndex.designer.cs">
+      <DependentUpon>SysBuildIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSys\SysMenuMaintainence.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSys\SysMenuMaintainence.designer.cs">
+      <DependentUpon>SysMenuMaintainence.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSys\SysServerInfoLocal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSys\SysServerInfoLocal.designer.cs">
+      <DependentUpon>SysServerInfoLocal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSys\SysServerInfoNetwork.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSys\SysServerInfoNetwork.designer.cs">
+      <DependentUpon>SysServerInfoNetwork.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSys\SysSystemMaintainence.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSys\SysSystemMaintainence.designer.cs">
+      <DependentUpon>SysSystemMaintainence.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSys\SysUserRightsGrigView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSys\SysUserRightsGrigView.designer.cs">
+      <DependentUpon>SysUserRightsGrigView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormTrn\NormalEntries\TrnOpeningInvoiceEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTrn\NormalEntries\TrnOpeningInvoiceEntry.Designer.cs">
+      <DependentUpon>TrnOpeningInvoiceEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormTrn\NormalEntries\TrnAdjustment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTrn\NormalEntries\TrnAdjustment.Designer.cs">
+      <DependentUpon>TrnAdjustment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormTrn\NormalEntries\TrnCollection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTrn\NormalEntries\TrnCollection.Designer.cs">
+      <DependentUpon>TrnCollection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormTrn\NormalEntries\TrnDepstchCD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTrn\NormalEntries\TrnDepstchCD.Designer.cs">
+      <DependentUpon>TrnDepstchCD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormTrn\NormalEntries\TrnExcelImportIncremental.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTrn\NormalEntries\TrnExcelImportIncremental.designer.cs">
+      <DependentUpon>TrnExcelImportIncremental.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormTrn\NormalEntries\TrnRequestCD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTrn\NormalEntries\TrnRequestCD.Designer.cs">
+      <DependentUpon>TrnRequestCD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormTrn\NormalEntries\TrnSerialNoStatus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTrn\NormalEntries\TrnSerialNoStatus.Designer.cs">
+      <DependentUpon>TrnSerialNoStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormTrn\NormalEntries\TrnOnlineOffflineInvoiceEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTrn\NormalEntries\TrnOnlineOffflineInvoiceEntry.designer.cs">
+      <DependentUpon>TrnOnlineOffflineInvoiceEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormTrn\NormalEntries\TrnSendEmailAgainstInvoice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTrn\NormalEntries\TrnSendEmailAgainstInvoice.Designer.cs">
+      <DependentUpon>TrnSendEmailAgainstInvoice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormTrn\NormalEntries\TrnUnknownPaymentEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTrn\NormalEntries\TrnUnknownPaymentEntry.Designer.cs">
+      <DependentUpon>TrnUnknownPaymentEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormTrn\NormalEntries\TrnBankEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTrn\NormalEntries\TrnBankEntry.Designer.cs">
+      <DependentUpon>TrnBankEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormTrn\NormalEntries\TrnInvoiceEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTrn\NormalEntries\TrnInvoiceEntry.designer.cs">
+      <DependentUpon>TrnInvoiceEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormTrn\PopUp\TrnOnlineOfflineEmailVerification.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTrn\PopUp\TrnOnlineOfflineEmailVerification.designer.cs">
+      <DependentUpon>TrnOnlineOfflineEmailVerification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormTrn\PopUp\TrnInvoicePrint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTrn\PopUp\TrnInvoicePrint.designer.cs">
+      <DependentUpon>TrnInvoicePrint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormTrn\PopUp\TrnPartySave.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTrn\PopUp\TrnPartySave.designer.cs">
+      <DependentUpon>TrnPartySave.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormUtl\UtlAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormUtl\UtlAbout.Designer.cs">
+      <DependentUpon>UtlAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormGen\GenForm.resx">
+      <DependentUpon>GenForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCmn\CmnChangePassword.resx">
+      <DependentUpon>CmnChangePassword.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCmn\CmnCreate1stFAYear.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CmnCreate1stFAYear.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCmn\CmnHelp.resx">
+      <DependentUpon>CmnHelp.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCmn\CmnLogin.resx">
+      <DependentUpon>CmnLogin.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCmn\CmnPopUp.resx">
+      <DependentUpon>CmnPopUp.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMst\NormalEntries\MstEmailCategory.resx">
+      <DependentUpon>MstEmailCategory.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMst\NormalEntries\MstCompany.resx">
+      <DependentUpon>MstCompany.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMst\NormalEntries\MstInvoiceSeries.resx">
+      <DependentUpon>MstInvoiceSeries.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMst\NormalEntries\MstItem.resx">
+      <DependentUpon>MstItem.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMst\NormalEntries\MstParty.resx">
+      <DependentUpon>MstParty.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMst\NormalEntries\MstSetup.resx">
+      <DependentUpon>MstSetup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMst\NormalEntries\MstTax.resx">
+      <DependentUpon>MstTax.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSys\mdiBillingSystem.resx">
+      <DependentUpon>mdiBillingSystem.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSys\SysServerInfoLocalBrowser.resx">
+      <DependentUpon>SysServerInfoLocalBrowser.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPar\MstFAYear.resx">
+      <DependentUpon>MstFAYear.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMst\NormalEntries\MstUser.resx">
+      <DependentUpon>MstUser.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRpt\RptDialog.resx">
+      <DependentUpon>RptDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRpt\RptPreview.resx">
+      <DependentUpon>RptPreview.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSys\SysBackup.resx">
+      <DependentUpon>SysBackup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSys\SysBuildIndex.resx">
+      <DependentUpon>SysBuildIndex.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSys\SysMenuMaintainence.resx">
+      <DependentUpon>SysMenuMaintainence.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSys\SysServerInfoLocal.resx">
+      <DependentUpon>SysServerInfoLocal.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSys\SysServerInfoNetwork.resx">
+      <DependentUpon>SysServerInfoNetwork.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSys\SysSystemMaintainence.resx">
+      <DependentUpon>SysSystemMaintainence.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSys\SysUserRightsGrigView.resx">
+      <DependentUpon>SysUserRightsGrigView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTrn\NormalEntries\TrnOpeningInvoiceEntry.resx">
+      <DependentUpon>TrnOpeningInvoiceEntry.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTrn\NormalEntries\TrnAdjustment.resx">
+      <DependentUpon>TrnAdjustment.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTrn\NormalEntries\TrnCollection.resx">
+      <DependentUpon>TrnCollection.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTrn\NormalEntries\TrnDepstchCD.resx">
+      <DependentUpon>TrnDepstchCD.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTrn\NormalEntries\TrnExcelImportIncremental.resx">
+      <DependentUpon>TrnExcelImportIncremental.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTrn\NormalEntries\TrnRequestCD.resx">
+      <DependentUpon>TrnRequestCD.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTrn\NormalEntries\TrnSerialNoStatus.resx">
+      <DependentUpon>TrnSerialNoStatus.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTrn\NormalEntries\TrnOnlineOffflineInvoiceEntry.resx">
+      <DependentUpon>TrnOnlineOffflineInvoiceEntry.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTrn\NormalEntries\TrnSendEmailAgainstInvoice.resx">
+      <DependentUpon>TrnSendEmailAgainstInvoice.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTrn\NormalEntries\TrnUnknownPaymentEntry.resx">
+      <DependentUpon>TrnUnknownPaymentEntry.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTrn\NormalEntries\TrnBankEntry.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>TrnBankEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTrn\NormalEntries\TrnInvoiceEntry.resx">
+      <DependentUpon>TrnInvoiceEntry.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTrn\PopUp\TrnOnlineOfflineEmailVerification.resx">
+      <DependentUpon>TrnOnlineOfflineEmailVerification.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTrn\PopUp\TrnInvoicePrint.resx">
+      <DependentUpon>TrnInvoicePrint.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTrn\PopUp\TrnPartySave.resx">
+      <DependentUpon>TrnPartySave.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormUtl\UtlAbout.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>UtlAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Listing\crCompanyMaster.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crCompanyMaster.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Listing\crFAYearMaster.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crFAYearMaster.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Listing\crInvoiceSeriesMaster.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crInvoiceSeriesMaster.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Listing\crItemMaster.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crItemMaster.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Listing\crPartyMaster.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crPartyMaster.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Listing\crUserMaster.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crUserMaster.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crEmailCheckList.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crEmailCheckList.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crDespatchStatus.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crDespatchStatus.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crTallyReconciliation.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crTallyReconciliation.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crCategoryWiseVatCstSale.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crCategoryWiseVatCstSale.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crPaymentTypeWiseOutstandingSummary.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crPaymentTypeWiseOutstandingSummary.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crAdvanceCollectionRegister.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crAdvanceCollectionRegister.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crOutstandingCumUnknown.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crOutstandingCumUnknown.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crSundryPartyCollectionMiniStatement.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crSundryPartyCollectionMiniStatement.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crSudryPartyOutstandingSummary.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crSudryPartyOutstandingSummary.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crPeriodicCollectionSummary.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crPeriodicCollectionSummary.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crReconciliationStatement.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crReconciliationStatement.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crAdjustmentRegister.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crAdjustmentRegister.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crUnknownPaymentsList.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crUnknownPaymentsList.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crUnReconciliedCollectionList.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crUnReconciliedCollectionList.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crDailyCollectionSummary.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crDailyCollectionSummary.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crReconciliationDetail.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crReconciliationDetail.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crPaymentStatusSummary.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crPaymentStatusSummary.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crPaymentStatusDetail.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crPaymentStatusDetail.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crCollectionWiseTaggedInvoices.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crCollectionWiseTaggedInvoices.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crCollectionDuringCurrentPeriod.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crCollectionDuringCurrentPeriod.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crCurrentBillsAgainstAdvanceReceipt.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crCurrentBillsAgainstAdvanceReceipt.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crInvoicePaymentStatus.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crInvoicePaymentStatus.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crInvoiceStatus.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crInvoiceStatus.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crOutstandingPayment.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crOutstandingPayment.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crPartyListSales.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crPartyListSales.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crSundryPartySaleForThePeriod.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crSundryPartySaleForThePeriod.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crCollectionDuringThisPeriod.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crCollectionDuringThisPeriod.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crCollectionDuringPreviousPeriod.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crCollectionDuringPreviousPeriod.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crOutstandingAmountForThePeriod.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crOutstandingAmountForThePeriod.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crSundryPartyReconcilation.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crSundryPartyReconcilation.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crSundryPartySalesCumOutstanding.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crSundryPartySalesCumOutstanding.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crAccountReconciliation.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crAccountReconciliation.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crInvoice.rpt">
+      <SubType>Designer</SubType>
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crInvoice.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crItemWiseSaleDetaails.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crItemWiseSaleDetaails.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crPartyCategoryWiseMonthlySaleSummary.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crPartyCategoryWiseMonthlySaleSummary.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crPartyCategoryWiseSales.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crPartyCategoryWiseSales.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crSalesDistribution.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crSalesDistribution.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crDetailsCollectionType.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crDetailsCollectionType.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crBankStDateWiseRegister.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crBankStDateWiseRegister.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crPendingCCAvenueTransactions.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crPendingCCAvenueTransactions.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crBillWiseOutstanding.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crBillWiseOutstanding.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crListOfUnknownDeposits.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crListOfUnknownDeposits.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crAccountsEntryDateWiseRegister.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crAccountsEntryDateWiseRegister.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crCategoryWiseRegister.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crCategoryWiseRegister.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crItemWiseInvoiceSummary_30042013.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crItemWiseInvoiceSummary_30042013.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crSundryPartySale.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crSundryPartySale.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crTaggedCollectionEntry.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crTaggedCollectionEntry.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crTaxRegister.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crTaxRegister.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crInvoiceRegister.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crInvoiceRegister.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crItemWiseInvoiceSummary.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crItemWiseInvoiceSummary.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Transaction\INVOICE\crUnknownCollectionEntry.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crUnknownCollectionEntry.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="SystemFiles\License.rtf">
+      <SubType>Designer</SubType>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Reports\Listing\crCompanyMaster.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crCompanyMaster.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Listing\crFAYearMaster.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crFAYearMaster.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Listing\crInvoiceSeriesMaster.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crInvoiceSeriesMaster.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Listing\crItemMaster.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crItemMaster.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Listing\crPartyMaster.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crPartyMaster.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Listing\crUserMaster.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crUserMaster.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crEmailCheckList.cs">
+      <DependentUpon>crEmailCheckList.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crDespatchStatus.cs">
+      <DependentUpon>crDespatchStatus.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crTallyReconciliation.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crTallyReconciliation.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crCategoryWiseVatCstSale.cs">
+      <DependentUpon>crCategoryWiseVatCstSale.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crPaymentTypeWiseOutstandingSummary.cs">
+      <DependentUpon>crPaymentTypeWiseOutstandingSummary.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crAdvanceCollectionRegister.cs">
+      <DependentUpon>crAdvanceCollectionRegister.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crOutstandingCumUnknown.cs">
+      <DependentUpon>crOutstandingCumUnknown.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crSundryPartyCollectionMiniStatement.cs">
+      <DependentUpon>crSundryPartyCollectionMiniStatement.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crSudryPartyOutstandingSummary.cs">
+      <DependentUpon>crSudryPartyOutstandingSummary.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crPeriodicCollectionSummary.cs">
+      <DependentUpon>crPeriodicCollectionSummary.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crReconciliationStatement.cs">
+      <DependentUpon>crReconciliationStatement.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crAdjustmentRegister.cs">
+      <DependentUpon>crAdjustmentRegister.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crUnknownPaymentsList.cs">
+      <DependentUpon>crUnknownPaymentsList.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crUnReconciliedCollectionList.cs">
+      <DependentUpon>crUnReconciliedCollectionList.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crDailyCollectionSummary.cs">
+      <DependentUpon>crDailyCollectionSummary.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crReconciliationDetail.cs">
+      <DependentUpon>crReconciliationDetail.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crPaymentStatusSummary.cs">
+      <DependentUpon>crPaymentStatusSummary.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crPaymentStatusDetail.cs">
+      <DependentUpon>crPaymentStatusDetail.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crCollectionWiseTaggedInvoices.cs">
+      <DependentUpon>crCollectionWiseTaggedInvoices.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crCollectionDuringCurrentPeriod.cs">
+      <DependentUpon>crCollectionDuringCurrentPeriod.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crCurrentBillsAgainstAdvanceReceipt.cs">
+      <DependentUpon>crCurrentBillsAgainstAdvanceReceipt.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crInvoicePaymentStatus.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crInvoicePaymentStatus.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crInvoiceStatus.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crInvoiceStatus.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crOutstandingPayment.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crOutstandingPayment.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crPartyListSales.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crPartyListSales.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crSundryPartySaleForThePeriod.cs">
+      <DependentUpon>crSundryPartySaleForThePeriod.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crCollectionDuringThisPeriod.cs">
+      <DependentUpon>crCollectionDuringThisPeriod.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crCollectionDuringPreviousPeriod.cs">
+      <DependentUpon>crCollectionDuringPreviousPeriod.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crOutstandingAmountForThePeriod.cs">
+      <DependentUpon>crOutstandingAmountForThePeriod.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crSundryPartyReconcilation.cs">
+      <DependentUpon>crSundryPartyReconcilation.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crSundryPartySalesCumOutstanding.cs">
+      <SubType>Component</SubType>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crSundryPartySalesCumOutstanding.rpt</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crAccountReconciliation.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crAccountReconciliation.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crInvoice.cs">
+      <DependentUpon>crInvoice.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crItemWiseSaleDetaails.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crItemWiseSaleDetaails.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crPartyCategoryWiseMonthlySaleSummary.cs">
+      <DependentUpon>crPartyCategoryWiseMonthlySaleSummary.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crPartyCategoryWiseSales.cs">
+      <DependentUpon>crPartyCategoryWiseSales.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crSalesDistribution.cs">
+      <DependentUpon>crSalesDistribution.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crDetailsCollectionType.cs">
+      <DependentUpon>crDetailsCollectionType.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crBankStDateWiseRegister.cs">
+      <DependentUpon>crBankStDateWiseRegister.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crPendingCCAvenueTransactions.cs">
+      <DependentUpon>crPendingCCAvenueTransactions.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crBillWiseOutstanding.cs">
+      <DependentUpon>crBillWiseOutstanding.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crListOfUnknownDeposits.cs">
+      <DependentUpon>crListOfUnknownDeposits.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crAccountsEntryDateWiseRegister.cs">
+      <DependentUpon>crAccountsEntryDateWiseRegister.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crCategoryWiseRegister.cs">
+      <DependentUpon>crCategoryWiseRegister.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crItemWiseInvoiceSummary_30042013.cs">
+      <DependentUpon>crItemWiseInvoiceSummary_30042013.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crSundryPartySale.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crSundryPartySale.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crTaggedCollectionEntry.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crTaggedCollectionEntry.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crTaxRegister.cs">
+      <DependentUpon>crTaxRegister.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crInvoiceRegister.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crInvoiceRegister.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crItemWiseInvoiceSummary.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crItemWiseInvoiceSummary.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\Transaction\INVOICE\crUnknownCollectionEntry.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crUnknownCollectionEntry.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Icons\Coins.ico" />
+    <Content Include="Icons\keys.ico" />
+    <Content Include="Icons\1.ico" />
+    <Content Include="Icons\2.ico" />
+    <Content Include="Icons\Money.ico" />
+    <Content Include="Icons\3.ico" />
+    <None Include="Pictures\Area.png" />
+    <None Include="Pictures\Backup.jpg" />
+    <None Include="Pictures\Account.jpg" />
+    <Content Include="Icons\Popup.ico" />
+    <Content Include="Pictures\BG.bmp" />
+    <None Include="Pictures\Center.jpg" />
+    <None Include="Pictures\Group.jpg" />
+    <None Include="Pictures\GroupAllocation.jpg" />
+    <None Include="Pictures\Calculator.jpg" />
+    <None Include="Pictures\ChangePassword.jpg" />
+    <None Include="Pictures\ChangeConfigInfo.jpg" />
+    <None Include="Pictures\BuildIndex.gif" />
+    <None Include="Pictures\FAYear.jpg" />
+    <None Include="Pictures\District.gif" />
+    <None Include="Pictures\Branch.gif" />
+    <None Include="Pictures\Category.png" />
+    <None Include="Pictures\Designation.gif" />
+    <None Include="Pictures\Identification.png" />
+    <None Include="Pictures\Caste.gif" />
+    <None Include="Pictures\Day.jpg" />
+    <None Include="Pictures\ConfigInfo.png" />
+    <None Include="Pictures\database-previous-icon.jpg" />
+    <Content Include="Pictures\Key.jpg" />
+    <Content Include="Pictures\Key.png" />
+    <Content Include="Pictures\LoanSequence.jpg" />
+    <Content Include="Pictures\tools_loan_Icon.jpg" />
+    <None Include="Pictures\Member-PNG.png" />
+    <None Include="Pictures\SecurityDeposit.jpg" />
+    <None Include="Pictures\LoanSanction.gif" />
+    <None Include="Pictures\TimeSlot.gif" />
+    <None Include="Pictures\MaritalStatus.png" />
+    <None Include="Pictures\Relation.png" />
+    <None Include="Pictures\Profession.jpg" />
+    <None Include="Pictures\Qualification.png" />
+    <None Include="Pictures\LoanProduct.gif" />
+    <None Include="Pictures\State.png" />
+    <None Include="Pictures\MenuMaintenance.jpg" />
+    <None Include="Pictures\SystemMaintenance.jpg" />
+    <None Include="Pictures\MenuRights.jpg" />
+    <None Include="Pictures\Settings.jpg" />
+    <None Include="Pictures\SwitchUser.jpg" />
+    <None Include="Pictures\Survey.jpg" />
+    <None Include="Pictures\Member.jpg" />
+    <None Include="Pictures\Officer.png" />
+    <None Include="Pictures\User.png" />
+    <BaseApplicationManifest Include="Properties\app.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="ADODB">
+      <Guid>{2A75196C-D9EB-4129-B803-931327F72D5C}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <Private>True</Private>
+    </COMReference>
+    <COMReference Include="ADOX">
+      <Guid>{00000600-0000-0010-8000-00AA006D2EA4}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <Private>True</Private>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="FormMst\CancellationEntries\" />
+    <Folder Include="FormMst\PopUp\" />
+    <Folder Include="FormOP\" />
+    <Folder Include="FormTrn\CancellationEntries\" />
+    <Folder Include="FormTrn\CancellationViewEntries\" />
+    <Folder Include="Reports\Master\" />
+    <Folder Include="Reports\Transaction\Financial\" />
+    <Folder Include="Reports\Transaction\Others\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

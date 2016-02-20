@@ -1,0 +1,12 @@
+bin\Debug\eUpdateApplication.exe
+bin\Debug\eUpdateApplication.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\eUpdateApplication.Properties.Resources.resources
+obj\Debug\eUpdateApplication.csproj.GenerateResource.Cache
+obj\Debug\eUpdateApplication.exe
+obj\Debug\eUpdateApplication.pdb
+obj\Debug\eUpdateApplication.UpdateApplication.MstUpdateApplication.resources
+..\eMicroFinanceBranch\bin\Debug\eUpdateApplication.exe
+..\eMicroFinanceBranch\bin\Debug\eUpdateApplication.pdb
+..\MFMSBranch\bin\Debug\eUpdateApplication.exe
+..\MFMSBranch\bin\Debug\eUpdateApplication.pdb

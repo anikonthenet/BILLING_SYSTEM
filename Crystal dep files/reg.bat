@@ -1,0 +1,1 @@
+regsvr32.exe "C:\Windows\System32\crystl32.ocx"

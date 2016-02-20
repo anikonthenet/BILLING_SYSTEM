@@ -1,0 +1,102 @@
+namespace BillingSystem.FormTrn.NormalEntries
+{
+    partial class BankEntry
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.cmbCompany = new System.Windows.Forms.ComboBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.grpSort.SuspendLayout();
+            this.grpSearch.SuspendLayout();
+            this.grpButton.SuspendLayout();
+            this.pnlTitle.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ViewGrid)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // pnlControls
+            // 
+            this.pnlControls.Location = new System.Drawing.Point(9, 88);
+            this.pnlControls.Size = new System.Drawing.Size(1003, 508);
+            // 
+            // ViewGrid
+            // 
+            this.ViewGrid.Location = new System.Drawing.Point(9, 78);
+            this.ViewGrid.Size = new System.Drawing.Size(1003, 520);
+            // 
+            // cmbCompany
+            // 
+            this.cmbCompany.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCompany.FormattingEnabled = true;
+            this.cmbCompany.Location = new System.Drawing.Point(129, 51);
+            this.cmbCompany.Name = "cmbCompany";
+            this.cmbCompany.Size = new System.Drawing.Size(333, 21);
+            this.cmbCompany.TabIndex = 140;
+            // 
+            // label27
+            // 
+            this.label27.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label27.Location = new System.Drawing.Point(13, 53);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(112, 18);
+            this.label27.TabIndex = 141;
+            this.label27.Text = "Company";
+            // 
+            // BankEntry
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.ClientSize = new System.Drawing.Size(1028, 672);
+            this.Controls.Add(this.cmbCompany);
+            this.Controls.Add(this.label27);
+            this.Name = "BankEntry";
+            this.Controls.SetChildIndex(this.pnlControls, 0);
+            this.Controls.SetChildIndex(this.lblMode, 0);
+            this.Controls.SetChildIndex(this.pnlTitle, 0);
+            this.Controls.SetChildIndex(this.grpButton, 0);
+            this.Controls.SetChildIndex(this.pnlFooter, 0);
+            this.Controls.SetChildIndex(this.pnlHeader, 0);
+            this.Controls.SetChildIndex(this.lblSearchMode, 0);
+            this.Controls.SetChildIndex(this.ViewGrid, 0);
+            this.Controls.SetChildIndex(this.grpSearch, 0);
+            this.Controls.SetChildIndex(this.grpSort, 0);
+            this.Controls.SetChildIndex(this.label27, 0);
+            this.Controls.SetChildIndex(this.cmbCompany, 0);
+            this.grpSort.ResumeLayout(false);
+            this.grpSearch.ResumeLayout(false);
+            this.grpButton.ResumeLayout(false);
+            this.pnlTitle.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ViewGrid)).EndInit();
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.ComboBox cmbCompany;
+        private System.Windows.Forms.Label label27;
+    }
+}

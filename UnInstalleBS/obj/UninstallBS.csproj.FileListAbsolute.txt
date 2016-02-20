@@ -1,0 +1,10 @@
+E:\Running projects\NETProj Billing System\BillingSystem\bin\Debug\UninstallBS.exe
+E:\Running projects\NETProj Billing System\BillingSystem\bin\Debug\UninstallBS.pdb
+E:\Running projects\NETProj Billing System\UnInstalleBS\obj\Debug\ResolveAssemblyReference.cache
+E:\Running projects\NETProj Billing System\UnInstalleBS\obj\Debug\UninstallBS.exe
+E:\Running projects\NETProj Billing System\UnInstalleBS\obj\Debug\UninstallBS.pdb
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\bin\Debug\UninstallBS.exe
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\bin\Debug\UninstallBS.pdb
+D:\Running Projects\PDS BILLING\NETProj Billing System\UnInstalleBS\obj\Debug\ResolveAssemblyReference.cache
+D:\Running Projects\PDS BILLING\NETProj Billing System\UnInstalleBS\obj\Debug\UninstallBS.exe
+D:\Running Projects\PDS BILLING\NETProj Billing System\UnInstalleBS\obj\Debug\UninstallBS.pdb

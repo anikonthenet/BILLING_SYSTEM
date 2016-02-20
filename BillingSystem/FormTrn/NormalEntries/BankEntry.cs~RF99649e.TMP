@@ -1,0 +1,155 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+
+namespace BillingSystem.FormTrn.NormalEntries
+{
+    public partial class BankEntry : BillingSystem.FormGen.GenForm
+    {
+        #region Default Constructor
+        public BankEntry()
+        {
+            InitializeComponent();
+        }
+        #endregion
+
+        #region Objects & Variables decleration
+
+        DMLService dmlService = new DMLService();
+        CommonService cmnService = new CommonService();
+        DateService dtService = new DateService();
+        Archees ArcheesService = new Archees();
+        ReportService rptService = new ReportService();
+
+        //
+        //-----------------------------------------------------------------------
+        long lngSearchId;					//For Storing the Id
+        long lngPopupID;
+        //-----------------------------------------------------------------------
+        string strSQL;						//For Storing the Local SQL Query
+        string strQuery;			        //For Storing the general SQL Query
+        string strOrderBy;					//For Sotring the Order By Values
+        string strCheckFields;				//For Sotring the Where Values
+        //-----------------------------------------------------------------------
+        DataSet dsetGridClone = new DataSet();
+        DataSet ds = new DataSet();
+        int intCurrentCellRow = 0;
+        int intCurrentCellColumn = 0;
+
+        DataGridViewCell CurrentCell;
+
+
+        IDataReader reader = null;
+
+        int intLockSerial; //For Saving Locked Serial Status
+        string strLockedDate; //For Storing Locked Date
+
+        string strExistingInvoiceDate; // For Comparison with Locked date during edit and delete
+
+        double dblDeductionRate = 0;
+        double dblExciseRate = 0;
+        double dblEduCess = 0;
+        double dblSecHECess = 0;
+
+        double dblDiscAmount = 0;
+        double dblVatCSTRate = 0;
+
+        string strCommInvoiceNo = "";
+
+        int intSerial = 0;
+        int intSerial2 = 0;
+
+
+        int intCount = 0;
+        int intAddExcise = 0;
+        int intCancelled = 0;
+
+        int intRestrictBackdate = 0;
+
+        int intExciseCheck = 0;
+
+        string strTaxType = "";
+        //-----------------------------------------------------------------------
+        string strTempMode;
+        //-----------------------------------------------------------------------
+        JAYA.VB.JVBCommon mainVB = new JAYA.VB.JVBCommon();
+        //-----------------------------------------------------------------------
+        string[,] strMatrix = null;
+
+        private Image imgDelete;
+
+        #region enum J_NewGridColumnSetting
+        public enum J_NewGridColumnSetting
+        {
+            PropertyName,
+            HeaderText,
+            Width,
+            Format,
+            Alignment,
+            Visible,
+            AutoSizeMode,
+            ReadOnly
+        }
+        #endregion
+
+        #region struct J_EntryGridColumn
+        public struct J_EntryGridColumn
+        {
+            public const string SerialNo = "SerialNo";
+            public const string SelectItem = "SelectItem";
+            public const string ItemName = "ITEM_DESCRIPTION";
+            public const string Size = "ITEM_SIZE";
+            public const string ItemID = "ITEM_ID";
+            public const string Quantity = "QUANTITY";
+            public const string MRP = "MRP_RATE";
+            public const string Amount = "MRP_AMOUNT";
+            public const string Rate = "SALE_RATE";
+            public const string SaleAmount = "SALE_AMOUNT";
+            public const string SelectRate = "SelectRate";
+            public const string RateID = "RATE_ID";
+            public const string BlankColumn = "BlankColumn";
+        }
+
+        #endregion
+
+        #region J_entryGridColumnIndex
+        public enum J_entryGridColumnIndex
+        {
+            SerialNo = 0,
+            ItemID = 1,
+            ItemName = 2,
+            Size = 3,
+            Quantity = 4,
+            RateID = 5,
+            MRP = 6,
+            Amount = 7,
+            Rate = 8,
+            SaleAmount = 9,
+            SelectItem = 10,
+            SelectRate = 11
+
+        }
+
+        #endregion
+
+       
+        #endregion
+
+        #region User Defined Events
+
+        private void BankEntry_Load(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+        #endregion
+
+    }
+}
+

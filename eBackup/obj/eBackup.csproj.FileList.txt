@@ -1,0 +1,12 @@
+bin\Debug\eBackup.exe
+bin\Debug\eBackup.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\eBackup.Properties.Resources.resources
+obj\Debug\eBackup.csproj.GenerateResource.Cache
+obj\Debug\eBackup.exe
+obj\Debug\eBackup.pdb
+obj\Debug\eBackup.Backup.MstBackup.resources
+..\eMicroFinanceBranch\bin\Debug\eBackup.exe
+..\eMicroFinanceBranch\bin\Debug\eBackup.pdb
+..\MFMSBranch\bin\Debug\eBackup.exe
+..\MFMSBranch\bin\Debug\eBackup.pdb

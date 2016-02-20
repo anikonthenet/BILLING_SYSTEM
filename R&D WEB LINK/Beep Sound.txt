@@ -1,0 +1,14 @@
+http://www.dotnetspider.com/resources/37643-Beep-sound-using-C.aspx
+
+http://stackoverflow.com/questions/321135/how-can-i-make-the-computer-beep-in-c
+
+http://bytes.com/topic/c-sharp/answers/213716-make-beep
+
+http://www.eggheadcafe.com/sample-code/csharp.NET/1c421252-f4be-4967-802e-cdd1b0a32014/make-beep-sound-in-c.aspx
+
+http://www.developerfusion.com/code/140/make-the-pc-beep/
+
+http://blogs.msdn.com/b/csharpfaq/
+
+http://www.codeproject.com/KB/cs/messagebeep.aspx
+

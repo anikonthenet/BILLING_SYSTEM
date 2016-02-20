@@ -1,0 +1,2 @@
+
+Drop login [builtin\administrators]

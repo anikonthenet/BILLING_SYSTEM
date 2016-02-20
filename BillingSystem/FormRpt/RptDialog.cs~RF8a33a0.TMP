@@ -1,0 +1,2213 @@
+
+#region Programmer Information
+
+/*
+_________________________________________________________________________________________________________
+Author			: Ripan Paul
+Class Name		: RptDialog
+Version			: 2.0
+Start Date		: 
+End Date		: 
+Class Desc		: Implemented for reports
+_________________________________________________________________________________________________________
+
+*/
+
+#endregion
+
+#region Importing Namespace
+
+// System Namespaces
+using System;
+using System.IO;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+using System.Data.OleDb;
+using CrystalDecisions.CrystalReports.Engine;
+
+using System.Threading;
+
+// This namespace are using for Combo Box
+using Microsoft.VisualBasic.Compatibility.VB6;
+
+// User Namespaces
+using BillingSystem.Classes;
+using BillingSystem.FormRpt;
+using BillingSystem.Reports.Listing;
+using BillingSystem.Reports.Transaction.INVOICE;
+
+#endregion
+
+#region set ENUM for Reports
+
+// Declaration ENUM of enmReports
+public enum J_Reports
+{
+    #region Listing Reports Enum
+    
+    Listing        = 100,
+    FAYear         = 110,
+
+    #endregion
+
+    #region Master Reports Enum
+    
+    Master        = 1000,
+    User          = 1010,
+    Company       = 1020,
+    Party         = 1030,
+    Item          = 1040,
+    InvoiceSeries = 1050,
+    Tax           = 1060,
+
+    #endregion
+
+    #region Transaction Reports Enum
+    
+    Transaction = 10000,
+    Invoice      = 100010,
+    InvoiceRegister = 100020,
+
+    //Added by Shrey Kejriwal on 25/08/2011
+    ItemWiseInvoiceSummary = 100030,
+
+
+    //Added by Shrey Kejriwal on 04/08/2012
+    TaxRegister = 100040
+
+    #endregion
+
+}
+
+#endregion
+
+namespace BillingSystem.FormRpt
+{
+    public partial class RptDialog : Form
+    {
+
+        #region CONSTRUCTOR & OBJECT CREATION
+
+        public RptDialog()
+        {
+            InitializeComponent();
+
+
+            dmlService = new DMLService();
+            cmnService = new CommonService();
+            dtservice = new DateService();
+            rptService = new ReportService();
+            
+            this.enmSearchType = J_SearchType.Incremental;
+
+        }
+
+        #endregion
+
+        #region VARIABLES DECLARATION SECTION
+
+        // Declaration of objects
+        DMLService dmlService = null;
+        CommonService cmnService = null;
+        DateService dtservice = null;
+        ReportService rptService = null;
+
+        // report file object
+        ReportClass rptcls;
+
+        // Storing the Query String as a text
+        string strSQL = string.Empty;
+        string strQueryString = string.Empty;
+
+        // Set true false in radio buttion check change event & pass this value as a parameter in rptmain.SerchDatagridOnCriteria() Function
+        private J_SearchType enmSearchType;
+
+        // To implement the progress bar
+        private Thread ThreadProgress;
+        delegate void MyDelegate();
+
+
+        #endregion
+
+        #region EVENT HANDLER OF CONTROLS
+
+        #region RptDialog_Activated
+        private void RptDialog_Activated(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Maximized;
+        }
+        #endregion
+
+        #region BtnOK_Click
+        private void BtnOK_Click(object sender, EventArgs e)
+        {
+            switch (J_Var.J_pReportEnumIndex)
+            {
+
+                #region Masters
+
+                case (int)J_Reports.User:
+                    PrintUserMaster();
+                    break;
+                case (int)J_Reports.FAYear:
+                    PrintFAYearMaster();
+                    break;
+                case (int)J_Reports.Company:
+                    PrintCompanyMaster();
+                    break;
+                case (int)J_Reports.Party:
+                    PrintPartyMaster();
+                    break;
+                case (int)J_Reports.Item:
+                    PrintItemMaster();
+                    break;
+                case (int)J_Reports.InvoiceSeries:
+                    PrintInvoiceSeriesMaster();
+                    break;
+
+                #endregion
+
+                #region Transactions
+
+                case (int)J_Reports.Invoice:
+                    if (this.ValidateFields(J_Reports.Invoice) == false) return;
+                    PrintInvoice();
+                    break;
+                case (int)J_Reports.InvoiceRegister:
+                    if (this.ValidateFields(J_Reports.InvoiceRegister) == false) return;
+                    PrintInvoiceRegister();
+                    break;
+                
+                //Added by Shrey Kejriwal on 25/08/2011
+                case (int)J_Reports.ItemWiseInvoiceSummary:
+                    if (this.ValidateFields(J_Reports.ItemWiseInvoiceSummary) == false) return;
+                    PrintItemWiseInvoiceSummary();
+                    break;
+
+
+                //Added by Shrey Kejriwal on 04/08/2012
+                case (int)J_Reports.TaxRegister:
+                    if (this.ValidateFields(J_Reports.TaxRegister) == false) return;
+                    PrintTaxRegister();
+                    break;
+                #endregion
+
+            }
+        }
+        #endregion
+
+        #region BtnExit_Click
+        private void BtnExit_Click(object sender, EventArgs e)
+        {
+            dmlService.Dispose();
+            this.Close();
+            this.Dispose();
+        }
+        #endregion
+
+        #region mskFromDate_KeyPress
+        private void mskFromDate_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Convert.ToInt32(e.KeyChar) == 13) SendKeys.Send("{tab}");
+        }
+        #endregion
+
+        #region mskToDate_KeyPress
+        private void mskToDate_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Convert.ToInt32(e.KeyChar) == 13) SendKeys.Send("{tab}");
+        }
+        #endregion
+
+        #region mskAsOnDate_KeyPress
+        private void mskAsOnDate_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Convert.ToInt32(e.KeyChar) == 13) SendKeys.Send("{tab}");
+        }
+        #endregion
+
+        #region mskFromMonth_KeyPress
+        private void mskFromMonth_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Convert.ToInt32(e.KeyChar) == 13) SendKeys.Send("{tab}");
+        }
+        #endregion
+
+        #region mskToMonth_KeyPress
+        private void mskToMonth_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Convert.ToInt32(e.KeyChar) == 13) SendKeys.Send("{tab}");
+        }
+        #endregion
+
+        #region grdvDescription_CellClick
+        private void grdvDescription_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (e.RowIndex != -1)
+                {
+                    DataGridViewCheckBoxCell cell = (DataGridViewCheckBoxCell)grdvDescription.Rows[e.RowIndex].Cells[0];
+                    if (cell.Value == null || (bool)cell.Value == false)
+                    {
+                        grdvDescription.MultiSelect = true;
+                        grdvDescription.Rows[e.RowIndex].Selected = true;
+                        cell.Value = true;
+                    }
+                    else
+                    {
+                        grdvDescription.Rows[e.RowIndex].Selected = false;
+                        cell.Value = false;
+                    }
+                }
+            }
+            catch (Exception err_Handler)
+            {
+                cmnService.J_UserMessage(err_Handler.Message);
+
+            }
+        }
+        #endregion
+
+        #region grdvDescription_KeyDown
+        private void grdvDescription_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) BtnOK.Focus();
+        }
+        #endregion
+
+        #region chkSelectDeselect_CheckedChanged
+        private void chkSelectDeselect_CheckedChanged(object sender, System.EventArgs e)
+        {
+            foreach (DataGridViewRow row in grdvDescription.Rows)
+            {
+                if (chkSelectDeselect.Checked == true)  //checked all checkbox
+                {
+                    if (row.Cells[0].Value == null || (bool)row.Cells[0].Value == false)
+                        row.Cells[0].Value = true;
+                }
+                else                                    //Unchecked all checkbox
+                {
+                    if (row.Cells[0].Value == null || (bool)row.Cells[0].Value == true)
+                        row.Cells[0].Value = false;
+                }
+            }
+        }
+        #endregion
+
+        #region radio_Checked
+        private void radio_Checked(object sender, EventArgs e)
+        {
+            RadioButton rbnWho = (RadioButton)sender;
+            if (rbnWho.Name == "rbnIncrSearch")
+                this.enmSearchType = J_SearchType.Incremental;
+            else if (rbnWho.Name == "rbnEmbddSearch")
+                    this.enmSearchType = J_SearchType.Embedded;
+        }
+        #endregion
+
+        #region txtSearch_TextChanged
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (chkSelectDeselect.Checked == true) chkSelectDeselect.Checked = false;
+                
+                // for single column datagrid
+                if (rptService.J_pGridMultipleColumnStyle == false)
+                {
+                    if (rptService.J_pGridDataSet == null) return;
+                    DataView dvwFilter = rptService.J_pGridDataSet.Tables[0].DefaultView;
+                    dvwFilter.RowFilter = rptService.J_pGridDataSet.Tables[0].Columns[1].ColumnName + " like '" + cmnService.J_ReplaceQuote(txtSearch.Text) + "%'";
+                    grdvDescription.DataSource = dvwFilter;
+                }
+                // for Multiple columns DatagridView
+                else
+                {
+                    rptService.J_SearchOnDataGridView(ref grdvDescription, ref cmbSearch, txtSearch.Text, this.enmSearchType);
+                }
+            }
+            catch (Exception err_handler)
+            {
+                cmnService.J_UserMessage(err_handler.Message);
+            }
+        }
+        #endregion
+
+        #region txtSearch_KeyPress
+        private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Convert.ToInt64(e.KeyChar) == 13) grdvDescription.Focus();
+        }
+        #endregion
+
+        #region cmbSearch_SelectedIndexChanged
+        private void cmbSearch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbSearch.Items.Count > 0)
+            {
+                txtSearch.Text = "";
+                int intItemIndex = Support.GetItemData(cmbSearch, cmbSearch.SelectedIndex);
+                
+                if (intItemIndex == 1)
+                    rptService.J_pSearchColumnType = J_ColumnType.String;
+                else if (intItemIndex == 2)
+                    rptService.J_pSearchColumnType = J_ColumnType.Integer;
+                else if (intItemIndex == 3)
+                    rptService.J_pSearchColumnType = J_ColumnType.Date;
+                else if (intItemIndex == 4)
+                    rptService.J_pSearchColumnType = J_ColumnType.Double;
+            }
+            try
+            {
+                for (int intCounter = 0; intCounter <= grdvDescription.ColumnCount - 1; intCounter++)
+                    rptService.J_pSearchColumnName = cmbSearch.SelectedItem.ToString();
+                
+            }
+            catch (Exception ex)
+            {
+                cmnService.J_UserMessage(ex.Message);
+            }
+        }
+        #endregion
+
+        #region cmbCombo1_SelectedIndexChanged
+        private void cmbCombo1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (J_Var.J_pReportEnumIndex)
+            {
+                case (int)J_Reports.Transaction:
+                    break;
+
+                case (int)J_Reports.Invoice:
+
+                    // set the Help Grid Column Header Text & behavior
+                    // (0) Header Text
+                    // (1) Width
+                    // (2) Format
+                    // (3) Alignment
+                    // (4) NullToText
+                    // (5) Visible
+                    // (6) AutoSizeMode
+                    string[,] strInvoiceDetails = {{"Header Id", "0", "", "R", "", "F", ""},
+							                       {"Invoice No", "150", "S", "", "", "T", ""},
+                                                   {"Invoice Date", "100", "S", "", "", "T", "fill"},
+                                                   {"Party Name", "400", "S", "", "", "T", "fill"}};
+
+                    strSQL = "SELECT TRN_INVOICE_HEADER.INVOICE_HEADER_ID AS INVOICE_HEADER_ID," +
+                             "       TRN_INVOICE_HEADER.INVOICE_NO        AS INVOICE_NO," +
+                             "       " + cmnService.J_SQLDBFormat("TRN_INVOICE_HEADER.INVOICE_DATE", J_SQLColFormat.DateFormatDDMMYYYY) + "  AS INVOICE_DATE," +                            
+                             "       MST_PARTY.PARTY_NAME                 AS PARTY_NAME " +
+                             "FROM   TRN_INVOICE_HEADER," +
+                             "       MST_PARTY " +
+                             "WHERE  TRN_INVOICE_HEADER.PARTY_ID   = MST_PARTY.PARTY_ID " +
+                             "AND    TRN_INVOICE_HEADER.TRAN_TYPE  ='INV' " +
+                             "AND    TRN_INVOICE_HEADER.COMPANY_ID = " + cmnService.J_GetComboBoxItemId(ref cmbCombo1, cmbCombo1.SelectedIndex) + " " +
+                             "AND    TRN_INVOICE_HEADER.BRANCH_ID  = " + J_Var.J_pBranchId + " " +
+                             "ORDER BY TRN_INVOICE_HEADER.INVOICE_NO";
+
+                    if (rptService.J_PopulateGridView(grdvDescription, strSQL, strInvoiceDetails, ref cmbSearch, true) == false) return;
+                    chkSelectDeselect.Checked = false;
+                    break;
+                //Added by Shrey on 03/08/2011
+                case (int)J_Reports.InvoiceRegister:
+
+                    if (cmbCombo1.SelectedIndex > 0)
+                    {
+                        strSQL = "SELECT INVOICE_SERIES_ID," +
+                                  "       PREFIX " +
+                                  "FROM   MST_INVOICE_SERIES " +
+                                  "WHERE  COMPANY_ID = " + cmnService.J_GetComboBoxItemId(ref cmbCombo1, cmbCombo1.SelectedIndex) + " " +
+                                  "ORDER BY INVOICE_SERIES_ID ";
+
+                        if (dmlService.J_PopulateComboBox(strSQL, ref cmbCombo2) == false) return;
+                    }
+                    else
+                        cmbCombo2.Items.Clear();
+                    break;
+
+                //Added by Shrey Kejriwal on 25/08/2011
+                case (int)J_Reports.ItemWiseInvoiceSummary:
+
+                    if (cmbCombo1.SelectedIndex > 0)
+                    {
+                        strSQL = "SELECT INVOICE_SERIES_ID," +
+                                  "       PREFIX " +
+                                  "FROM   MST_INVOICE_SERIES " +
+                                  "WHERE  COMPANY_ID = " + cmnService.J_GetComboBoxItemId(ref cmbCombo1, cmbCombo1.SelectedIndex) + " " +
+                                  "ORDER BY INVOICE_SERIES_ID ";
+
+                        if (dmlService.J_PopulateComboBox(strSQL, ref cmbCombo2) == false) return;
+                    }
+                    else
+                        cmbCombo2.Items.Clear();
+                    break;
+
+                //Added by Shrey Kejriwal on 04/08/2012
+                case (int)J_Reports.TaxRegister:
+
+                    if (cmbCombo1.SelectedIndex > 0)
+                    {
+                        strSQL = "SELECT INVOICE_SERIES_ID," +
+                                  "       PREFIX " +
+                                  "FROM   MST_INVOICE_SERIES " +
+                                  "WHERE  COMPANY_ID = " + cmnService.J_GetComboBoxItemId(ref cmbCombo1, cmbCombo1.SelectedIndex) + " " +
+                                  "ORDER BY INVOICE_SERIES_ID ";
+
+                        if (dmlService.J_PopulateComboBox(strSQL, ref cmbCombo2) == false) return;
+                    }
+                    else
+                        cmbCombo2.Items.Clear();
+                    break;
+            }
+        }
+        #endregion
+
+        #region cmbCombo1_KeyPress
+        private void cmbCombo1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Convert.ToInt32(e.KeyChar) == 13) SendKeys.Send("{tab}");
+        }
+        #endregion
+
+        #region cmbCombo1_KeyUp
+        private void cmbCombo1_KeyUp(object sender, KeyEventArgs e)
+        {
+            cmnService.J_AutoCompleteCombo_KeyUp(ref cmbCombo1, e);
+        }
+        #endregion
+
+        #region cmbCombo1_Leave
+        private void cmbCombo1_Leave(object sender, EventArgs e)
+        {
+            cmnService.J_AutoCompleteCombo_Leave(ref cmbCombo1);
+
+            // Get the Selected Record from my Data Bound Combo (Return Type is Object)
+            object objRowView = cmbCombo1.SelectedItem;
+            if (objRowView == null)
+            {
+                cmnService.J_UserMessage(J_Msg.RecNotExist + " : " + cmbCombo1.Text);
+                cmbCombo1.Focus();
+            }
+        }
+        #endregion
+
+        #region cmbCombo2_SelectedIndexChanged
+        private void cmbCombo2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (J_Var.J_pReportEnumIndex)
+            {
+                case (int)J_Reports.Transaction:
+                    break;
+            }
+        }
+        #endregion
+
+        #region cmbCombo2_KeyPress
+        private void cmbCombo2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Convert.ToInt32(e.KeyChar) == 13) SendKeys.Send("{tab}");
+        }
+        #endregion
+
+        #region cmbCombo2_KeyUp
+        private void cmbCombo2_KeyUp(object sender, KeyEventArgs e)
+        {
+            cmnService.J_AutoCompleteCombo_KeyUp(ref cmbCombo2, e);
+        }
+        #endregion
+
+        #region  cmbCombo2_Leave
+        private void cmbCombo2_Leave(object sender, EventArgs e)
+        {
+            cmnService.J_AutoCompleteCombo_Leave(ref cmbCombo2);
+
+            // Get the Selected Record from my Data Bound Combo (Return Type is Object)
+            object objRowView = cmbCombo2.SelectedItem;
+            if (objRowView == null)
+            {
+                cmnService.J_UserMessage(J_Msg.RecNotExist + " : " + cmbCombo2.Text);
+                cmbCombo2.Focus();
+            }
+        }
+        #endregion
+
+        #region cmbCombo3_SelectedIndexChanged
+        private void cmbCombo3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (J_Var.J_pReportEnumIndex)
+            {
+                case (int)J_Reports.Transaction:
+                    break;
+
+
+            }
+        }
+        #endregion
+
+        #region cmbCombo3_KeyPress
+        private void cmbCombo3_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Convert.ToInt32(e.KeyChar) == 13) SendKeys.Send("{tab}");
+        }
+        #endregion
+
+        #region cmbCombo3_KeyUp
+        private void cmbCombo3_KeyUp(object sender, KeyEventArgs e)
+        {
+            cmnService.J_AutoCompleteCombo_KeyUp(ref cmbCombo3, e);
+        }
+        #endregion
+
+        #region cmbCombo3_Leave
+        private void cmbCombo3_Leave(object sender, EventArgs e)
+        {
+            cmnService.J_AutoCompleteCombo_Leave(ref cmbCombo3);
+
+            // Get the Selected Record from my Data Bound Combo (Return Type is Object)
+            object objRowView = cmbCombo3.SelectedItem;
+            if (objRowView == null)
+            {
+                cmnService.J_UserMessage(J_Msg.RecNotExist + " : " + cmbCombo3.Text);
+                cmbCombo3.Focus();
+            }
+        }
+        #endregion
+
+        #region cmbCombo4_SelectedIndexChanged
+        private void cmbCombo4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (J_Var.J_pReportEnumIndex)
+            {
+                case (int)J_Reports.Transaction:
+                    break;
+
+
+            }
+        }
+        #endregion
+
+        #region cmbCombo4_KeyPress
+        private void cmbCombo4_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Convert.ToInt32(e.KeyChar) == 13) SendKeys.Send("{tab}");
+        }
+        #endregion
+
+        #region cmbCombo4_KeyUp
+        private void cmbCombo4_KeyUp(object sender, KeyEventArgs e)
+        {
+            cmnService.J_AutoCompleteCombo_KeyUp(ref cmbCombo4, e);
+        }
+        #endregion
+
+        #region cmbCombo4_Leave
+        private void cmbCombo4_Leave(object sender, EventArgs e)
+        {
+            cmnService.J_AutoCompleteCombo_Leave(ref cmbCombo4);
+
+            // Get the Selected Record from my Data Bound Combo (Return Type is Object)
+            object objRowView = cmbCombo4.SelectedItem;
+            if (objRowView == null)
+            {
+                cmnService.J_UserMessage(J_Msg.RecNotExist + " : " + cmbCombo4.Text);
+                cmbCombo4.Focus();
+            }
+        }
+        #endregion
+
+
+        #region txtTextBox1_KeyPress
+        private void txtTextBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Convert.ToInt32(e.KeyChar) == 13) SendKeys.Send("{tab}");
+        }
+        #endregion
+
+        #region txtTextBox1_Leave
+        private void txtTextBox1_Leave(object sender, EventArgs e)
+        {
+            switch (J_Var.J_pReportEnumIndex)
+            {
+                case (int)J_Reports.Transaction:
+                    break;
+
+            }
+
+        }
+        #endregion
+
+        #region txtTextBox2_KeyPress
+        private void txtTextBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Convert.ToInt32(e.KeyChar) == 13) SendKeys.Send("{tab}");
+        }
+        #endregion
+
+        #region txtTextBox2_Leave
+        private void txtTextBox2_Leave(object sender, EventArgs e)
+        {
+            switch (J_Var.J_pReportEnumIndex)
+            {
+                case (int)J_Reports.Transaction:
+                    break;
+
+            }
+        }
+        #endregion
+
+
+        #region grpSort_CheckedChanged
+        private void grpSort_CheckedChanged(object sender, EventArgs e)
+        {
+            switch (J_Var.J_pReportEnumIndex)
+            {
+                case (int)J_Reports.Transaction:
+                    break;
+                
+                
+
+            }
+        }
+        #endregion
+
+
+
+        #endregion
+
+        #region USER DEFINED FUNCTION
+
+        #region SetRptDialogOptions
+        public void SetRptDialogOptions(J_Reports enmReport, string strFormText)
+        {
+            try
+            {
+                // get server date
+                mskAsOnDate.Text = dmlService.J_ReturnServerDate();
+                mskFromDate.Text = dmlService.J_ReturnServerDate();
+                mskToDate.Text = dmlService.J_ReturnServerDate();
+
+                J_Var.J_pReportEnumIndex = (int)enmReport;
+                switch (enmReport)
+                {
+
+                    #region Masters
+
+                    case J_Reports.User:
+                        lblTitle.Text = strFormText;
+                        BtnOK.Select();
+                        break;
+                    case J_Reports.FAYear:
+                        lblTitle.Text = strFormText;
+                        BtnOK.Select();
+                        break;
+                    case J_Reports.Company:
+                        lblTitle.Text = strFormText;
+                        BtnOK.Select();
+                        break;
+                    case J_Reports.Party:
+                        lblTitle.Text = strFormText;
+                        BtnOK.Select();
+                        break;
+                    case J_Reports.Item:
+                        lblTitle.Text = strFormText;
+                        BtnOK.Select();
+                        break;
+                    case J_Reports.InvoiceSeries:
+                        lblTitle.Text = strFormText;
+                        BtnOK.Select();
+                        break;
+
+
+                    #endregion
+
+                    #region Transactions
+
+                    case J_Reports.Invoice:
+                        lblTitle.Text = strFormText;
+
+                        grpCombo.Visible = true;
+                        lblComboTitle1.Visible = true;
+                        lblComboTitle1.Text = "Company";
+                        cmbCombo1.Visible = true;
+
+                        strSQL = "SELECT COMPANY_ID," +
+                                 "       COMPANY_NAME " +
+                                 "FROM   MST_COMPANY " +
+                                 "WHERE  BRANCH_ID  = " + J_Var.J_pBranchId + " " +
+                                 "AND    COMPANY_ID = 2 " +
+                                 "ORDER BY COMPANY_NAME ";
+                        if (dmlService.J_PopulateComboBox(strSQL, ref cmbCombo1) == false) return;
+
+                        plnDetails.Visible = true;
+                        lblGridViewTitle.Text = "Invoice Details";
+                        plnComboSearchOn.Visible = true;
+
+                        //Commented by Shrey Kejriwal on 05/08/2011
+
+                        //grpSort.Visible = true;
+                        //grpSort.Text = "Invoice Type";
+                        //rbnSort1.Visible = true;
+                        //rbnSort1.Text = "Full Set";
+                        //rbnSort2.Visible = true;
+                        //rbnSort2.Text = "Buyer's Copy";
+                        //rbnSort3.Visible = true;
+                        //rbnSort3.Text = "Duplicate Copy";
+                        //rbnSort4.Visible = true;
+                        //rbnSort4.Text = "Office Copy";
+                        //rbnSort1.Checked = true;
+
+                        grpSort1.Visible = true;
+                        grpSort1.Text = "Print Type";
+                        rbnSort1_1.Visible = true;
+                        rbnSort1_1.Text = "None";
+                        rbnSort1_2.Visible = true;
+                        rbnSort1_2.Text = "Print with Letter Head";
+                        rbnSort1_1.Checked = true;
+
+                        grpSort2.Visible = true;
+                        grpSort2.Text = "Print Signature";
+                        rbnSort2_1.Visible = true;
+                        rbnSort2_1.Text = "No";
+                        rbnSort2_2.Visible = true;
+                        rbnSort2_2.Text = "Yes";
+                        rbnSort2_1.Checked = true;
+
+                        //Added by Shrey Kejriwal on 05/08/2011
+                        grpCheckBox.Visible = true;
+                        grpCheckBox.Text = "Invoice Type";
+                        
+                        chkBox1.Visible = true;
+                        chkBox1.Text = "Buyer's Copy";
+                        
+                        chkBox2.Visible = true;
+                        chkBox2.Text = "Duplicate Copy";
+
+                        chkBox3.Visible = true;
+                        chkBox3.Text = "Office Copy";
+
+                        cmbCombo1.Select();
+                        break;
+                    //ADDED BY SHREY ON 03/08/2011
+                    case J_Reports.InvoiceRegister:
+                        lblTitle.Text = strFormText;
+
+                        //
+                        grpFromToDate.Visible = true;
+                        grpCombo.Visible = true;
+
+                        lblComboTitle1.Visible = true;
+                        lblComboTitle1.Text = "Company";
+                        cmbCombo1.Visible = true;
+
+                        lblComboTitle2.Visible = true;
+                        lblComboTitle2.Text = "Invoice Series";
+                        cmbCombo2.Visible = true;
+
+                        strSQL = "SELECT COMPANY_ID," +
+                                 "       COMPANY_NAME " +
+                                 "FROM   MST_COMPANY " +
+                                 "WHERE  BRANCH_ID  = " + J_Var.J_pBranchId + " " +
+                                 "AND    COMPANY_ID = 2 " +
+                                 "ORDER BY COMPANY_NAME ";
+                        if (dmlService.J_PopulateComboBox(strSQL, ref cmbCombo1) == false) return;
+
+                        mskFromDate.Select();
+                        break;
+
+                    //ADDED BY SHREY ON 25/08/2011
+                    case J_Reports.ItemWiseInvoiceSummary:
+                        lblTitle.Text = strFormText;
+
+                        //
+                        grpFromToDate.Visible = true;
+                        grpCombo.Visible = true;
+
+                        lblComboTitle1.Visible = true;
+                        lblComboTitle1.Text = "Company";
+                        cmbCombo1.Visible = true;
+
+                        //lblComboTitle2.Visible = true;
+                        //lblComboTitle2.Text = "Invoice Series";
+                        //cmbCombo2.Visible = true;
+
+                        strSQL = "SELECT COMPANY_ID," +
+                                 "       COMPANY_NAME " +
+                                 "FROM   MST_COMPANY " +
+                                 "WHERE  BRANCH_ID  = " + J_Var.J_pBranchId + " " +
+                                 "AND    COMPANY_ID = 2 " +
+                                 "ORDER BY COMPANY_NAME ";
+                        if (dmlService.J_PopulateComboBox(strSQL, ref cmbCombo1) == false) return;
+
+                        mskFromDate.Select();
+                        break;
+
+                    case J_Reports.TaxRegister:
+                        lblTitle.Text = strFormText;
+
+                        //
+                        grpFromToDate.Visible = true;
+                        grpCombo.Visible = true;
+
+                        lblComboTitle1.Visible = true;
+                        lblComboTitle1.Text = "Company";
+                        cmbCombo1.Visible = true;
+
+                        //lblComboTitle2.Visible = true;
+                        //lblComboTitle2.Text = "Invoice Series";
+                        //cmbCombo2.Visible = true;
+
+                        strSQL = "SELECT COMPANY_ID," +
+                                 "       COMPANY_NAME " +
+                                 "FROM   MST_COMPANY " +
+                                 "WHERE  BRANCH_ID  = " + J_Var.J_pBranchId + " " +
+                                 "AND    COMPANY_ID = 2 " +
+                                 "ORDER BY COMPANY_NAME ";
+                        if (dmlService.J_PopulateComboBox(strSQL, ref cmbCombo1) == false) return;
+
+                        mskFromDate.Select();
+                        break;
+
+                    #endregion
+
+                }
+            }
+            catch (Exception err_handler)
+            {
+                cmnService.J_UserMessage(err_handler.Message);
+            }
+        }
+        #endregion
+
+        #region ValidateFields
+        public bool ValidateFields(J_Reports enmReport)
+        {
+            try
+            {
+                switch (enmReport)
+                {
+                    case J_Reports.Listing:
+                        break;
+
+                    
+                    case J_Reports.Master:
+                        break;
+
+                    
+                    case J_Reports.Transaction:
+
+                        break;
+
+
+                    case J_Reports.Invoice:
+                        if (cmbCombo1.SelectedIndex <= 0)
+                        {
+                            cmnService.J_UserMessage("Please select Company.");
+                            cmbCombo1.Select();
+                            return false;
+                        }
+                        if (cmnService.J_GenerateDataGridViewSelectedId(grdvDescription) == "")
+                        {
+                            cmnService.J_UserMessage("Please select Invoice No .");
+                            grdvDescription.Select();
+                            return false;
+                        }
+
+                        break;
+                    case J_Reports.InvoiceRegister:
+                        if (dtservice.J_IsBlankDateCheck(ref mskFromDate))
+                        {
+                            cmnService.J_UserMessage("Please enter \"From Date\"");
+                            mskFromDate.Select();
+                            return false;
+                        }
+                        if (dtservice.J_IsBlankDateCheck(ref mskToDate))
+                        {
+                            cmnService.J_UserMessage("Please enter \"To Date\"");
+                            mskFromDate.Select();
+                        }
+                        if (dtservice.J_IsDateValid(mskFromDate) == false)
+                        {
+                            cmnService.J_UserMessage("Please enter valid \"From Date\"");
+                            mskFromDate.Select();
+                            return false;
+                        }
+                        if (dtservice.J_IsDateValid(mskToDate) == false)
+                        {
+                            cmnService.J_UserMessage("Please enter valid \"To Date\"");
+                            mskFromDate.Select();
+                            return false;
+                        }
+                        if (cmbCombo1.Text == "")
+                        {
+                            cmnService.J_UserMessage("Please select Company name");
+                            cmbCombo1.Select();
+                            return false;
+                        }
+                        break;
+                    case J_Reports.ItemWiseInvoiceSummary:
+                        if (dtservice.J_IsBlankDateCheck(ref mskFromDate))
+                        {
+                            cmnService.J_UserMessage("Please enter \"From Date\"");
+                            mskFromDate.Select();
+                            return false;
+                        }
+                        if (dtservice.J_IsBlankDateCheck(ref mskToDate))
+                        {
+                            cmnService.J_UserMessage("Please enter \"To Date\"");
+                            mskFromDate.Select();
+                        }
+                        if (dtservice.J_IsDateValid(mskFromDate) == false)
+                        {
+                            cmnService.J_UserMessage("Please enter valid \"From Date\"");
+                            mskFromDate.Select();
+                            return false;
+                        }
+                        if (dtservice.J_IsDateValid(mskToDate) == false)
+                        {
+                            cmnService.J_UserMessage("Please enter valid \"To Date\"");
+                            mskFromDate.Select();
+                            return false;
+                        }
+                        if (cmbCombo1.Text == "")
+                        {
+                            cmnService.J_UserMessage("Please select Company name");
+                            cmbCombo1.Select();
+                            return false;
+                        }
+                        break;
+
+                    case J_Reports.TaxRegister:
+                        if (dtservice.J_IsBlankDateCheck(ref mskFromDate))
+                        {
+                            cmnService.J_UserMessage("Please enter \"From Date\"");
+                            mskFromDate.Select();
+                            return false;
+                        }
+                        if (dtservice.J_IsBlankDateCheck(ref mskToDate))
+                        {
+                            cmnService.J_UserMessage("Please enter \"To Date\"");
+                            mskFromDate.Select();
+                        }
+                        if (dtservice.J_IsDateValid(mskFromDate) == false)
+                        {
+                            cmnService.J_UserMessage("Please enter valid \"From Date\"");
+                            mskFromDate.Select();
+                            return false;
+                        }
+                        if (dtservice.J_IsDateValid(mskToDate) == false)
+                        {
+                            cmnService.J_UserMessage("Please enter valid \"To Date\"");
+                            mskFromDate.Select();
+                            return false;
+                        }
+                        if (cmbCombo1.Text == "")
+                        {
+                            cmnService.J_UserMessage("Please select Company name");
+                            cmbCombo1.Select();
+                            return false;
+                        }
+                        break;
+                }
+                return true;
+            }
+            catch (Exception err_handler)
+            {
+                cmnService.J_UserMessage(err_handler.Message);
+                return false;
+            }
+        }
+        #endregion
+        
+        #region SetProgressBar
+        private void SetProgressBar()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                if (i != 90)
+                    ((ToolStripProgressBar)J_Var.frmMain.stbMessage.Items[(int)J_PanelIndex.e06_ProgressBar]).Value = i;
+                else
+                    break;
+                Thread.Sleep(100);
+            }
+        }
+        #endregion
+
+        #region ThreadTask
+        private void ThreadTask()
+        {
+            Invoke(new MyDelegate(SetProgressBar));
+        }
+        #endregion
+
+
+        #endregion
+
+        #region USER DEFINED FUNCTION FOR REPORT GENERATION
+
+        #region Masters
+
+        #region PrintUserMaster
+        private void PrintUserMaster()
+        {
+            crUserMaster rptUserMaster = new crUserMaster();
+            rptcls = (ReportClass)rptUserMaster;
+            
+            // (0) Data Value in DataTable
+            // (1) Data Type in DataTable
+            // (2) Display Text in Front-end
+            // (3) Display Text Type
+            string[,] strCaseEndMatrix = {{"=0", "N", "", "T"},
+							              {"=1", "N", "Inactive", "T"}};
+            
+            strQueryString = "SELECT USER_ID," +
+                             "       USER_CODE," +
+                             "       DISPLAY_NAME," +
+                             "       LOGIN_ID," +
+                             "       " + cmnService.J_SQLDBFormat("USER_CATEGORY", J_SQLColFormat.Case_End, strCaseEndMatrix) + " AS USER_CATEGORY " +
+                             "FROM   MST_USER " +
+                             "WHERE  " + cmnService.J_SQLDBFormat("LOGIN_ID", J_SQLColFormat.UCase) + " <> 'ADMIN' " +
+                             "AND    BRANCH_ID = " + J_Var.J_pBranchId + " " +
+                             "ORDER BY DISPLAY_NAME ";
+            rptService.J_PreviewReport(ref rptcls, this, strQueryString, J_Var.J_pCompanyName, J_Var.J_pBranchAddress, lblTitle.Text);
+        }
+        #endregion
+
+        #region PrintFAYearMaster
+        private void PrintFAYearMaster()
+        {
+            crFAYearMaster rptFAYearMaster = new crFAYearMaster();
+            rptcls = (ReportClass)rptFAYearMaster;
+
+            strQueryString = "SELECT FAYEAR_ID," +
+                             "       FA_BEG_DATE," +
+                             "       FA_END_DATE," +
+                             "       FA_LOCK_DATE " +
+                             "FROM   MST_FAYEAR " +
+                             "ORDER BY FA_BEG_DATE DESC ";
+            rptService.J_PreviewReport(ref rptcls, this, strQueryString, J_Var.J_pCompanyName, J_Var.J_pBranchAddress, lblTitle.Text);
+        }
+        #endregion
+
+        #region PrintCompanyMaster
+        private void PrintCompanyMaster()
+        {
+            crCompanyMaster rptCompanyMaster = new crCompanyMaster();
+            rptcls = (ReportClass)rptCompanyMaster;
+
+            strQueryString = "SELECT COMPANY_ID," +
+                             "       COMPANY_NAME," +
+                             "       PAN," +
+                             "       ADDRESS1," +
+                             "       VAT_NO," +
+                             "       CST_NO," +
+                             "       SERVICE_TAX_NO " +
+                             "FROM   MST_COMPANY " +
+                             "WHERE  BRANCH_ID = " + J_Var.J_pBranchId + " " +
+                             "ORDER BY COMPANY_NAME";
+            rptService.J_PreviewReport(ref rptcls, this, strQueryString, J_Var.J_pCompanyName, J_Var.J_pBranchAddress, lblTitle.Text);
+        }
+
+        #endregion
+
+        #region PrintPartyMaster
+        private void PrintPartyMaster()
+        {
+            crPartyMaster rptPartyMaster = new crPartyMaster();
+            rptcls = (ReportClass)rptPartyMaster;
+
+            strQueryString = "SELECT PARTY_ID," +
+                             "       PARTY_NAME," +
+                             "       ADDRESS1," +
+                             "       CITY," +
+                             "       PIN," +
+                             "       CONTACT_PERSON," +
+                             "       MOBILE_NO," +
+                             "       PHONE_NO," +
+                             "       EMAIL_ID," +
+                             "       FAX " +
+                             "FROM   MST_PARTY " +
+                             "WHERE  BRANCH_ID = " + J_Var.J_pBranchId + " " +
+                             "ORDER BY PARTY_NAME";
+            rptService.J_PreviewReport(ref rptcls, this, strQueryString, J_Var.J_pCompanyName, J_Var.J_pBranchAddress, lblTitle.Text);
+        }
+
+        #endregion
+
+        #region PrintItemMaster
+        private void PrintItemMaster()
+        {
+            crItemMaster rptItemMaster = new crItemMaster();
+            rptcls = (ReportClass)rptItemMaster;
+
+            strQueryString = "SELECT MST_ITEM.ITEM_ID         AS ITEM_ID," +
+                             "       MST_COMPANY.COMPANY_ID   AS COMPANY_ID," +
+                             "       MST_ITEM.ITEM_NAME       AS ITEM_NAME," +
+                             "       MST_COMPANY.COMPANY_NAME AS COMPANY_NAME," +
+                             "       MST_ITEM.RATE            AS RATE," +
+                             "       MST_ITEM.UNIT            AS UNIT " +
+                             "FROM   MST_ITEM," +
+                             "       MST_COMPANY " +
+                             "WHERE  MST_ITEM.COMPANY_ID = MST_COMPANY.COMPANY_ID " +
+                             "AND    MST_ITEM.BRANCH_ID  = " + J_Var.J_pBranchId + " " +
+                             "ORDER BY MST_ITEM.ITEM_NAME";
+            rptService.J_PreviewReport(ref rptcls, this, strQueryString, J_Var.J_pCompanyName, J_Var.J_pBranchAddress, lblTitle.Text);
+        }
+
+        #endregion
+
+        #region PrintInvoiceSeriesMaster
+        private void PrintInvoiceSeriesMaster()
+        {
+            crInvoiceSeriesMaster rptInvoiceSeriesMaster = new crInvoiceSeriesMaster();
+            rptcls = (ReportClass)rptInvoiceSeriesMaster;
+
+            strQueryString = "SELECT MST_INVOICE_SERIES.INVOICE_SERIES_ID   AS INVOICE_SERIES_ID," +
+                             "       MST_COMPANY.COMPANY_ID                 AS COMPANY_ID," +
+                             "       MST_INVOICE_SERIES.PREFIX              AS PREFIX," +
+                             "       MST_COMPANY.COMPANY_NAME               AS COMPANY_NAME," +
+                             "       MST_INVOICE_SERIES.START_NO            AS START_NO," +
+                             "       MST_INVOICE_SERIES.LAST_NO             AS LAST_NO," +
+                             "       " + cmnService.J_SQLDBFormat("MST_INVOICE_SERIES.LAST_DATE", J_SQLColFormat.DateFormatDDMMYYYY) + "  AS LAST_DATE," +
+                             "       MST_INVOICE_SERIES.HEADER_DISPLAY_TEXT AS HEADER_DISPLAY_TEXT " +
+                             "FROM   MST_INVOICE_SERIES," +
+                             "       MST_COMPANY " +
+                             "WHERE  MST_INVOICE_SERIES.COMPANY_ID = MST_COMPANY.COMPANY_ID " +
+                             "AND    MST_INVOICE_SERIES.BRANCH_ID  = " + J_Var.J_pBranchId + " ";
+            rptService.J_PreviewReport(ref rptcls, this, strQueryString, J_Var.J_pCompanyName, J_Var.J_pBranchAddress, lblTitle.Text);
+        }
+
+        #endregion
+
+
+        #endregion
+
+        #region Transactions
+
+        #region PrintInvoice
+        private void PrintInvoice()
+        {
+            crInvoice rptInvoice = new crInvoice();
+            rptcls = (ReportClass)rptInvoice;
+
+            // Temp Table Name
+            string strTableName = "TMP_InvoiceType_" + J_Var.J_pUserId + "_" + string.Format("{0:ddMMyy}", System.DateTime.Now.Date) + "_" + string.Format("{0:HHmmss}", System.DateTime.Now);
+
+            // Create the report temp table
+            strSQL = "CREATE TABLE " + strTableName + "(" +
+                     "             " + cmnService.J_GetDataType("INVOICE_TYPE_ID", J_ColumnType.Long) + "," +
+                     "             " + cmnService.J_GetDataType("INVOICE_TYPE", J_ColumnType.String, 50) + "," +
+                     "             " + cmnService.J_GetDataType("PRINT_TYPE", J_ColumnType.Integer) + ")";
+            if (dmlService.J_ExecSql(strSQL, J_SQLType.DDL) == false) return;
+
+            // print type
+            int intPrintType = 0;
+            if (rbnSort1_2.Checked == true) intPrintType = 1;
+
+            // invoice type
+            //Added by Shrey Kejriwal on 05/08/2011
+            if (chkBox1.Checked == true)
+            {
+                strSQL = "INSERT INTO " + strTableName + " (INVOICE_TYPE_ID, INVOICE_TYPE                                                    , PRINT_TYPE) " +
+                         "                          VALUES (1              , '" + cmnService.J_ReplaceQuote("(Original - Buyer's Copy)") + "', " + intPrintType + ")";
+                if (dmlService.J_ExecSql(strSQL) == false) return;
+            }
+
+            if (chkBox2.Checked == true)
+            {
+                strSQL = "INSERT INTO " + strTableName + " (INVOICE_TYPE_ID, INVOICE_TYPE      , PRINT_TYPE) " +
+                         "                          VALUES (2              , '(Duplicate Copy)', " + intPrintType + ")";
+                if (dmlService.J_ExecSql(strSQL) == false) return;
+            }
+
+            if (chkBox3.Checked == true)
+            {
+                strSQL = "INSERT INTO " + strTableName + " (INVOICE_TYPE_ID, INVOICE_TYPE     , PRINT_TYPE) " +
+                         "                          VALUES (3              , '(Office Copy)', " + intPrintType + ")";
+                if (dmlService.J_ExecSql(strSQL) == false) return;
+            }
+
+
+            //Commented by Shrey Kejriwal on 05/08/2011
+
+            //if (rbnSort1.Checked == true)
+            //{
+            //    strSQL = "INSERT INTO " + strTableName + " (INVOICE_TYPE_ID, INVOICE_TYPE                                                    , PRINT_TYPE) " +
+            //             "                          VALUES (1              , '" + cmnService.J_ReplaceQuote("(Original - Buyer's Copy)") + "', " + intPrintType + ")";
+            //    if (dmlService.J_ExecSql(strSQL) == false) return;
+
+            //    strSQL = "INSERT INTO " + strTableName + " (INVOICE_TYPE_ID, INVOICE_TYPE      , PRINT_TYPE) " +
+            //             "                          VALUES (2              , '(Duplicate Copy)', " + intPrintType + ")";
+            //    if (dmlService.J_ExecSql(strSQL) == false) return;
+
+            //    strSQL = "INSERT INTO " + strTableName + " (INVOICE_TYPE_ID, INVOICE_TYPE     , PRINT_TYPE) " +
+            //             "                          VALUES (3              , '(Office Copy)', " + intPrintType + ")";
+            //    if (dmlService.J_ExecSql(strSQL) == false) return;
+            //}
+            //else if (rbnSort2.Checked == true)
+            //{
+            //    strSQL = "INSERT INTO " + strTableName + " (INVOICE_TYPE_ID, INVOICE_TYPE                                                    , PRINT_TYPE) " +
+            //             "                          VALUES (1              , '" + cmnService.J_ReplaceQuote("(Original - Buyer's Copy)") + "', " + intPrintType + ")";
+            //    if (dmlService.J_ExecSql(strSQL) == false) return;
+            //}
+            //else if (rbnSort3.Checked == true)
+            //{
+            //    strSQL = "INSERT INTO " + strTableName + " (INVOICE_TYPE_ID, INVOICE_TYPE      , PRINT_TYPE) " +
+            //             "                          VALUES (2              , '(Duplicate Copy)', " + intPrintType + ")";
+            //    if (dmlService.J_ExecSql(strSQL) == false) return;
+            //}
+            //else if (rbnSort4.Checked == true)
+            //{
+            //    strSQL = "INSERT INTO " + strTableName + " (INVOICE_TYPE_ID, INVOICE_TYPE     , PRINT_TYPE) " +
+            //             "                          VALUES (3              , '(Office Copy)', " + intPrintType + ")";
+            //    if (dmlService.J_ExecSql(strSQL) == false) return;
+            //}
+
+            strQueryString = "SELECT " + strTableName + ".INVOICE_TYPE_ID           AS INVOICE_TYPE_ID," +
+                             "       " + strTableName + ".INVOICE_TYPE              AS INVOICE_TYPE," +
+                             "       " + strTableName + ".PRINT_TYPE                AS PRINT_TYPE," +
+                             "       TRN_INVOICE_HEADER.INVOICE_HEADER_ID           AS INVOICE_HEADER_ID," +
+                             "       MST_INVOICE_SERIES.INVOICE_SERIES_ID           AS INVOICE_SERIES_ID," +
+                             "       MST_INVOICE_SERIES.HEADER_DISPLAY_TEXT         AS HEADER_DISPLAY_TEXT," +
+                             "       MST_PARTY.PARTY_NAME                           AS PARTY_NAME," +
+                             "       MST_PARTY.ADDRESS1                             AS ADDRESS1," +
+                             "       MST_PARTY.ADDRESS2                             AS ADDRESS2," +
+                             "       MST_PARTY.ADDRESS3                             AS ADDRESS3," +
+                             "       MST_PARTY.CITY                                 AS CITY," +
+                             "       MST_PARTY.PIN                                  AS PIN," +
+                             "       MST_PARTY.MOBILE_NO                            AS MOBILE_NO," +
+                             "       MST_PARTY.PHONE_NO                             AS PHONE_NO," +
+                             "       MST_PARTY.FAX                                  AS FAX," +
+                             "       MST_PARTY.CONTACT_PERSON                       AS CONTACT_PERSON," +
+                             "       TRN_INVOICE_HEADER.INVOICE_NO                  AS INVOICE_NO," +
+                             "       TRN_INVOICE_HEADER.INVOICE_DATE                AS INVOICE_DATE," +
+                             "       TRN_INVOICE_HEADER.CHALLAN_REF_NO              AS CHALLAN_REF_NO," +
+                             "       TRN_INVOICE_HEADER.ORDER_NO                    AS ORDER_NO," +
+                             "       TRN_INVOICE_HEADER.TOTAL_AMOUNT                AS TOTAL_AMOUNT," +
+                             "       TRN_INVOICE_HEADER.DISCOUNT_TEXT               AS DISCOUNT_TEXT," +
+                             "       TRN_INVOICE_HEADER.DISCOUNT_RATE               AS DISCOUNT_RATE," +
+                             "       TRN_INVOICE_HEADER.DISCOUNT_AMOUNT             AS DISCOUNT_AMOUNT," +
+                             "       TRN_INVOICE_HEADER.AMOUNT_WITH_DISCOUNT        AS AMOUNT_WITH_DISCOUNT," +
+                             "       TRN_INVOICE_HEADER.TAX_TOTAL_AMOUNT            AS TAX_TOTAL_AMOUNT," +
+                             "       TRN_INVOICE_HEADER.AMOUNT_WITH_TAX             AS AMOUNT_WITH_TAX," +
+                             "       TRN_INVOICE_HEADER.ADDITIONAL_COST_TEXT        AS ADDITIONAL_COST_TEXT," +
+                             "       TRN_INVOICE_HEADER.ADDITIONAL_COST             AS ADDITIONAL_COST," +
+                             "       TRN_INVOICE_HEADER.AMOUNT_WITH_ADDITIONAL_COST AS AMOUNT_WITH_ADDITIONAL_COST," +
+                             "       TRN_INVOICE_HEADER.ROUNDED_OFF                 AS ROUNDED_OFF," +
+                             "       TRN_INVOICE_HEADER.NET_AMOUNT                  AS NET_AMOUNT," +
+                             "       TRN_INVOICE_HEADER.NET_AMOUNT_INWORDS          AS NET_AMOUNT_INWORDS," +
+                             "       MST_ITEM.ITEM_ID                               AS ITEM_ID," +
+                             "       MST_ITEM.ITEM_NAME                             AS ITEM_NAME," +
+                             "       TRN_INVOICE_DETAIL.QUANTITY                    AS QUANTITY," +
+                             "       MST_ITEM.UNIT                                  AS UNIT," +
+                             "       TRN_INVOICE_DETAIL.RATE                        AS RATE," +
+                             "       TRN_INVOICE_DETAIL.AMOUNT                      AS AMOUNT," +
+                             "       TRN_INVOICE_DETAIL.REMARKS                     AS REMARKS," +
+                             "       MST_COMPANY.COMPANY_ID                         AS COMPANY_ID," +
+                             "       MST_COMPANY.COMPANY_NAME                       AS COMPANY_NAME," +
+                             "       MST_COMPANY.ADDRESS1                           AS COMPANY_ADDRESS1," +
+                             "       MST_COMPANY.ADDRESS2                           AS COMPANY_ADDRESS2," +
+                             "       MST_COMPANY.ADDRESS3                           AS COMPANY_ADDRESS3," +
+                             "       MST_COMPANY.PIN                                AS COMPANY_PIN," +
+                             "       MST_COMPANY.CONTACT_NO                         AS COMPANY_CONTACT_NO," +
+                             "       MST_COMPANY.FAX                                AS COMPANY_FAX," +
+                             "       MST_COMPANY.EMAIL_ID                           AS COMPANY_EMAIL_ID," +
+                             "       MST_COMPANY.WEB_SITE                           AS COMPANY_WEB_SITE," +
+                             "       MST_COMPANY.VAT_NO                             AS VAT_NO," +
+                             "       MST_COMPANY.CST_NO                             AS CST_NO," +
+                             "       MST_COMPANY.SERVICE_TAX_NO                     AS SERVICE_TAX_NO," +
+                             "       MST_COMPANY.PAN                                AS PAN " +
+                             "FROM   TRN_INVOICE_HEADER," +
+                             "       TRN_INVOICE_DETAIL," +
+                             "       MST_INVOICE_SERIES," +
+                             "       MST_COMPANY," +
+                             "       MST_PARTY," +
+                             "       MST_ITEM," +
+                             "       " + strTableName + " " +
+                             "WHERE  TRN_INVOICE_HEADER.INVOICE_HEADER_ID  = TRN_INVOICE_DETAIL.INVOICE_HEADER_ID " +
+                             "AND    TRN_INVOICE_HEADER.INVOICE_SERIES_ID  = MST_INVOICE_SERIES.INVOICE_SERIES_ID " +
+                             "AND    TRN_INVOICE_HEADER.COMPANY_ID         = MST_COMPANY.COMPANY_ID " +
+                             "AND    TRN_INVOICE_HEADER.PARTY_ID           = MST_PARTY.PARTY_ID " +
+                             "AND    TRN_INVOICE_DETAIL.ITEM_ID            = MST_ITEM.ITEM_ID " +
+                             "AND    TRN_INVOICE_HEADER.INVOICE_HEADER_ID IN(" + cmnService.J_GenerateDataGridViewSelectedId(grdvDescription) + ") " +
+                             "AND    TRN_INVOICE_HEADER.BRANCH_ID          = " + J_Var.J_pBranchId + " " +
+                             "ORDER BY " + strTableName + ".INVOICE_TYPE_ID," +
+                             "       TRN_INVOICE_HEADER.INVOICE_NO";
+            
+            // SUB REPORTS
+            // FOR SUMMARY OF TAX DETAILS
+            string strSubRptTaxDetails ="SELECT MST_TAX.TAX_ID                    AS TAX_ID," +
+                                        "       MST_TAX.TAX_DESC                  AS TAX_DESC," +      
+                                        "       TRN_INVOICE_TAX.INVOICE_HEADER_ID AS INVOICE_HEADER_ID," +
+                                        "       TRN_INVOICE_TAX.TAX_RATE          AS TAX_RATE," +
+                                        "       TRN_INVOICE_TAX.TAX_AMOUNT        AS TAX_AMOUNT " +
+                                        "FROM   MST_TAX," +
+                                        "       TRN_INVOICE_TAX " +        
+                                        "WHERE  MST_TAX.TAX_ID    = TRN_INVOICE_TAX.TAX_ID " +
+                                        "AND    MST_TAX.BRANCH_ID = " + J_Var.J_pBranchId + " " +
+                                        "ORDER BY TRN_INVOICE_TAX.INVOICE_TAX_ID";
+            // POPULATE & DISPLAY SUB REPORT
+            rptcls.OpenSubreport("crSubRptTaxSummary").SetDataSource(dmlService.J_ExecSqlReturnDataSet(strSubRptTaxDetails).Tables[0]);
+
+            // report is executed
+            DataSet ds = dmlService.J_ExecSqlReturnDataSet(strQueryString);
+            if (ds == null) return;
+
+            PictureObject objBlobFieldObject;
+            objBlobFieldObject = (PictureObject)rptcls.ReportDefinition.Sections[2].ReportObjects["imgSignature"];
+            objBlobFieldObject.ObjectFormat.EnableSuppress = true;
+
+            if(rbnSort2_2.Checked == true)
+                objBlobFieldObject.ObjectFormat.EnableSuppress = false;
+            
+
+            rptService.J_PreviewReport(ref rptcls, this, ds, J_Var.J_pCompanyName, J_Var.J_pBranchAddress, lblTitle.Text);
+
+            // Drop the report temp table
+            if (dmlService.J_ExecSql("DROP TABLE " + strTableName) == false) return;
+
+
+            strSQL = "";
+        }
+
+        #endregion
+
+        #region PrintInvoiceRegister
+        private void PrintInvoiceRegister()
+        {
+
+            // Added by Ripan Paul on 05-08-2011
+            /* (1) Column Value
+             * (2) Column Data Type
+             * (3) Replace String
+             * (4) Replace String Data Type */
+            
+            //Commented by Shrey Kejriwal on 29-04-2013
+            //string[,] strCaseEnd_VAT_AMOUNT = {{"TRN_INVOICE_TAX.TAX_ID = " + BS_TaxId.VAT_ID, "F", "TRN_INVOICE_TAX.TAX_AMOUNT", "F"},
+            //                                   {"TRN_INVOICE_TAX.TAX_ID <> " + BS_TaxId.VAT_ID, "F", "0", "N"}};
+
+            //Added by Shrey Kejriwal on 29-04-2013
+            string[,] strCaseEnd_VAT_AMOUNT = {{"TRN_INVOICE_TAX.TAX_TYPE = 'V'", "F", "TRN_INVOICE_TAX.TAX_AMOUNT", "F"},
+							                   {"TRN_INVOICE_TAX.TAX_TYPE <> 'V'", "F", "0", "N"}};
+
+
+            //COMMENTED BY SHREY KEJRIWAL ON 25/06/2012
+            //string[,] strCaseEnd_CST_AMOUNT = {{"TRN_INVOICE_TAX.TAX_ID = " + BS_TaxId.CST_ID, "F", "TRN_INVOICE_TAX.TAX_AMOUNT", "F"},
+            //                                   {"TRN_INVOICE_TAX.TAX_ID <> " + BS_TaxId.CST_ID, "F", "0", "N"}};
+
+            //ADDED BY SHREY KEJRIWAL ON 25/06/2012
+            string[,] strCaseEnd_CST_AMOUNT = {{"TRN_INVOICE_TAX.TAX_ID IN (" + BS_TaxId.CST_ID + ", " + BS_TaxId.CST_ID_FORM_C + ")", "F", "TRN_INVOICE_TAX.TAX_AMOUNT", "F"},
+							                   {"TRN_INVOICE_TAX.TAX_ID <> " + BS_TaxId.CST_ID, "F", "0", "N"}};
+            
+            string[,] strCaseEnd_VAT_SALE_AMOUNT = {{"INV.VAT_AMOUNT > 0 ", "F", "INV.AMOUNT_WITH_DISCOUNT", "F"},
+							                        {"INV.VAT_AMOUNT = 0", "F", "0", "N"}};
+            
+            string[,] strCaseEnd_CST_SALE_AMOUNT = {{"INV.CST_AMOUNT > 0 ", "F", "INV.AMOUNT_WITH_DISCOUNT", "F"},
+							                        {"INV.CST_AMOUNT = 0", "F", "0", "N"}};
+
+            
+            //Added by Shrey Kejriwal on 17/08/2011 
+            //Report Query
+            strQueryString = "SELECT INV.COMPANY_NAME                     AS COMPANY_NAME," +
+                             "       INV.INVOICE_HEADER_ID                AS INVOICE_HEADER_ID," +
+                             "       INV.INVOICE_DATE                     AS INVOICE_DATE," +
+                             "       INV.INVOICE_NO                       AS INVOICE_NO," +
+                             "       INV.PARTY_ID                         AS PARTY_ID," +
+                             "       INV.PARTY_NAME                       AS PARTY_NAME," +
+                             "       INV.ITEM_ID                          AS ITEM_ID," +
+                             "       INV.ITEM_NAME                        AS ITEM_NAME," +
+                             "       INV.QUANTITY                         AS QUANTITY," +
+                             "       INV.RATE                             AS RATE," +
+                             "       INV.AMOUNT                           AS AMOUNT," +
+                             "       INV.TOTAL_AMOUNT                     AS TOTAL_AMOUNT," +
+                             "       INV.DISCOUNT_TEXT                    AS DISCOUNT_TEXT," +
+                             "       INV.DISCOUNT_RATE                    AS DISCOUNT_RATE," +
+                             "       INV.DISCOUNT_AMOUNT                  AS DISCOUNT_AMOUNT," +
+                             "       INV.AMOUNT_WITH_DISCOUNT             AS AMOUNT_WITH_DISCOUNT," +
+                             "       " + cmnService.J_SQLDBFormat(strCaseEnd_VAT_SALE_AMOUNT, J_SQLColFormat.Case_End, J_ElsePart.YES) + " AS VAT_SALE_AMOUNT," +
+                             "       " + cmnService.J_SQLDBFormat(strCaseEnd_CST_SALE_AMOUNT, J_SQLColFormat.Case_End, J_ElsePart.YES) + " AS CST_SALE_AMOUNT," +
+                             "       INV.VAT_AMOUNT                       AS VAT_AMOUNT," +
+                             "       INV.CST_AMOUNT                       AS CST_AMOUNT," +
+                             "       INV.TAX_TOTAL_AMOUNT                 AS TAX_TOTAL_AMOUNT," +
+                             "       INV.AMOUNT_WITH_TAX                  AS AMOUNT_WITH_TAX," +
+                             "       INV.ADDITIONAL_COST                  AS ADDITIONAL_COST," +
+                             "       INV.AMOUNT_WITH_ADDITIONAL_COST      AS AMOUNT_WITH_ADDITIONAL_COST," +
+                             "       INV.ROUNDED_OFF                      AS ROUNDED_OFF," +
+                             "       INV.SUM_ADDITIONAL_DISCOUNT_ROUNDOFF AS SUM_ADDITIONAL_DISCOUNT_ROUNDOFF," +
+                             "       INV.NET_AMOUNT                       AS NET_AMOUNT," +
+                             "       INV.NET_AMOUNT_INWORDS               AS NET_AMOUNT_INWORDS," +
+                             "       INV.REMARKS                          AS REMARKS " +
+                             "FROM  (SELECT INV.COMPANY_NAME                     AS COMPANY_NAME, " +
+                             "              INV.INVOICE_HEADER_ID                AS INVOICE_HEADER_ID, " +
+                             "              " + cmnService.J_SQLDBFormat("INV.INVOICE_DATE", J_SQLColFormat.DateFormatDDMMYYYY) + " AS INVOICE_DATE,  " +
+                             "              INV.INVOICE_NO                       AS INVOICE_NO,  " +
+                             "              INV.PARTY_ID                         AS PARTY_ID, " +
+                             "              INV.PARTY_NAME                       AS PARTY_NAME, " +
+                             "              INV.ITEM_ID                          AS ITEM_ID,  " +
+                             "              INV.ITEM_NAME                        AS ITEM_NAME,  " +
+                             "              INV.QUANTITY                         AS QUANTITY,  " +
+                             "              INV.RATE                             AS RATE,  " +
+                             "              INV.AMOUNT                           AS AMOUNT, " +
+                             "              INV.TOTAL_AMOUNT                     AS TOTAL_AMOUNT, " +
+                             "              INV.DISCOUNT_TEXT                    AS DISCOUNT_TEXT,  " +
+                             "              INV.DISCOUNT_RATE                    AS DISCOUNT_RATE,  " +
+                             "              INV.DISCOUNT_AMOUNT                  AS DISCOUNT_AMOUNT,  " +
+                             "              INV.AMOUNT_WITH_DISCOUNT             AS AMOUNT_WITH_DISCOUNT,  " +
+                             "              " + cmnService.J_SQLDBFormat("TAX.VAT_AMOUNT", J_ColumnType.Double, J_SQLColFormat.NullCheck) + " AS VAT_AMOUNT, " +
+                             "              " + cmnService.J_SQLDBFormat("TAX.CST_AMOUNT", J_ColumnType.Double, J_SQLColFormat.NullCheck) + " AS CST_AMOUNT, " +
+                             "              INV.TAX_TOTAL_AMOUNT                 AS TAX_TOTAL_AMOUNT,  " +
+                             "              INV.AMOUNT_WITH_TAX                  AS AMOUNT_WITH_TAX,  " +
+                             "              INV.ADDITIONAL_COST                  AS ADDITIONAL_COST,  " +
+                             "              INV.AMOUNT_WITH_ADDITIONAL_COST      AS AMOUNT_WITH_ADDITIONAL_COST,  " +
+                             "              INV.ROUNDED_OFF                      AS ROUNDED_OFF,  " +
+                             "              INV.SUM_ADDITIONAL_DISCOUNT_ROUNDOFF AS SUM_ADDITIONAL_DISCOUNT_ROUNDOFF,  " +
+                             "              INV.NET_AMOUNT                       AS NET_AMOUNT,  " +
+                             "              INV.NET_AMOUNT_INWORDS               AS NET_AMOUNT_INWORDS,  " +
+                             "              INV.REMARKS                          AS REMARKS " +
+                             "       FROM  (SELECT MST_COMPANY.COMPANY_ID                         AS COMPANY_ID," +
+                             "                     MST_COMPANY.COMPANY_NAME                       AS COMPANY_NAME," +
+                             "                     TRN_INVOICE_HEADER.INVOICE_HEADER_ID           AS INVOICE_HEADER_ID, " +
+                             "                     TRN_INVOICE_HEADER.BRANCH_ID                   AS BRANCH_ID,  " +
+                             "                     TRN_INVOICE_HEADER.FAYEAR_ID                   AS FAYEAR_ID,  " +
+                             "                     TRN_INVOICE_HEADER.INVOICE_SERIES_ID           AS INVOICE_SERIES_ID,  " +
+                             "                     TRN_INVOICE_HEADER.INVOICE_DATE                AS INVOICE_DATE,  " +
+                             "                     TRN_INVOICE_HEADER.INVOICE_NO                  AS INVOICE_NO,  " +
+                             "                     MST_PARTY.PARTY_ID                             AS PARTY_ID, " +
+                             "                     MST_PARTY.PARTY_NAME                           AS PARTY_NAME, " +
+                             "                     MST_ITEM.ITEM_ID                               AS ITEM_ID,  " +
+                             "                     MST_ITEM.ITEM_NAME                             AS ITEM_NAME,  " +
+                             "                     TRN_INVOICE_DETAIL.QUANTITY                    AS QUANTITY,  " +
+                             "                     TRN_INVOICE_DETAIL.RATE                        AS RATE,  " +
+                             "                     TRN_INVOICE_DETAIL.AMOUNT                      AS AMOUNT, " +
+                             "                     TRN_INVOICE_HEADER.TOTAL_AMOUNT                AS TOTAL_AMOUNT,  " +
+                             "                     TRN_INVOICE_HEADER.DISCOUNT_TEXT               AS DISCOUNT_TEXT,  " +
+                             "                     TRN_INVOICE_HEADER.DISCOUNT_RATE               AS DISCOUNT_RATE,  " +
+                             "                     TRN_INVOICE_HEADER.DISCOUNT_AMOUNT             AS DISCOUNT_AMOUNT,  " +
+                             "                     TRN_INVOICE_HEADER.AMOUNT_WITH_DISCOUNT        AS AMOUNT_WITH_DISCOUNT,  " +
+                             "                     TRN_INVOICE_HEADER.TAX_TOTAL_AMOUNT            AS TAX_TOTAL_AMOUNT,  " +
+                             "                     TRN_INVOICE_HEADER.AMOUNT_WITH_TAX             AS AMOUNT_WITH_TAX,  " +
+                             "                     TRN_INVOICE_HEADER.ADDITIONAL_COST             AS ADDITIONAL_COST,  " +
+                             "                     TRN_INVOICE_HEADER.AMOUNT_WITH_ADDITIONAL_COST AS AMOUNT_WITH_ADDITIONAL_COST,  " +
+                             "                     TRN_INVOICE_HEADER.ROUNDED_OFF                 AS ROUNDED_OFF,  " +
+                             "                     TRN_INVOICE_HEADER.ADDITIONAL_COST + TRN_INVOICE_HEADER.ROUNDED_OFF AS SUM_ADDITIONAL_DISCOUNT_ROUNDOFF ," +
+                             "                     TRN_INVOICE_HEADER.NET_AMOUNT                  AS NET_AMOUNT,  " +
+                             "                     TRN_INVOICE_HEADER.NET_AMOUNT_INWORDS          AS NET_AMOUNT_INWORDS,  " +
+                             "                     TRN_INVOICE_HEADER.REMARKS                     AS REMARKS " +
+                             "              FROM   TRN_INVOICE_HEADER, " +
+                             "                     TRN_INVOICE_DETAIL, " +
+                             "                     MST_COMPANY, " +
+                             "                     MST_INVOICE_SERIES, " +
+                             "                     MST_PARTY, " +
+                             "                     MST_ITEM " +
+                             "              WHERE  TRN_INVOICE_HEADER.INVOICE_HEADER_ID        = TRN_INVOICE_DETAIL.INVOICE_HEADER_ID " +
+                             "              AND    TRN_INVOICE_HEADER.COMPANY_ID        = MST_COMPANY.COMPANY_ID " +
+                             "              AND    TRN_INVOICE_HEADER.INVOICE_SERIES_ID = MST_INVOICE_SERIES.INVOICE_SERIES_ID " +
+                             "              AND    TRN_INVOICE_HEADER.PARTY_ID          = MST_PARTY.PARTY_ID " +
+                             "              AND    TRN_INVOICE_DETAIL.ITEM_ID           = MST_ITEM.ITEM_ID) AS INV " +
+                             "       LEFT JOIN " +
+                             "             (SELECT TRN_INVOICE_TAX.INVOICE_HEADER_ID AS INVOICE_HEADER_ID, " +
+                             "                     TRN_INVOICE_TAX.TAX_ID            AS TAX_ID, " +
+                             "                     MST_TAX.TAX_DESC                  AS TAX_DESC, " +
+                             "                     TRN_INVOICE_TAX.TAX_RATE          AS TAX_RATE, " +
+                             "                     " + cmnService.J_SQLDBFormat(strCaseEnd_VAT_AMOUNT, J_SQLColFormat.Case_End) + " AS VAT_AMOUNT," +
+                             "                     " + cmnService.J_SQLDBFormat(strCaseEnd_CST_AMOUNT, J_SQLColFormat.Case_End) + " AS CST_AMOUNT " +
+                             "                     FROM   TRN_INVOICE_TAX, " +
+                             "                     MST_TAX " +
+                             "              WHERE  TRN_INVOICE_TAX.TAX_ID = MST_TAX.TAX_ID " +
+                             "              AND    TRN_INVOICE_TAX.TAX_ID IN(" + BS_TaxId.VAT_ID + "," + BS_TaxId.CST_ID + "," + BS_TaxId.CST_ID_FORM_C + ")) AS TAX " +
+                             "       ON     INV.INVOICE_HEADER_ID = TAX.INVOICE_HEADER_ID " +
+                             "       WHERE  INV.INVOICE_DATE     >= " + cmnService.J_DateOperator() + dtservice.J_ConvertMMddyyyy(mskFromDate) + cmnService.J_DateOperator() + " " +
+                             "       AND    INV.INVOICE_DATE     <= " + cmnService.J_DateOperator() + dtservice.J_ConvertMMddyyyy(mskToDate) + cmnService.J_DateOperator() + " " +
+                             "       AND    INV.COMPANY_ID        = " + cmnService.J_GetComboBoxItemId(ref cmbCombo1, cmbCombo1.SelectedIndex) + " " +
+                             "       AND    INV.BRANCH_ID         = " + J_Var.J_pBranchId + " " +
+                             "       AND    INV.FAYEAR_ID         = " + J_Var.J_pFAYearId + " ";
+
+            if (cmbCombo2.Text != "")
+                strQueryString = strQueryString + "AND INV.INVOICE_SERIES_ID = " + cmnService.J_GetComboBoxItemId(ref cmbCombo2, cmbCombo2.SelectedIndex) + " ) AS INV ";
+            else
+                strQueryString = strQueryString + " ) AS INV ";
+
+            strQueryString = strQueryString + "ORDER BY INV.INVOICE_DATE, INV.INVOICE_NO ";
+
+            crInvoiceRegister rptInvoiceRegister = new crInvoiceRegister();
+            rptcls = (ReportClass)rptInvoiceRegister;
+
+            // set text to report
+            rptService.J_SetTextToReport(ref rptcls, 2, "txtFromToDate", "From " + mskFromDate.Text + " to " + mskToDate.Text);
+            
+            // execute the report as per above sql
+            rptService.J_PreviewReport(ref rptcls, this, strQueryString, J_Var.J_pCompanyName, J_Var.J_pBranchAddress, lblTitle.Text);
+
+        }
+        #endregion
+
+        #region PrintItemWiseInvoiceSummary
+        private void PrintItemWiseInvoiceSummary()
+        {
+            //Added by Shrey Kejriwal on 25/08/2011
+            // Create Temp Table Name
+            string strTmpTableName = "TMP_ItemWiseInvoiceSummary_" + J_Var.J_pUserId + "_" + string.Format("{0:ddMMyy}", System.DateTime.Now.Date) + "_" + string.Format("{0:HHmmss}", System.DateTime.Now);
+
+
+            // Added by Ripan Paul on 05-08-2011
+            /* (1) Column Value
+             * (2) Column Data Type
+             * (3) Replace String
+             * (4) Replace String Data Type */
+            string[,] strCaseEnd_VAT_AMOUNT = {{"TRN_INVOICE_TAX.TAX_ID = " + BS_TaxId.VAT_ID, "F", "TRN_INVOICE_TAX.TAX_AMOUNT", "F"},
+							                   {"TRN_INVOICE_TAX.TAX_ID <> " + BS_TaxId.VAT_ID, "F", "0", "N"}};
+
+            string[,] strCaseEnd_CST_AMOUNT = {{"TRN_INVOICE_TAX.TAX_ID = " + BS_TaxId.CST_ID, "F", "TRN_INVOICE_TAX.TAX_AMOUNT", "F"},
+							                   {"TRN_INVOICE_TAX.TAX_ID <> " + BS_TaxId.CST_ID, "F", "0", "N"}};
+
+            string[,] strCaseEnd_CST_FORMC_AMOUNT = {{"TRN_INVOICE_TAX.TAX_ID = " + BS_TaxId.CST_ID_FORM_C, "F", "TRN_INVOICE_TAX.TAX_AMOUNT", "F"},
+							                   {"TRN_INVOICE_TAX.TAX_ID <> " + BS_TaxId.CST_ID_FORM_C, "F", "0", "N"}};
+
+
+            string[,] strCaseEnd_VAT_SALE_AMOUNT = {{"INV.VAT_AMOUNT > 0 ", "F", "INV.AMOUNT_WITH_DISCOUNT", "F"},
+							                        {"INV.VAT_AMOUNT = 0", "F", "0", "N"}};
+
+            string[,] strCaseEnd_CST_SALE_AMOUNT = {{"INV.CST_AMOUNT > 0 ", "F", "INV.AMOUNT_WITH_DISCOUNT", "F"},
+							                        {"INV.CST_AMOUNT = 0", "F", "0", "N"}};
+
+            string[,] strCaseEnd_CST_FORMC_SALE_AMOUNT = {{"INV.CST_FORMC_AMOUNT > 0 ", "F", "INV.AMOUNT_WITH_DISCOUNT", "F"},
+							                              {"INV.CST_FORMC_AMOUNT = 0", "F", "0", "N"}};
+
+
+            // begin the transaction
+            dmlService.J_BeginTransaction();
+
+            // Create the report temp table
+            strSQL = "CREATE TABLE " + strTmpTableName + "(" +
+                     "             " + cmnService.J_GetDataType("COMPANY_NAME", J_ColumnType.String, 50) + "," +
+                     "             " + cmnService.J_GetDataType("INVOICE_HEADER_ID", J_ColumnType.Long) + "," +
+                     "             " + cmnService.J_GetDataType("INVOICE_DATE", J_ColumnType.DateTime) + "," +
+                     "             " + cmnService.J_GetDataType("INVOICE_NO", J_ColumnType.String, 50) + "," +
+                     "             " + cmnService.J_GetDataType("PARTY_ID", J_ColumnType.Long) + "," +
+                     "             " + cmnService.J_GetDataType("PARTY_NAME", J_ColumnType.String, 100) + "," +
+                     "             " + cmnService.J_GetDataType("ITEM_ID", J_ColumnType.Long) + "," +
+                     "             " + cmnService.J_GetDataType("ITEM_NAME", J_ColumnType.String, 50) + "," +
+                     "             " + cmnService.J_GetDataType("QUANTITY", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("RATE", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("AMOUNT", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("TOTAL_AMOUNT", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("DISCOUNT_TEXT", J_ColumnType.String, 100) + "," +
+                     "             " + cmnService.J_GetDataType("DISCOUNT_RATE", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("DISCOUNT_AMOUNT", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("AMOUNT_WITH_DISCOUNT", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("VAT_SALE_AMOUNT", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("CST_SALE_AMOUNT", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("CST_FORMC_SALE_AMOUNT", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("VAT_AMOUNT", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("CST_AMOUNT", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("CST_FORMC_AMOUNT", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("TAX_TOTAL_AMOUNT", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("AMOUNT_WITH_TAX", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("ADDITIONAL_COST", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("AMOUNT_WITH_ADDITIONAL_COST", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("ROUNDED_OFF", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("SUM_ADDITIONAL_DISCOUNT_ROUNDOFF", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("NET_AMOUNT", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("NET_AMOUNT_INWORDS", J_ColumnType.String, 100) + "," +
+                     "             " + cmnService.J_GetDataType("REMARKS", J_ColumnType.String, 100) + "," +
+                     "             " + cmnService.J_GetDataType("TOT_AMOUNT", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("TOT_DISCOUNT", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("TOT_SALE_AMOUNT", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("TOT_VAT_SALE_AMOUNT", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("TOT_CST_SALE_AMOUNT", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("TOT_CST_FORMC_SALE_AMOUNT", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("TOT_VAT_AMOUNT", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("TOT_CST_AMOUNT", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("TOT_CST_FORMC_AMOUNT", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("TOT_GROSS_AMOUNT", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("TOT_ADDITIONAL_COST", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("TOT_ROUNDED_OFF", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("TOT_ADD_COST_ROUND_OFF_AMOUNT", J_ColumnType.Double) + "," +
+                     "             " + cmnService.J_GetDataType("TOT_NET_AMOUNT", J_ColumnType.Double) + ")";
+
+            if (dmlService.J_ExecSql(strSQL, J_SQLType.DDL) == false) return;
+
+            #region commented
+            //Added by Shrey Kejriwal on 17/08/2011 
+            //Report Query
+            //strSQL = "INSERT INTO " + strTmpTableName + " (" +
+            //                 "       COMPANY_NAME," +
+            //                 "       INVOICE_HEADER_ID," +
+            //                 "       INVOICE_DATE," +
+            //                 "       INVOICE_NO," +
+            //                 "       PARTY_ID," +
+            //                 "       PARTY_NAME," +
+            //                 "       ITEM_ID," +
+            //                 "       ITEM_NAME," +
+            //                 "       QUANTITY," +
+            //                 "       RATE," +
+            //                 "       AMOUNT," +
+            //                 "       TOTAL_AMOUNT," +
+            //                 "       DISCOUNT_TEXT," +
+            //                 "       DISCOUNT_RATE," +
+            //                 "       DISCOUNT_AMOUNT," +
+            //                 "       AMOUNT_WITH_DISCOUNT," +
+            //                 "       VAT_AMOUNT," +
+            //                 "       CST_AMOUNT," +
+            //                 "       TAX_TOTAL_AMOUNT," +
+            //                 "       AMOUNT_WITH_TAX," +
+            //                 "       ADDITIONAL_COST," +
+            //                 "       AMOUNT_WITH_ADDITIONAL_COST," +
+            //                 "       ROUNDED_OFF," +
+            //                 "       SUM_ADDITIONAL_DISCOUNT_ROUNDOFF," +
+            //                 "       NET_AMOUNT," +
+            //                 "       NET_AMOUNT_INWORDS," +
+            //                 "       REMARKS)" +
+            //                 "SELECT INV.COMPANY_NAME                     AS COMPANY_NAME, " +
+            //                 "       INV.INVOICE_HEADER_ID                AS INVOICE_HEADER_ID, " +
+            //                 "       " + cmnService.J_SQLDBFormat("INV.INVOICE_DATE", J_SQLColFormat.DateFormatDDMMYYYY) + " AS INVOICE_DATE,  " +
+            //                 "       INV.INVOICE_NO                       AS INVOICE_NO,  " +
+            //                 "       INV.PARTY_ID                         AS PARTY_ID, " +
+            //                 "       INV.PARTY_NAME                       AS PARTY_NAME, " +
+            //                 "       INV.ITEM_ID                          AS ITEM_ID,  " +
+            //                 "       INV.ITEM_NAME                        AS ITEM_NAME,  " +
+            //                 "       INV.QUANTITY                         AS QUANTITY,  " +
+            //                 "       INV.RATE                             AS RATE,  " +
+            //                 "       INV.AMOUNT                           AS AMOUNT, " +
+            //                 "       INV.TOTAL_AMOUNT                     AS TOTAL_AMOUNT, " +
+            //                 "       INV.DISCOUNT_TEXT                    AS DISCOUNT_TEXT,  " +
+            //                 "       INV.DISCOUNT_RATE                    AS DISCOUNT_RATE,  " +
+            //                 "       INV.DISCOUNT_AMOUNT                  AS DISCOUNT_AMOUNT,  " +
+            //                 "       INV.AMOUNT_WITH_DISCOUNT             AS AMOUNT_WITH_DISCOUNT,  " +
+            //                 "       " + cmnService.J_SQLDBFormat("TAX.VAT_AMOUNT", J_ColumnType.Double, J_SQLColFormat.NullCheck) + " AS VAT_AMOUNT, " +
+            //                 "       " + cmnService.J_SQLDBFormat("TAX.CST_AMOUNT", J_ColumnType.Double, J_SQLColFormat.NullCheck) + " AS CST_AMOUNT, " +
+            //                 "       INV.TAX_TOTAL_AMOUNT                 AS TAX_TOTAL_AMOUNT,  " +
+            //                 "       INV.AMOUNT_WITH_TAX                  AS AMOUNT_WITH_TAX,  " +
+            //                 "       INV.ADDITIONAL_COST                  AS ADDITIONAL_COST,  " +
+            //                 "       INV.AMOUNT_WITH_ADDITIONAL_COST      AS AMOUNT_WITH_ADDITIONAL_COST,  " +
+            //                 "       INV.ROUNDED_OFF                      AS ROUNDED_OFF,  " +
+            //                 "       INV.SUM_ADDITIONAL_DISCOUNT_ROUNDOFF AS SUM_ADDITIONAL_DISCOUNT_ROUNDOFF,  " +
+            //                 "       INV.NET_AMOUNT                       AS NET_AMOUNT,  " +
+            //                 "       INV.NET_AMOUNT_INWORDS               AS NET_AMOUNT_INWORDS,  " +
+            //                 "       INV.REMARKS                          AS REMARKS " +
+            //                 "FROM  (SELECT MST_COMPANY.COMPANY_ID                         AS COMPANY_ID," +
+            //                 "              MST_COMPANY.COMPANY_NAME                       AS COMPANY_NAME," +
+            //                 "              TRN_INVOICE_HEADER.INVOICE_HEADER_ID           AS INVOICE_HEADER_ID, " +
+            //                 "              TRN_INVOICE_HEADER.BRANCH_ID                   AS BRANCH_ID,  " +
+            //                 "              TRN_INVOICE_HEADER.FAYEAR_ID                   AS FAYEAR_ID,  " +
+            //                 "              TRN_INVOICE_HEADER.INVOICE_SERIES_ID           AS INVOICE_SERIES_ID,  " +
+            //                 "              TRN_INVOICE_HEADER.INVOICE_DATE                AS INVOICE_DATE,  " +
+            //                 "              TRN_INVOICE_HEADER.INVOICE_NO                  AS INVOICE_NO,  " +
+            //                 "              MST_PARTY.PARTY_ID                             AS PARTY_ID, " +
+            //                 "              MST_PARTY.PARTY_NAME                           AS PARTY_NAME, " +
+            //                 "              MST_ITEM.ITEM_ID                               AS ITEM_ID,  " +
+            //                 "              MST_ITEM.ITEM_NAME                             AS ITEM_NAME,  " +
+            //                 "              TRN_INVOICE_DETAIL.QUANTITY                    AS QUANTITY,  " +
+            //                 "              TRN_INVOICE_DETAIL.RATE                        AS RATE,  " +
+            //                 "              TRN_INVOICE_DETAIL.AMOUNT                      AS AMOUNT, " +
+            //                 "              TRN_INVOICE_HEADER.TOTAL_AMOUNT                AS TOTAL_AMOUNT,  " +
+            //                 "              TRN_INVOICE_HEADER.DISCOUNT_TEXT               AS DISCOUNT_TEXT,  " +
+            //                 "              TRN_INVOICE_HEADER.DISCOUNT_RATE               AS DISCOUNT_RATE,  " +
+            //                 "              TRN_INVOICE_HEADER.DISCOUNT_AMOUNT             AS DISCOUNT_AMOUNT,  " +
+            //                 "              TRN_INVOICE_HEADER.AMOUNT_WITH_DISCOUNT        AS AMOUNT_WITH_DISCOUNT,  " +
+            //                 "              TRN_INVOICE_HEADER.TAX_TOTAL_AMOUNT            AS TAX_TOTAL_AMOUNT,  " +
+            //                 "              TRN_INVOICE_HEADER.AMOUNT_WITH_TAX             AS AMOUNT_WITH_TAX,  " +
+            //                 "              TRN_INVOICE_HEADER.ADDITIONAL_COST             AS ADDITIONAL_COST,  " +
+            //                 "              TRN_INVOICE_HEADER.AMOUNT_WITH_ADDITIONAL_COST AS AMOUNT_WITH_ADDITIONAL_COST,  " +
+            //                 "              TRN_INVOICE_HEADER.ROUNDED_OFF                 AS ROUNDED_OFF,  " +
+            //                 "              TRN_INVOICE_HEADER.ADDITIONAL_COST + TRN_INVOICE_HEADER.ROUNDED_OFF AS SUM_ADDITIONAL_DISCOUNT_ROUNDOFF ," +
+            //                 "              TRN_INVOICE_HEADER.NET_AMOUNT                  AS NET_AMOUNT,  " +
+            //                 "              TRN_INVOICE_HEADER.NET_AMOUNT_INWORDS          AS NET_AMOUNT_INWORDS,  " +
+            //                 "              TRN_INVOICE_HEADER.REMARKS                     AS REMARKS " +
+            //                 "       FROM   TRN_INVOICE_HEADER, " +
+            //                 "              TRN_INVOICE_DETAIL, " +
+            //                 "              MST_COMPANY, " +
+            //                 "              MST_INVOICE_SERIES, " +
+            //                 "              MST_PARTY, " +
+            //                 "              MST_ITEM " +
+            //                 "       WHERE  TRN_INVOICE_HEADER.INVOICE_HEADER_ID        = TRN_INVOICE_DETAIL.INVOICE_HEADER_ID " +
+            //                 "       AND    TRN_INVOICE_HEADER.COMPANY_ID        = MST_COMPANY.COMPANY_ID " +
+            //                 "       AND    TRN_INVOICE_HEADER.INVOICE_SERIES_ID = MST_INVOICE_SERIES.INVOICE_SERIES_ID " +
+            //                 "       AND    TRN_INVOICE_HEADER.PARTY_ID          = MST_PARTY.PARTY_ID " +
+            //                 "       AND    TRN_INVOICE_DETAIL.ITEM_ID           = MST_ITEM.ITEM_ID) AS INV " +
+            //                 "LEFT JOIN " +
+            //                 "      (SELECT TRN_INVOICE_TAX.INVOICE_HEADER_ID AS INVOICE_HEADER_ID, " +
+            //                 "              TRN_INVOICE_TAX.TAX_ID            AS TAX_ID, " +
+            //                 "              MST_TAX.TAX_DESC                  AS TAX_DESC, " +
+            //                 "              TRN_INVOICE_TAX.TAX_RATE          AS TAX_RATE, " +
+            //                 "              " + cmnService.J_SQLDBFormat(strCaseEnd_VAT_AMOUNT, J_SQLColFormat.Case_End) + " AS VAT_AMOUNT," +
+            //                 "              " + cmnService.J_SQLDBFormat(strCaseEnd_CST_AMOUNT, J_SQLColFormat.Case_End) + " AS CST_AMOUNT " +
+            //                 "       FROM   TRN_INVOICE_TAX, " +
+            //                 "              MST_TAX " +
+            //                 "       WHERE  TRN_INVOICE_TAX.TAX_ID = MST_TAX.TAX_ID " +
+            //                 "       AND    TRN_INVOICE_TAX.TAX_ID IN(" + BS_TaxId.VAT_ID + "," + BS_TaxId.CST_ID + ")) AS TAX " +
+            //                 "ON     INV.INVOICE_HEADER_ID = TAX.INVOICE_HEADER_ID " +
+            //                 "WHERE  INV.INVOICE_DATE     >= " + cmnService.J_DateOperator() + dtservice.J_ConvertMMddyyyy(mskFromDate) + cmnService.J_DateOperator() + " " +
+            //                 "AND    INV.INVOICE_DATE     <= " + cmnService.J_DateOperator() + dtservice.J_ConvertMMddyyyy(mskToDate) + cmnService.J_DateOperator() + " " +
+            //                 "AND    INV.COMPANY_ID        = " + cmnService.J_GetComboBoxItemId(ref cmbCombo1, cmbCombo1.SelectedIndex) + " " +
+            //                 "AND    INV.BRANCH_ID         = " + J_Var.J_pBranchId + " " +
+            //                 "AND    INV.FAYEAR_ID         = " + J_Var.J_pFAYearId + " ";
+            //if (cmbCombo2.Text != "")
+            //    strSQL = strSQL + "AND INV.INVOICE_SERIES_ID = " + cmnService.J_GetComboBoxItemId(ref cmbCombo2, cmbCombo2.SelectedIndex) + " ";
+
+            #endregion
+
+            strSQL = "INSERT INTO " + strTmpTableName + " (" +
+                 "       COMPANY_NAME," +
+                 "       INVOICE_HEADER_ID," +
+                 "       INVOICE_DATE," +
+                 "       INVOICE_NO," +
+                 "       PARTY_ID," +
+                 "       PARTY_NAME," +
+                 "       ITEM_ID," +
+                 "       ITEM_NAME," +
+                 "       QUANTITY," +
+                 "       RATE," +
+                 "       AMOUNT," +
+                 "       TOTAL_AMOUNT," +
+                 "       DISCOUNT_TEXT," +
+                 "       DISCOUNT_RATE," +
+                 "       DISCOUNT_AMOUNT," +
+                 "       AMOUNT_WITH_DISCOUNT," +
+                 "       VAT_SALE_AMOUNT," +
+                 "       CST_SALE_AMOUNT," +
+                 "       CST_FORMC_SALE_AMOUNT," +
+                 "       VAT_AMOUNT," +
+                 "       CST_AMOUNT," +
+                 "       CST_FORMC_AMOUNT," +
+                 "       TAX_TOTAL_AMOUNT," +
+                 "       AMOUNT_WITH_TAX," +
+                 "       ADDITIONAL_COST," +
+                 "       AMOUNT_WITH_ADDITIONAL_COST," +
+                 "       ROUNDED_OFF," +
+                 "       SUM_ADDITIONAL_DISCOUNT_ROUNDOFF," +
+                 "       NET_AMOUNT," +
+                 "       NET_AMOUNT_INWORDS," +
+                 "       REMARKS)" +
+                 "SELECT INV.COMPANY_NAME                     AS COMPANY_NAME," +
+                 "       INV.INVOICE_HEADER_ID                AS INVOICE_HEADER_ID," +
+                 "       INV.INVOICE_DATE                     AS INVOICE_DATE," +
+                 "       INV.INVOICE_NO                       AS INVOICE_NO," +
+                 "       INV.PARTY_ID                         AS PARTY_ID," +
+                 "       INV.PARTY_NAME                       AS PARTY_NAME," +
+                 "       INV.ITEM_ID                          AS ITEM_ID," +
+                 "       INV.ITEM_NAME                        AS ITEM_NAME," +
+                 "       INV.QUANTITY                         AS QUANTITY," +
+                 "       INV.RATE                             AS RATE," +
+                 "       INV.AMOUNT                           AS AMOUNT," +
+                 "       INV.TOTAL_AMOUNT                     AS TOTAL_AMOUNT," +
+                 "       INV.DISCOUNT_TEXT                    AS DISCOUNT_TEXT," +
+                 "       INV.DISCOUNT_RATE                    AS DISCOUNT_RATE," +
+                 "       INV.DISCOUNT_AMOUNT                  AS DISCOUNT_AMOUNT," +
+                 "       INV.AMOUNT_WITH_DISCOUNT             AS AMOUNT_WITH_DISCOUNT," +
+                 "       " + cmnService.J_SQLDBFormat(strCaseEnd_VAT_SALE_AMOUNT, J_SQLColFormat.Case_End, J_ElsePart.YES) + "       AS VAT_SALE_AMOUNT," +
+                 "       " + cmnService.J_SQLDBFormat(strCaseEnd_CST_SALE_AMOUNT, J_SQLColFormat.Case_End, J_ElsePart.YES) + "       AS CST_SALE_AMOUNT," +
+                 "       " + cmnService.J_SQLDBFormat(strCaseEnd_CST_FORMC_SALE_AMOUNT, J_SQLColFormat.Case_End, J_ElsePart.YES) + " AS CST_FORMC_SALE_AMOUNT," +
+                 "       INV.VAT_AMOUNT                       AS VAT_AMOUNT," +
+                 "       INV.CST_AMOUNT                       AS CST_AMOUNT," +
+                 "       INV.CST_FORMC_AMOUNT                 AS CST_FORMC_AMOUNT," +
+                 "       INV.TAX_TOTAL_AMOUNT                 AS TAX_TOTAL_AMOUNT," +
+                 "       INV.AMOUNT_WITH_TAX                  AS AMOUNT_WITH_TAX," +
+                 "       INV.ADDITIONAL_COST                  AS ADDITIONAL_COST," +
+                 "       INV.AMOUNT_WITH_ADDITIONAL_COST      AS AMOUNT_WITH_ADDITIONAL_COST," +
+                 "       INV.ROUNDED_OFF                      AS ROUNDED_OFF," +
+                 "       INV.SUM_ADDITIONAL_DISCOUNT_ROUNDOFF AS SUM_ADDITIONAL_DISCOUNT_ROUNDOFF," +
+                 "       INV.NET_AMOUNT                       AS NET_AMOUNT," +
+                 "       INV.NET_AMOUNT_INWORDS               AS NET_AMOUNT_INWORDS," +
+                 "       INV.REMARKS                          AS REMARKS " +
+                 "FROM  (SELECT INV.COMPANY_NAME                     AS COMPANY_NAME, " +
+                 "              INV.INVOICE_HEADER_ID                AS INVOICE_HEADER_ID, " +
+                 "              INV.INVOICE_DATE                     AS INVOICE_DATE,  " +
+                 "              INV.INVOICE_NO                       AS INVOICE_NO,  " +
+                 "              INV.PARTY_ID                         AS PARTY_ID, " +
+                 "              INV.PARTY_NAME                       AS PARTY_NAME, " +
+                 "              INV.ITEM_ID                          AS ITEM_ID,  " +
+                 "              INV.ITEM_NAME                        AS ITEM_NAME,  " +
+                 "              INV.QUANTITY                         AS QUANTITY,  " +
+                 "              INV.RATE                             AS RATE,  " +
+                 "              INV.AMOUNT                           AS AMOUNT, " +
+                 "              INV.TOTAL_AMOUNT                     AS TOTAL_AMOUNT, " +
+                 "              INV.DISCOUNT_TEXT                    AS DISCOUNT_TEXT,  " +
+                 "              INV.DISCOUNT_RATE                    AS DISCOUNT_RATE,  " +
+                 "              INV.DISCOUNT_AMOUNT                  AS DISCOUNT_AMOUNT,  " +
+                 "              INV.AMOUNT_WITH_DISCOUNT             AS AMOUNT_WITH_DISCOUNT,  " +
+                 "              " + cmnService.J_SQLDBFormat("TAX.VAT_AMOUNT", J_ColumnType.Double, J_SQLColFormat.NullCheck) + "       AS VAT_AMOUNT, " +
+                 "              " + cmnService.J_SQLDBFormat("TAX.CST_AMOUNT", J_ColumnType.Double, J_SQLColFormat.NullCheck) + "       AS CST_AMOUNT, " +
+                 "              " + cmnService.J_SQLDBFormat("TAX.CST_FORMC_AMOUNT", J_ColumnType.Double, J_SQLColFormat.NullCheck) + " AS CST_FORMC_AMOUNT, " +
+                 "              INV.TAX_TOTAL_AMOUNT                 AS TAX_TOTAL_AMOUNT,  " +
+                 "              INV.AMOUNT_WITH_TAX                  AS AMOUNT_WITH_TAX,  " +
+                 "              INV.ADDITIONAL_COST                  AS ADDITIONAL_COST,  " +
+                 "              INV.AMOUNT_WITH_ADDITIONAL_COST      AS AMOUNT_WITH_ADDITIONAL_COST,  " +
+                 "              INV.ROUNDED_OFF                      AS ROUNDED_OFF,  " +
+                 "              INV.SUM_ADDITIONAL_DISCOUNT_ROUNDOFF AS SUM_ADDITIONAL_DISCOUNT_ROUNDOFF,  " +
+                 "              INV.NET_AMOUNT                       AS NET_AMOUNT,  " +
+                 "              INV.NET_AMOUNT_INWORDS               AS NET_AMOUNT_INWORDS,  " +
+                 "              INV.REMARKS                          AS REMARKS " +
+                 "       FROM  (SELECT MST_COMPANY.COMPANY_ID                         AS COMPANY_ID," +
+                 "                     MST_COMPANY.COMPANY_NAME                       AS COMPANY_NAME," +
+                 "                     TRN_INVOICE_HEADER.INVOICE_HEADER_ID           AS INVOICE_HEADER_ID, " +
+                 "                     TRN_INVOICE_HEADER.BRANCH_ID                   AS BRANCH_ID,  " +
+                 "                     TRN_INVOICE_HEADER.FAYEAR_ID                   AS FAYEAR_ID,  " +
+                 "                     TRN_INVOICE_HEADER.INVOICE_SERIES_ID           AS INVOICE_SERIES_ID,  " +
+                 "                     TRN_INVOICE_HEADER.INVOICE_DATE                AS INVOICE_DATE,  " +
+                 "                     TRN_INVOICE_HEADER.INVOICE_NO                  AS INVOICE_NO,  " +
+                 "                     MST_PARTY.PARTY_ID                             AS PARTY_ID, " +
+                 "                     MST_PARTY.PARTY_NAME                           AS PARTY_NAME, " +
+                 "                     MST_ITEM.ITEM_ID                               AS ITEM_ID,  " +
+                 "                     MST_ITEM.ITEM_NAME                             AS ITEM_NAME,  " +
+                 "                     TRN_INVOICE_DETAIL.QUANTITY                    AS QUANTITY,  " +
+                 "                     TRN_INVOICE_DETAIL.RATE                        AS RATE,  " +
+                 "                     TRN_INVOICE_DETAIL.AMOUNT                      AS AMOUNT, " +
+                 "                     TRN_INVOICE_HEADER.TOTAL_AMOUNT                AS TOTAL_AMOUNT,  " +
+                 "                     TRN_INVOICE_HEADER.DISCOUNT_TEXT               AS DISCOUNT_TEXT,  " +
+                 "                     TRN_INVOICE_HEADER.DISCOUNT_RATE               AS DISCOUNT_RATE,  " +
+                 "                     TRN_INVOICE_HEADER.DISCOUNT_AMOUNT             AS DISCOUNT_AMOUNT,  " +
+                 "                     TRN_INVOICE_HEADER.AMOUNT_WITH_DISCOUNT        AS AMOUNT_WITH_DISCOUNT,  " +
+                 "                     TRN_INVOICE_HEADER.TAX_TOTAL_AMOUNT            AS TAX_TOTAL_AMOUNT,  " +
+                 "                     TRN_INVOICE_HEADER.AMOUNT_WITH_TAX             AS AMOUNT_WITH_TAX,  " +
+                 "                     TRN_INVOICE_HEADER.ADDITIONAL_COST             AS ADDITIONAL_COST,  " +
+                 "                     TRN_INVOICE_HEADER.AMOUNT_WITH_ADDITIONAL_COST AS AMOUNT_WITH_ADDITIONAL_COST,  " +
+                 "                     TRN_INVOICE_HEADER.ROUNDED_OFF                 AS ROUNDED_OFF,  " +
+                 "                     TRN_INVOICE_HEADER.ADDITIONAL_COST + TRN_INVOICE_HEADER.ROUNDED_OFF AS SUM_ADDITIONAL_DISCOUNT_ROUNDOFF ," +
+                 "                     TRN_INVOICE_HEADER.NET_AMOUNT                  AS NET_AMOUNT,  " +
+                 "                     TRN_INVOICE_HEADER.NET_AMOUNT_INWORDS          AS NET_AMOUNT_INWORDS,  " +
+                 "                     TRN_INVOICE_HEADER.REMARKS                     AS REMARKS " +
+                 "              FROM   TRN_INVOICE_HEADER, " +
+                 "                     TRN_INVOICE_DETAIL, " +
+                 "                     MST_COMPANY, " +
+                 "                     MST_INVOICE_SERIES, " +
+                 "                     MST_PARTY, " +
+                 "                     MST_ITEM " +
+                 "              WHERE  TRN_INVOICE_HEADER.INVOICE_HEADER_ID        = TRN_INVOICE_DETAIL.INVOICE_HEADER_ID " +
+                 "              AND    TRN_INVOICE_HEADER.COMPANY_ID        = MST_COMPANY.COMPANY_ID " +
+                 "              AND    TRN_INVOICE_HEADER.INVOICE_SERIES_ID = MST_INVOICE_SERIES.INVOICE_SERIES_ID " +
+                 "              AND    TRN_INVOICE_HEADER.PARTY_ID          = MST_PARTY.PARTY_ID " +
+                 "              AND    TRN_INVOICE_DETAIL.ITEM_ID           = MST_ITEM.ITEM_ID) AS INV " +
+                 "       LEFT JOIN " +
+                 "             (SELECT TRN_INVOICE_TAX.INVOICE_HEADER_ID AS INVOICE_HEADER_ID, " +
+                 "                     TRN_INVOICE_TAX.TAX_ID            AS TAX_ID, " +
+                 "                     MST_TAX.TAX_DESC                  AS TAX_DESC, " +
+                 "                     TRN_INVOICE_TAX.TAX_RATE          AS TAX_RATE, " +
+                 "                     " + cmnService.J_SQLDBFormat(strCaseEnd_VAT_AMOUNT, J_SQLColFormat.Case_End) + " AS VAT_AMOUNT," +
+                 "                     " + cmnService.J_SQLDBFormat(strCaseEnd_CST_AMOUNT, J_SQLColFormat.Case_End) + " AS CST_AMOUNT," +
+                 "                     " + cmnService.J_SQLDBFormat(strCaseEnd_CST_FORMC_AMOUNT, J_SQLColFormat.Case_End) + " AS CST_FORMC_AMOUNT " +
+                 "                     FROM   TRN_INVOICE_TAX, " +
+                 "                     MST_TAX " +
+                 "              WHERE  TRN_INVOICE_TAX.TAX_ID = MST_TAX.TAX_ID " +
+                 "              AND    TRN_INVOICE_TAX.TAX_ID IN(" + BS_TaxId.VAT_ID + "," + BS_TaxId.CST_ID + "," + BS_TaxId.CST_ID_FORM_C + ")) AS TAX " +
+                 "       ON     INV.INVOICE_HEADER_ID = TAX.INVOICE_HEADER_ID " +
+                 "       WHERE  INV.INVOICE_DATE     >= " + cmnService.J_DateOperator() + dtservice.J_ConvertMMddyyyy(mskFromDate) + cmnService.J_DateOperator() + " " +
+                 "       AND    INV.INVOICE_DATE     <= " + cmnService.J_DateOperator() + dtservice.J_ConvertMMddyyyy(mskToDate) + cmnService.J_DateOperator() + " " +
+                 "       AND    INV.COMPANY_ID        = " + cmnService.J_GetComboBoxItemId(ref cmbCombo1, cmbCombo1.SelectedIndex) + " " +
+                 "       AND    INV.BRANCH_ID         = " + J_Var.J_pBranchId + " ) AS INV ";
+                 //"       AND    INV.FAYEAR_ID         = " + J_Var.J_pFAYearId + " ";
+
+            //if (cmbCombo2.Text != "")
+            //    strSQL = strSQL + "AND INV.INVOICE_SERIES_ID = " + cmnService.J_GetComboBoxItemId(ref cmbCombo2, cmbCombo2.SelectedIndex) + " ) AS INV ";
+            //else
+            //    strSQL = strSQL + " ) AS INV ";
+
+
+
+            if (dmlService.J_ExecSql(strSQL) == false) return;
+
+
+
+            // CALCULATING TOTAL VALUES
+
+            strSQL = "SELECT " + cmnService.J_SQLDBFormat("SUM(INV.TOTAL_AMOUNT)", J_ColumnType.Double, J_SQLColFormat.NullCheck) + "              AS TOT_AMOUNT, " +
+                     "       " + cmnService.J_SQLDBFormat("SUM(INV.DISCOUNT_AMOUNT)", J_ColumnType.Double, J_SQLColFormat.NullCheck) + "           AS TOT_DISCOUNT, " +
+                     "       " + cmnService.J_SQLDBFormat("SUM(INV.SALE_AMOUNT)", J_ColumnType.Double, J_SQLColFormat.NullCheck) + "               AS TOT_SALE_AMOUNT, " +
+                     "       " + cmnService.J_SQLDBFormat("SUM(INV.VAT_SALE_AMOUNT)", J_ColumnType.Double, J_SQLColFormat.NullCheck) + "           AS TOT_VAT_SALE_AMOUNT, " +
+                     "       " + cmnService.J_SQLDBFormat("SUM(INV.CST_SALE_AMOUNT)", J_ColumnType.Double, J_SQLColFormat.NullCheck) + "           AS TOT_CST_SALE_AMOUNT, " +
+                     "       " + cmnService.J_SQLDBFormat("SUM(INV.CST_FORMC_SALE_AMOUNT)", J_ColumnType.Double, J_SQLColFormat.NullCheck) + "     AS TOT_CST_FORMC_SALE_AMOUNT, " +
+                     "       " + cmnService.J_SQLDBFormat("SUM(INV.VAT_AMOUNT)", J_ColumnType.Double, J_SQLColFormat.NullCheck) + "                AS TOT_VAT_AMOUNT, " +
+                     "       " + cmnService.J_SQLDBFormat("SUM(INV.CST_AMOUNT)", J_ColumnType.Double, J_SQLColFormat.NullCheck) + "                AS TOT_CST_AMOUNT, " +
+                     "       " + cmnService.J_SQLDBFormat("SUM(INV.CST_FORMC_AMOUNT)", J_ColumnType.Double, J_SQLColFormat.NullCheck) + "          AS TOT_CST_FORMC_AMOUNT, " +
+                     "       " + cmnService.J_SQLDBFormat("SUM(INV.GROSS_AMOUNT)", J_ColumnType.Double, J_SQLColFormat.NullCheck) + "              AS TOT_GROSS_AMOUNT, " +
+                     "       " + cmnService.J_SQLDBFormat("SUM(INV.ADD_ADDITIONAL_COST)", J_ColumnType.Double, J_SQLColFormat.NullCheck) + "       AS TOT_ADD_ADDITIONAL_COST, " +
+                     "       " + cmnService.J_SQLDBFormat("SUM(INV.ADD_ROUNDED_OFF)", J_ColumnType.Double, J_SQLColFormat.NullCheck) + "           AS TOT_ADD_ROUNDED_OFF, " +
+                     "       " + cmnService.J_SQLDBFormat("SUM(INV.ADD_COST_ROUND_OFF_AMOUNT)", J_ColumnType.Double, J_SQLColFormat.NullCheck) + " AS TOT_ADD_COST_ROUND_OFF_AMOUNT, " +
+                     "       " + cmnService.J_SQLDBFormat("SUM(INV.NET_AMOUNT)", J_ColumnType.Double, J_SQLColFormat.NullCheck) + "                AS TOT_NET_AMOUNT " +
+                     "FROM   (SELECT DISTINCT INVOICE_HEADER_ID        AS INVOICE_HEADER_ID1, " +
+                     "                TOTAL_AMOUNT, " +
+                     "                DISCOUNT_AMOUNT, " +
+                     "                AMOUNT_WITH_DISCOUNT             AS SALE_AMOUNT, " +
+                     "                VAT_SALE_AMOUNT, " +
+                     "                CST_SALE_AMOUNT, " +
+                     "                CST_FORMC_SALE_AMOUNT, " +
+                     "                VAT_AMOUNT, " +
+                     "                CST_AMOUNT, " +
+                     "                CST_FORMC_AMOUNT, " +
+                     "                AMOUNT_WITH_TAX                  AS GROSS_AMOUNT, " +
+                     "                ADDITIONAL_COST                  AS ADD_ADDITIONAL_COST," +
+                     "                ROUNDED_OFF                      AS ADD_ROUNDED_OFF," +
+                     "                SUM_ADDITIONAL_DISCOUNT_ROUNDOFF AS ADD_COST_ROUND_OFF_AMOUNT," +
+                     "                NET_AMOUNT " +
+                     "          FROM   " + strTmpTableName + ")  AS INV ";
+
+            DataSet dsInvoice = dmlService.J_ExecSqlReturnDataSet(strSQL); ;
+
+            double tot_amount = 0;
+            double tot_discount = 0;
+            double tot_sale_amount = 0;
+            double tot_vat_sale_amount = 0;
+            double tot_cst_sale_amount = 0;
+            double tot_cst_formc_sale_amount = 0;
+            double tot_vat_amount = 0;
+            double tot_cst_amount = 0;
+            double tot_cst_formc_amount = 0;
+            double tot_gross_amount = 0;
+            double tot_additional_cost = 0;
+            double tot_rounded_off = 0;
+            double tot_add_cost_round_off_amount = 0;
+            double tot_net_amount = 0;
+
+            if (dsInvoice.Tables[0].Rows.Count > 0)
+            {
+                tot_amount = Convert.ToDouble(dsInvoice.Tables[0].Rows[0]["TOT_AMOUNT"]);
+                tot_discount = Convert.ToDouble(dsInvoice.Tables[0].Rows[0]["TOT_DISCOUNT"]);
+                tot_sale_amount = Convert.ToDouble(dsInvoice.Tables[0].Rows[0]["TOT_SALE_AMOUNT"]);
+                tot_vat_sale_amount = Convert.ToDouble(dsInvoice.Tables[0].Rows[0]["TOT_VAT_SALE_AMOUNT"]);
+                tot_cst_sale_amount = Convert.ToDouble(dsInvoice.Tables[0].Rows[0]["TOT_CST_SALE_AMOUNT"]);
+                tot_cst_formc_sale_amount = Convert.ToDouble(dsInvoice.Tables[0].Rows[0]["TOT_CST_FORMC_SALE_AMOUNT"]);
+                tot_vat_amount = Convert.ToDouble(dsInvoice.Tables[0].Rows[0]["TOT_VAT_AMOUNT"]);
+                tot_cst_amount = Convert.ToDouble(dsInvoice.Tables[0].Rows[0]["TOT_CST_AMOUNT"]);
+                tot_cst_formc_amount = Convert.ToDouble(dsInvoice.Tables[0].Rows[0]["TOT_CST_FORMC_AMOUNT"]);
+                tot_gross_amount = Convert.ToDouble(dsInvoice.Tables[0].Rows[0]["TOT_GROSS_AMOUNT"]);
+                tot_additional_cost = Convert.ToDouble(dsInvoice.Tables[0].Rows[0]["TOT_ADD_ADDITIONAL_COST"]);
+                tot_rounded_off = Convert.ToDouble(dsInvoice.Tables[0].Rows[0]["TOT_ADD_ROUNDED_OFF"]);
+                tot_add_cost_round_off_amount = Convert.ToDouble(dsInvoice.Tables[0].Rows[0]["TOT_ADD_COST_ROUND_OFF_AMOUNT"]);
+                tot_net_amount = Convert.ToDouble(dsInvoice.Tables[0].Rows[0]["TOT_NET_AMOUNT"]);
+            }
+
+            dsInvoice.Dispose();
+
+
+            //UPDATING TOTAL VALUES
+
+            strSQL = "UPDATE " + strTmpTableName + " " +
+                     "SET TOT_AMOUNT                    = " + tot_amount + ", " +
+                     "    TOT_DISCOUNT                  = " + tot_discount + ", " +
+                     "    TOT_SALE_AMOUNT               = " + tot_sale_amount + ", " +
+                     "    TOT_VAT_SALE_AMOUNT           = " + tot_vat_sale_amount + ", " +
+                     "    TOT_CST_SALE_AMOUNT           = " + tot_cst_sale_amount + ", " +
+                     "    TOT_CST_FORMC_SALE_AMOUNT     = " + tot_cst_formc_sale_amount + ", " +
+                     "    TOT_VAT_AMOUNT                = " + tot_vat_amount + ", " +
+                     "    TOT_CST_AMOUNT                = " + tot_cst_amount + ", " +
+                     "    TOT_CST_FORMC_AMOUNT          = " + tot_cst_formc_amount + ", " +
+                     "    TOT_GROSS_AMOUNT              = " + tot_gross_amount + ", " +
+                     "    TOT_ADDITIONAL_COST           = " + tot_additional_cost + ", " +
+                     "    TOT_ROUNDED_OFF               = " + tot_rounded_off + ", " +
+                     "    TOT_ADD_COST_ROUND_OFF_AMOUNT = " + tot_add_cost_round_off_amount + ", " +
+                     "    TOT_NET_AMOUNT                = " + tot_net_amount;
+            if (dmlService.J_ExecSql(strSQL) == false) return;
+
+            dmlService.J_Commit();
+
+            //REPORT QUERY
+
+            strQueryString = "SELECT COMPANY_NAME                  AS COMPANY_NAME1, " +
+                             "       ITEM_ID                       AS ITEM_ID1, " +
+                             "       ITEM_NAME                     AS ITEM_NAME1, " +
+                             "       SUM(QUANTITY)                 AS TOT_QUANTITY," +
+                             "       SUM(AMOUNT)                   AS TOT_AMOUNT," +
+                             "       TOT_AMOUNT                    AS SUM_TOT_AMOUNT," +
+                             "       TOT_DISCOUNT                  AS SUM_TOT_DISCOUNT," +
+                             "       TOT_SALE_AMOUNT               AS SUM_TOT_SALE_AMOUNT," +
+                             "       TOT_VAT_SALE_AMOUNT           AS SUM_TOT_VAT_SALE_AMOUNT," +
+                             "       TOT_CST_SALE_AMOUNT           AS SUM_TOT_CST_SALE_AMOUNT," +
+                             "       TOT_CST_FORMC_SALE_AMOUNT     AS SUM_TOT_CST_FORMC_SALE_AMOUNT," +
+                             "       TOT_VAT_AMOUNT                AS SUM_TOT_VAT_AMOUNT," +
+                             "       TOT_CST_AMOUNT                AS SUM_TOT_CST_AMOUNT," +
+                             "       TOT_CST_FORMC_AMOUNT          AS SUM_TOT_CST_FORMC_AMOUNT," +
+                             "       TOT_GROSS_AMOUNT              AS SUM_TOT_GROSS_AMOUNT," +
+                             "       TOT_ADDITIONAL_COST           AS SUM_TOT_ADDITIONAL_COST," +
+                             "       TOT_ROUNDED_OFF               AS SUM_TOT_ROUNDED_OFF," +
+                             "       TOT_ADD_COST_ROUND_OFF_AMOUNT AS SUM_TOT_ADD_COST_ROUND_OFF_AMOUNT," +
+                             "       TOT_NET_AMOUNT                AS SUM_TOT_NET_AMOUNT " +
+                             "FROM   " + strTmpTableName + " " +
+                             "GROUP BY COMPANY_NAME, " +
+                             "         ITEM_ID, " +
+                             "         ITEM_NAME, " +
+                             "         TOT_AMOUNT, " +
+                             "         TOT_DISCOUNT, " +
+                             "         TOT_SALE_AMOUNT, " +
+                             "         TOT_VAT_SALE_AMOUNT, " +
+                             "         TOT_CST_SALE_AMOUNT, " +
+                             "         TOT_CST_FORMC_SALE_AMOUNT, " +
+                             "         TOT_VAT_AMOUNT, " +
+                             "         TOT_CST_AMOUNT, " +
+                             "         TOT_CST_FORMC_AMOUNT, " +
+                             "         TOT_GROSS_AMOUNT, " +
+                             "         TOT_ADDITIONAL_COST, " +
+                             "         TOT_ROUNDED_OFF, " +
+                             "         TOT_ADD_COST_ROUND_OFF_AMOUNT, " +
+                             "         TOT_NET_AMOUNT ";
+
+            // transaction is commited
+
+            crItemWiseInvoiceSummary rptItemWiseInvoiceSummary = new crItemWiseInvoiceSummary();
+            rptcls = (ReportClass)rptItemWiseInvoiceSummary;
+
+            // set text to report
+            rptService.J_SetTextToReport(ref rptcls, 2, "txtFromToDate", "From " + mskFromDate.Text + " to " + mskToDate.Text);
+
+            // execute the report as per above sql
+            rptService.J_PreviewReport(ref rptcls, this, strQueryString, J_Var.J_pCompanyName, J_Var.J_pBranchAddress, lblTitle.Text);
+
+            // Drop the report temp table
+            if (dmlService.J_ExecSql("DROP TABLE " + strTmpTableName) == false) return;
+
+        }
+        #endregion
+
+        #region PrintTaxRegister
+        private void PrintTaxRegister()
+        {
+
+            // Added by Ripan Paul on 05-08-2011
+            /* (1) Column Value
+             * (2) Column Data Type
+             * (3) Replace String
+             * (4) Replace String Data Type */
+            string[,] strCaseEnd_VAT_AMOUNT = {{"TRN_INVOICE_TAX.TAX_ID = " + BS_TaxId.VAT_ID, "F", "TRN_INVOICE_TAX.TAX_AMOUNT", "F"},
+							                   {"TRN_INVOICE_TAX.TAX_ID <> " + BS_TaxId.VAT_ID, "F", "0", "N"}};
+
+            //COMMENTED BY SHREY KEJRIWAL ON 25/06/2012
+            //string[,] strCaseEnd_CST_AMOUNT = {{"TRN_INVOICE_TAX.TAX_ID = " + BS_TaxId.CST_ID, "F", "TRN_INVOICE_TAX.TAX_AMOUNT", "F"},
+            //                                   {"TRN_INVOICE_TAX.TAX_ID <> " + BS_TaxId.CST_ID, "F", "0", "N"}};
+
+            //ADDED BY SHREY KEJRIWAL ON 25/06/2012
+            string[,] strCaseEnd_CST_AMOUNT = {{"TRN_INVOICE_TAX.TAX_ID IN (" + BS_TaxId.CST_ID + ", " + BS_TaxId.CST_ID_FORM_C + ")", "F", "TRN_INVOICE_TAX.TAX_AMOUNT", "F"},
+							                   {"TRN_INVOICE_TAX.TAX_ID <> " + BS_TaxId.CST_ID, "F", "0", "N"}};
+
+            string[,] strCaseEnd_VAT_SALE_AMOUNT = {{"INV.VAT_AMOUNT = 0 AND INV.CST_AMOUNT = 0", "F", "INV.AMOUNT_WITH_DISCOUNT", "F"},
+                                                    {"INV.VAT_AMOUNT > 0 ", "F", "INV.AMOUNT_WITH_DISCOUNT", "F"},
+							                        {"INV.VAT_AMOUNT = 0", "F", "0", "N"}};
+
+            string[,] strCaseEnd_CST_SALE_AMOUNT = {{"INV.CST_AMOUNT > 0 ", "F", "INV.AMOUNT_WITH_DISCOUNT", "F"},
+							                        {"INV.CST_AMOUNT = 0", "F", "0", "N"}};
+
+
+            //Added by Shrey Kejriwal on 17/08/2011 
+            //Report Query
+            strQueryString = "SELECT INV.COMPANY_NAME                     AS COMPANY_NAME," +
+                             "       INV.INVOICE_HEADER_ID                AS INVOICE_HEADER_ID," +
+                             "       INV.INVOICE_DATE                     AS INVOICE_DATE," +
+                             "       INV.INVOICE_NO                       AS INVOICE_NO," +
+                             "       INV.PARTY_ID                         AS PARTY_ID," +
+                             "       INV.PARTY_NAME                       AS PARTY_NAME," +
+                             "       INV.TOTAL_AMOUNT                     AS TOTAL_AMOUNT," +
+                             "       INV.DISCOUNT_TEXT                    AS DISCOUNT_TEXT," +
+                             "       INV.DISCOUNT_RATE                    AS DISCOUNT_RATE," +
+                             "       INV.DISCOUNT_AMOUNT                  AS DISCOUNT_AMOUNT," +
+                             "       INV.AMOUNT_WITH_DISCOUNT             AS AMOUNT_WITH_DISCOUNT," +
+                             "       " + cmnService.J_SQLDBFormat(strCaseEnd_VAT_SALE_AMOUNT, J_SQLColFormat.Case_End, J_ElsePart.YES) + " AS VAT_SALE_AMOUNT," +
+                             "       " + cmnService.J_SQLDBFormat(strCaseEnd_CST_SALE_AMOUNT, J_SQLColFormat.Case_End, J_ElsePart.YES) + " AS CST_SALE_AMOUNT," +
+                             "       INV.VAT_AMOUNT                       AS VAT_AMOUNT," +
+                             "       INV.CST_AMOUNT                       AS CST_AMOUNT," +
+                             "       INV.TAX_TOTAL_AMOUNT                 AS TAX_TOTAL_AMOUNT," +
+                             "       INV.AMOUNT_WITH_TAX                  AS AMOUNT_WITH_TAX," +
+                             "       INV.ADDITIONAL_COST                  AS ADDITIONAL_COST," +
+                             "       INV.AMOUNT_WITH_ADDITIONAL_COST      AS AMOUNT_WITH_ADDITIONAL_COST," +
+                             "       INV.ROUNDED_OFF                      AS ROUNDED_OFF," +
+                             "       INV.SUM_ADDITIONAL_DISCOUNT_ROUNDOFF AS SUM_ADDITIONAL_DISCOUNT_ROUNDOFF," +
+                             "       INV.NET_AMOUNT                       AS NET_AMOUNT," +
+                             "       INV.NET_AMOUNT_INWORDS               AS NET_AMOUNT_INWORDS," +
+                             "       INV.REMARKS                          AS REMARKS " +
+                             "FROM  (SELECT INV.COMPANY_NAME                     AS COMPANY_NAME, " +
+                             "              INV.INVOICE_HEADER_ID                AS INVOICE_HEADER_ID, " +
+                             "              " + cmnService.J_SQLDBFormat("INV.INVOICE_DATE", J_SQLColFormat.DateFormatDDMMYYYY) + " AS INVOICE_DATE,  " +
+                             "              INV.INVOICE_NO                       AS INVOICE_NO,  " +
+                             "              INV.PARTY_ID                         AS PARTY_ID, " +
+                             "              INV.PARTY_NAME                       AS PARTY_NAME, " +
+                             "              INV.TOTAL_AMOUNT                     AS TOTAL_AMOUNT, " +
+                             "              INV.DISCOUNT_TEXT                    AS DISCOUNT_TEXT,  " +
+                             "              INV.DISCOUNT_RATE                    AS DISCOUNT_RATE,  " +
+                             "              INV.DISCOUNT_AMOUNT                  AS DISCOUNT_AMOUNT,  " +
+                             "              INV.AMOUNT_WITH_DISCOUNT             AS AMOUNT_WITH_DISCOUNT,  " +
+                             "              " + cmnService.J_SQLDBFormat("TAX.VAT_AMOUNT", J_ColumnType.Double, J_SQLColFormat.NullCheck) + " AS VAT_AMOUNT, " +
+                             "              " + cmnService.J_SQLDBFormat("TAX.CST_AMOUNT", J_ColumnType.Double, J_SQLColFormat.NullCheck) + " AS CST_AMOUNT, " +
+                             "              INV.TAX_TOTAL_AMOUNT                 AS TAX_TOTAL_AMOUNT,  " +
+                             "              INV.AMOUNT_WITH_TAX                  AS AMOUNT_WITH_TAX,  " +
+                             "              INV.ADDITIONAL_COST                  AS ADDITIONAL_COST,  " +
+                             "              INV.AMOUNT_WITH_ADDITIONAL_COST      AS AMOUNT_WITH_ADDITIONAL_COST,  " +
+                             "              INV.ROUNDED_OFF                      AS ROUNDED_OFF,  " +
+                             "              INV.SUM_ADDITIONAL_DISCOUNT_ROUNDOFF AS SUM_ADDITIONAL_DISCOUNT_ROUNDOFF,  " +
+                             "              INV.NET_AMOUNT                       AS NET_AMOUNT,  " +
+                             "              INV.NET_AMOUNT_INWORDS               AS NET_AMOUNT_INWORDS,  " +
+                             "              INV.REMARKS                          AS REMARKS " +
+                             "       FROM  (SELECT MST_COMPANY.COMPANY_ID                         AS COMPANY_ID," +
+                             "                     MST_COMPANY.COMPANY_NAME                       AS COMPANY_NAME," +
+                             "                     TRN_INVOICE_HEADER.INVOICE_HEADER_ID           AS INVOICE_HEADER_ID, " +
+                             "                     TRN_INVOICE_HEADER.BRANCH_ID                   AS BRANCH_ID,  " +
+                             "                     TRN_INVOICE_HEADER.FAYEAR_ID                   AS FAYEAR_ID,  " +
+                             "                     TRN_INVOICE_HEADER.INVOICE_SERIES_ID           AS INVOICE_SERIES_ID,  " +
+                             "                     TRN_INVOICE_HEADER.INVOICE_DATE                AS INVOICE_DATE,  " +
+                             "                     TRN_INVOICE_HEADER.INVOICE_NO                  AS INVOICE_NO,  " +
+                             "                     MST_PARTY.PARTY_ID                             AS PARTY_ID, " +
+                             "                     MST_PARTY.PARTY_NAME                           AS PARTY_NAME, " +
+                             "                     TRN_INVOICE_HEADER.TOTAL_AMOUNT                AS TOTAL_AMOUNT,  " +
+                             "                     TRN_INVOICE_HEADER.DISCOUNT_TEXT               AS DISCOUNT_TEXT,  " +
+                             "                     TRN_INVOICE_HEADER.DISCOUNT_RATE               AS DISCOUNT_RATE,  " +
+                             "                     TRN_INVOICE_HEADER.DISCOUNT_AMOUNT             AS DISCOUNT_AMOUNT,  " +
+                             "                     TRN_INVOICE_HEADER.AMOUNT_WITH_DISCOUNT        AS AMOUNT_WITH_DISCOUNT,  " +
+                             "                     TRN_INVOICE_HEADER.TAX_TOTAL_AMOUNT            AS TAX_TOTAL_AMOUNT,  " +
+                             "                     TRN_INVOICE_HEADER.AMOUNT_WITH_TAX             AS AMOUNT_WITH_TAX,  " +
+                             "                     TRN_INVOICE_HEADER.ADDITIONAL_COST             AS ADDITIONAL_COST,  " +
+                             "                     TRN_INVOICE_HEADER.AMOUNT_WITH_ADDITIONAL_COST AS AMOUNT_WITH_ADDITIONAL_COST,  " +
+                             "                     TRN_INVOICE_HEADER.ROUNDED_OFF                 AS ROUNDED_OFF,  " +
+                             "                     TRN_INVOICE_HEADER.ADDITIONAL_COST + TRN_INVOICE_HEADER.ROUNDED_OFF AS SUM_ADDITIONAL_DISCOUNT_ROUNDOFF ," +
+                             "                     TRN_INVOICE_HEADER.NET_AMOUNT                  AS NET_AMOUNT,  " +
+                             "                     TRN_INVOICE_HEADER.NET_AMOUNT_INWORDS          AS NET_AMOUNT_INWORDS,  " +
+                             "                     TRN_INVOICE_HEADER.REMARKS                     AS REMARKS " +
+                             "              FROM   TRN_INVOICE_HEADER, " +
+                             "                     MST_COMPANY, " +
+                             "                     MST_INVOICE_SERIES, " +
+                             "                     MST_PARTY " +
+                             "              WHERE  TRN_INVOICE_HEADER.COMPANY_ID        = MST_COMPANY.COMPANY_ID " +
+                             "              AND    TRN_INVOICE_HEADER.INVOICE_SERIES_ID = MST_INVOICE_SERIES.INVOICE_SERIES_ID " +
+                             "              AND    TRN_INVOICE_HEADER.PARTY_ID          = MST_PARTY.PARTY_ID) AS INV " +
+                             "       LEFT JOIN " +
+                             "             (SELECT TRN_INVOICE_TAX.INVOICE_HEADER_ID AS INVOICE_HEADER_ID, " +
+                             "                     TRN_INVOICE_TAX.TAX_ID            AS TAX_ID, " +
+                             "                     MST_TAX.TAX_DESC                  AS TAX_DESC, " +
+                             "                     TRN_INVOICE_TAX.TAX_RATE          AS TAX_RATE, " +
+                             "                     " + cmnService.J_SQLDBFormat(strCaseEnd_VAT_AMOUNT, J_SQLColFormat.Case_End) + " AS VAT_AMOUNT," +
+                             "                     " + cmnService.J_SQLDBFormat(strCaseEnd_CST_AMOUNT, J_SQLColFormat.Case_End) + " AS CST_AMOUNT " +
+                             "                     FROM   TRN_INVOICE_TAX, " +
+                             "                     MST_TAX " +
+                             "              WHERE  TRN_INVOICE_TAX.TAX_ID = MST_TAX.TAX_ID " +
+                             "              AND    TRN_INVOICE_TAX.TAX_ID IN(" + BS_TaxId.VAT_ID + "," + BS_TaxId.CST_ID + "," + BS_TaxId.CST_ID_FORM_C + ")) AS TAX " +
+                             "       ON     INV.INVOICE_HEADER_ID = TAX.INVOICE_HEADER_ID " +
+                             "       WHERE  INV.INVOICE_DATE     >= " + cmnService.J_DateOperator() + dtservice.J_ConvertMMddyyyy(mskFromDate) + cmnService.J_DateOperator() + " " +
+                             "       AND    INV.INVOICE_DATE     <= " + cmnService.J_DateOperator() + dtservice.J_ConvertMMddyyyy(mskToDate) + cmnService.J_DateOperator() + " " +
+                             "       AND    INV.COMPANY_ID        = " + cmnService.J_GetComboBoxItemId(ref cmbCombo1, cmbCombo1.SelectedIndex) + " " +
+                             "       AND    INV.BRANCH_ID         = " + J_Var.J_pBranchId + " " +
+                             "       AND    INV.FAYEAR_ID         = " + J_Var.J_pFAYearId + " ";
+
+            if (cmbCombo2.Text != "")
+                strQueryString = strQueryString + "AND INV.INVOICE_SERIES_ID = " + cmnService.J_GetComboBoxItemId(ref cmbCombo2, cmbCombo2.SelectedIndex) + " ) AS INV ";
+            else
+                strQueryString = strQueryString + " ) AS INV ";
+
+            strQueryString = strQueryString + "ORDER BY INV.INVOICE_DATE, INV.INVOICE_NO ";
+
+            crTaxRegister rptTaxRegister = new crTaxRegister();
+            rptcls = (ReportClass)rptTaxRegister;
+
+            // set text to report
+            rptService.J_SetTextToReport(ref rptcls, 2, "txtFromToDate", "From " + mskFromDate.Text + " to " + mskToDate.Text);
+
+            // execute the report as per above sql
+            rptService.J_PreviewReport(ref rptcls, this, strQueryString, J_Var.J_pCompanyName, J_Var.J_pBranchAddress, lblTitle.Text);
+
+        }
+        #endregion
+
+        #endregion
+
+        #endregion
+    }   
+}

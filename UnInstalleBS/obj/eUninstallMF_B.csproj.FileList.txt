@@ -1,0 +1,5 @@
+..\MFMSBranch\bin\Debug\eUninstallMF_B.exe
+..\MFMSBranch\bin\Debug\eUninstallMF_B.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\eUninstallMF_B.exe
+obj\Debug\eUninstallMF_B.pdb

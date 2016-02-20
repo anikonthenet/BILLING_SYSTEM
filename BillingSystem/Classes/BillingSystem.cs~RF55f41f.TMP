@@ -1,0 +1,353 @@
+    #region Refered Namespaces
+
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
+    using System.Data;
+    using System.Collections;
+    using System.Data.Sql;
+    using System.Data.SqlClient;
+    using System.Data.OracleClient;
+    using System.Data.OleDb;
+    using System.Data.Odbc;
+    using System.Windows.Forms;
+    using System.Reflection;
+
+    using System.IO;
+
+    using Microsoft.VisualBasic.Compatibility.VB6;
+
+    #endregion
+
+namespace BillingSystem.Classes
+{
+
+    #region BS_TaxId
+    //Added by Shrey Kejriwal on 19/08/2011
+    public struct BS_TaxId
+    {
+        public static int VAT_ID = 1;
+        public static int CST_ID = 3;
+        public static int CST_ID_FORM_C = 6;
+    }
+    #endregion
+
+    class BS
+    {
+
+        #region Private Variable declaration
+
+        private static string PartyName = "";
+
+        #endregion
+
+        #region BS_PartyName
+        public static string BS_PartyName
+        {
+            get { return PartyName; }
+            set { PartyName = value; }
+        }
+        #endregion
+
+        #region T_SystemMaintenance
+        public bool T_SystemMaintenance()
+        {
+            try
+            {
+
+                #region LOCK_SERIAL_NO
+                if (dmlService.J_IsDatabaseObjectExist("MST_BANK") == false)
+                {
+                    // ****************************************************************
+                    // ** ADDING SERIAL LOCK COLUMN IN FA YEAR TABLE
+                    //*****************************************************************
+
+                    strSQL = "ALTER TABLE MST_FAYEAR ADD LOCK_SERIAL_NO SMALLINT DEFAULT 0";
+                    dmlService.J_ExecSql(strSQL);
+
+                    //SETTING DEFAULT VALUE AS ZERO(NOT LOCKED)
+                    strSQL = "UPDATE MST_FAYEAR SET LOCK_SERIAL_NO = 0 ";
+                    dmlService.J_ExecSql(strSQL);
+
+                }
+                #endregion
+
+                #region NO_OF_PACKAGES
+                if (dmlService.J_IsDatabaseObjectExist("TRN_HEADER", "NO_OF_PACKAGES") == false)
+                {
+                    // ****************************************************************
+                    // ** ADDING NO_OF_PACKAGES COLUMN IN TRN_HEADER TABLE
+                    //*****************************************************************
+
+                    strSQL = "ALTER TABLE TRN_HEADER ADD NO_OF_PACKAGES INT DEFAULT 0";
+                    dmlService.J_ExecSql(strSQL);
+
+                    //SETTING DEFAULT VALUE AS ZERO
+                    strSQL = "UPDATE TRN_HEADER SET NO_OF_PACKAGES = 0 ";
+                    dmlService.J_ExecSql(strSQL);
+
+                }
+                #endregion
+
+                #region CANCELLATION_FLAG
+                if (dmlService.J_IsDatabaseObjectExist("TRN_HEADER", "CANCELLATION_FLAG") == false)
+                {
+                    // ****************************************************************
+                    // ** ADDING CANCELLATION_FLAG COLUMN IN TRN_HEADER TABLE
+                    //*****************************************************************
+
+                    strSQL = "ALTER TABLE TRN_HEADER ADD CANCELLATION_FLAG SMALLINT DEFAULT 0";
+                    dmlService.J_ExecSql(strSQL);
+
+                    //SETTING DEFAULT VALUE AS ZERO(NOT CANCELLED)
+                    strSQL = "UPDATE TRN_HEADER SET CANCELLATION_FLAG = 0 ";
+                    dmlService.J_ExecSql(strSQL);
+
+                }
+                #endregion
+
+                #region RESTRICT_BACKDATE
+                if (dmlService.J_IsDatabaseObjectExist("MST_COMPANY", "RESTRICT_BACKDATE") == false)
+                {
+                    // ****************************************************************
+                    // ** ADDING RESTRICT_BACKDATE COLUMN IN MST_COMPANY TABLE
+                    //*****************************************************************
+
+                    strSQL = "ALTER TABLE MST_COMPANY ADD RESTRICT_BACKDATE SMALLINT DEFAULT 0";
+                    dmlService.J_ExecSql(strSQL);
+
+                    //SETTING DEFAULT VALUE AS ZERO(NOT RESTRICTED)
+                    strSQL = "UPDATE MST_COMPANY SET RESTRICT_BACKDATE = 0 ";
+                    dmlService.J_ExecSql(strSQL);
+
+                }
+                #endregion
+
+                #region USER_ID(TRN_HEADER)
+                if (dmlService.J_IsDatabaseObjectExist("TRN_HEADER", "USER_ID") == false)
+                {
+                    // ****************************************************************
+                    // ** ADDING USER_ID COLUMN IN TRN_HEADER TABLE
+                    //*****************************************************************
+
+                    strSQL = "ALTER TABLE TRN_HEADER ADD USER_ID BIGINT DEFAULT 0";
+                    dmlService.J_ExecSql(strSQL);
+
+                    //SETTING DEFAULT VALUE AS ZERO
+                    strSQL = "UPDATE TRN_HEADER SET USER_ID = 0 ";
+                    dmlService.J_ExecSql(strSQL);
+
+                }
+                #endregion
+
+                #region USER_ID(MST_ITEM)
+                if (dmlService.J_IsDatabaseObjectExist("MST_ITEM", "USER_ID") == false)
+                {
+                    // ****************************************************************
+                    // ** ADDING USER_ID COLUMN IN MST_ITEM TABLE
+                    //*****************************************************************
+
+                    strSQL = "ALTER TABLE MST_ITEM ADD USER_ID BIGINT DEFAULT 0";
+                    dmlService.J_ExecSql(strSQL);
+
+                    //SETTING DEFAULT VALUE AS ZERO
+                    strSQL = "UPDATE MST_ITEM SET USER_ID = 0 ";
+                    dmlService.J_ExecSql(strSQL);
+
+                }
+                #endregion
+
+                #region USER_ID(MST_ITEM_RATE)
+                if (dmlService.J_IsDatabaseObjectExist("MST_ITEM_RATE", "USER_ID") == false)
+                {
+                    // ****************************************************************
+                    // ** ADDING USER_ID COLUMN IN MST_ITEM_RATE TABLE
+                    //*****************************************************************
+
+                    strSQL = "ALTER TABLE MST_ITEM_RATE ADD USER_ID BIGINT DEFAULT 0";
+                    dmlService.J_ExecSql(strSQL);
+
+                    //SETTING DEFAULT VALUE AS ZERO
+                    strSQL = "UPDATE MST_ITEM_RATE SET USER_ID = 0 ";
+                    dmlService.J_ExecSql(strSQL);
+
+                }
+                #endregion
+
+                #region USER_ID(MST_PARTY)
+                if (dmlService.J_IsDatabaseObjectExist("MST_PARTY", "USER_ID") == false)
+                {
+                    // ****************************************************************
+                    // ** ADDING USER_ID COLUMN IN MST_PARTY TABLE
+                    //*****************************************************************
+
+                    strSQL = "ALTER TABLE MST_PARTY ADD USER_ID BIGINT DEFAULT 0";
+                    dmlService.J_ExecSql(strSQL);
+
+                    //SETTING DEFAULT VALUE AS ZERO
+                    strSQL = "UPDATE MST_PARTY SET USER_ID = 0 ";
+                    dmlService.J_ExecSql(strSQL);
+
+                }
+                #endregion
+
+                #region PRINT_LOGO(MST_COMPANY)
+                if (dmlService.J_IsDatabaseObjectExist("MST_COMPANY", "PRINT_LOGO") == false)
+                {
+                    // ****************************************************************
+                    // ** ADDING PRINT_LOGO COLUMN IN MST_COMPANY TABLE
+                    // ****************************************************************
+
+                    strSQL = "ALTER TABLE MST_COMPANY ADD PRINT_LOGO SMALLINT DEFAULT 0";
+                    dmlService.J_ExecSql(strSQL);
+
+                    //SETTING DEFAULT VALUE AS ZERO
+                    strSQL = "UPDATE MST_COMPANY SET PRINT_LOGO = 0 ";
+                    dmlService.J_ExecSql(strSQL);
+
+                }
+                #endregion
+
+                #region EXCISE_PAYABLE_CHECK(MST_COMPANY)
+                if (dmlService.J_IsDatabaseObjectExist("MST_COMPANY", "EXCISE_PAYABLE_CHECK") == false)
+                {
+                    // ****************************************************************
+                    // ** ADDING EXCISE_PAYABLE_CHECK COLUMN IN MST_COMPANY TABLE
+                    // ****************************************************************
+
+                    strSQL = "ALTER TABLE MST_COMPANY ADD EXCISE_PAYABLE_CHECK SMALLINT DEFAULT 0";
+                    dmlService.J_ExecSql(strSQL);
+
+                    //SETTING DEFAULT VALUE AS ZERO
+                    strSQL = "UPDATE MST_COMPANY SET EXCISE_PAYABLE_CHECK = 0 ";
+                    dmlService.J_ExecSql(strSQL);
+
+                }
+                #endregion
+
+                #region EXCISE_REMARKS(MST_EXCISE)
+                if (dmlService.J_IsDatabaseObjectExist("MST_EXCISE", "EXCISE_REMARKS") == false)
+                {
+                    // ****************************************************************
+                    // ** ADDING EXCISE_REMARKS COLUMN IN MST_EXCISE TABLE
+                    // ****************************************************************
+
+                    strSQL = "ALTER TABLE MST_EXCISE ADD EXCISE_REMARKS VARCHAR(75) DEFAULT ''";
+                    dmlService.J_ExecSql(strSQL);
+
+                    //SETTING DEFAULT VALUE AS ZERO
+                    strSQL = "UPDATE MST_EXCISE SET EXCISE_REMARKS = '' ";
+                    dmlService.J_ExecSql(strSQL);
+
+                }
+                #endregion
+
+                #region DISCOUNT_RATE(MST_PARTY)
+                if (dmlService.J_IsDatabaseObjectExist("MST_PARTY", "DISCOUNT_RATE") == false)
+                {
+                    // ****************************************************************
+                    // ** ADDING DISCOUNT_RATE COLUMN IN MST_PARTY TABLE
+                    // ****************************************************************
+
+                    strSQL = "ALTER TABLE MST_PARTY ADD DISCOUNT_RATE MONEY DEFAULT 0";
+                    dmlService.J_ExecSql(strSQL);
+
+                    //SETTING DEFAULT VALUE AS ZERO
+                    strSQL = "UPDATE MST_PARTY SET DISCOUNT_RATE = 0 ";
+                    dmlService.J_ExecSql(strSQL);
+
+                }
+                #endregion
+
+                #region DISPLAY_DISCOUNT_RATE
+                if (dmlService.J_IsDatabaseObjectExist("MST_COMPANY", "DISPLAY_DISCOUNT_RATE") == false)
+                {
+                    // ****************************************************************
+                    // ** ADDING DISPLAY_DISCOUNT_RATE COLUMN IN MST_COMPANY TABLE
+                    //*****************************************************************
+
+                    strSQL = "ALTER TABLE MST_COMPANY ADD DISPLAY_DISCOUNT_RATE SMALLINT DEFAULT 0";
+                    dmlService.J_ExecSql(strSQL);
+
+                    //SETTING DEFAULT VALUE AS ZERO(NOT RESTRICTED)
+                    strSQL = "UPDATE MST_COMPANY SET DISPLAY_DISCOUNT_RATE = " + (int)J_DisplayDiscountRate.Displayed;
+                    dmlService.J_ExecSql(strSQL);
+
+                }
+                #endregion
+
+                #region EXCISE_DEDUCTION_RATE
+                if (dmlService.J_IsDatabaseObjectExist("MST_COMPANY", "EXCISE_DEDUCTION_RATE") == false)
+                {
+                    // ****************************************************************
+                    // ** ADDING EXCISE_DEDUCTION_RATE COLUMN IN MST_COMPANY TABLE
+                    //*****************************************************************
+
+                    strSQL = "ALTER TABLE MST_COMPANY ADD EXCISE_DEDUCTION_RATE MONEY DEFAULT 0";
+                    dmlService.J_ExecSql(strSQL);
+
+                    //SETTING DEFAULT VALUE AS ZERO
+                    strSQL = "UPDATE MST_COMPANY SET EXCISE_DEDUCTION_RATE = 0";
+                    dmlService.J_ExecSql(strSQL);
+                    //*****************************************************************
+
+                }
+                #endregion
+
+                #region WITHOUT_EXCISE_FORMAT
+                if (dmlService.J_IsDatabaseObjectExist("MST_COMPANY", "WITHOUT_EXCISE_FORMAT") == false)
+                {
+                    //Added by Shrey Kejriwal on 16/03/2013
+
+                    // ****************************************************************
+                    // ** ADDING WITHOUT_EXCISE_FORMAT COLUMN IN MST_COMPANY TABLE
+                    //*****************************************************************
+
+                    strSQL = "ALTER TABLE MST_COMPANY ADD WITHOUT_EXCISE_FORMAT SMALLINT DEFAULT 0";
+                    dmlService.J_ExecSql(strSQL);
+
+                    //SETTING DEFAULT VALUE AS ZERO
+                    strSQL = "UPDATE MST_COMPANY SET WITHOUT_EXCISE_FORMAT = 0";
+                    dmlService.J_ExecSql(strSQL);
+                    //*****************************************************************
+
+                }
+                #endregion
+
+                #region TIN_NO
+                if (dmlService.J_IsDatabaseObjectExist("MST_COMPANY", "TIN_NO") == false)
+                {
+                    //Added by Shrey Kejriwal on 16/03/2013
+
+                    // ****************************************************************
+                    // ** ADDING WITHOUT_EXCISE_FORMAT COLUMN IN MST_COMPANY TABLE
+                    //*****************************************************************
+
+                    strSQL = "ALTER TABLE MST_COMPANY ADD TIN_NO VARCHAR(20) DEFAULT \'\'";
+                    dmlService.J_ExecSql(strSQL);
+
+                    //SETTING DEFAULT VALUE AS ZERO
+                    strSQL = "UPDATE MST_COMPANY SET TIN_NO = \'\'";
+                    dmlService.J_ExecSql(strSQL);
+                    //*****************************************************************
+
+                }
+                #endregion
+
+
+
+                return true;
+
+            }
+            catch (Exception err_handler)
+            {
+                cmnService.J_UserMessage(err_handler.Message);
+                return false;
+            }
+        }
+        #endregion
+
+      
+    }
+}

@@ -1,0 +1,7 @@
+..\eMicroFinanceBranch\bin\Debug\eUnInstalleMF.exe
+..\eMicroFinanceBranch\bin\Debug\eUnInstalleMF.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\eUnInstalleMF.exe
+obj\Debug\eUnInstalleMF.pdb
+..\MFMSBranch\bin\Debug\eUnInstalleMF.exe
+..\MFMSBranch\bin\Debug\eUnInstalleMF.pdb

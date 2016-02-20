@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JAYA.CSharp", "JAYA.CSharp\JAYA.CSharp.csproj", "{F78EB57D-7FD9-4D5B-B6AE-F2ED3341BBF3}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "JAYA.VB", "JAYA.VB\JAYA.VB.vbproj", "{C0B2B3D0-ECDA-44D6-8781-21AFB175AA49}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{F78EB57D-7FD9-4D5B-B6AE-F2ED3341BBF3}.Debug.ActiveCfg = Debug|.NET
+		{F78EB57D-7FD9-4D5B-B6AE-F2ED3341BBF3}.Debug.Build.0 = Debug|.NET
+		{F78EB57D-7FD9-4D5B-B6AE-F2ED3341BBF3}.Release.ActiveCfg = Release|.NET
+		{F78EB57D-7FD9-4D5B-B6AE-F2ED3341BBF3}.Release.Build.0 = Release|.NET
+		{C0B2B3D0-ECDA-44D6-8781-21AFB175AA49}.Debug.ActiveCfg = Debug|.NET
+		{C0B2B3D0-ECDA-44D6-8781-21AFB175AA49}.Debug.Build.0 = Debug|.NET
+		{C0B2B3D0-ECDA-44D6-8781-21AFB175AA49}.Release.ActiveCfg = Release|.NET
+		{C0B2B3D0-ECDA-44D6-8781-21AFB175AA49}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

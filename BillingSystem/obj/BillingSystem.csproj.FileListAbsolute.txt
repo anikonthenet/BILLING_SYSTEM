@@ -1,0 +1,494 @@
+E:\Running projects\NETProj Billing System\BillingSystem\bin\Debug\BillingSystem.exe.config
+E:\Running projects\NETProj Billing System\BillingSystem\bin\Debug\BillingSystem.exe
+E:\Running projects\NETProj Billing System\BillingSystem\bin\Debug\BillingSystem.pdb
+E:\Running projects\NETProj Billing System\BillingSystem\bin\Debug\AxInterop.MSHierarchicalFlexGridLib.dll
+E:\Running projects\NETProj Billing System\BillingSystem\bin\Debug\DGControl.dll
+E:\Running projects\NETProj Billing System\BillingSystem\bin\Debug\Interop.MSHierarchicalFlexGridLib.dll
+E:\Running projects\NETProj Billing System\BillingSystem\bin\Debug\JAYA.VB.dll
+E:\Running projects\NETProj Billing System\BillingSystem\bin\Debug\DGControl.pdb
+E:\Running projects\NETProj Billing System\BillingSystem\bin\Debug\JAYA.VB.pdb
+E:\Running projects\NETProj Billing System\BillingSystem\bin\Debug\MSDATASRC.dll
+E:\Running projects\NETProj Billing System\BillingSystem\bin\Debug\stdole.dll
+E:\Running projects\NETProj Billing System\BillingSystem\bin\Debug\Interop.ADODB.dll
+E:\Running projects\NETProj Billing System\BillingSystem\bin\Debug\Interop.ADOX.dll
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\ResolveAssemblyReference.cache
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\Interop.ADODB.dll
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\Interop.ADOX.dll
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.csproj.ResolveComReference.cache
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crCompanyMaster.rpt
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crFAYearMaster.rpt
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crInvoiceSeriesMaster.rpt
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crItemMaster.rpt
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crPartyMaster.rpt
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crUserMaster.rpt
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crSalesDistribution.rpt
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crDetailsCollectionType.rpt
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crBankStDateWiseRegister.rpt
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crPendingCCAvenueTransactions.rpt
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crBillWiseOutstanding.rpt
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crListOfUnknownDeposits.rpt
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crAccountsEntryDateWiseRegister.rpt
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crCategoryWiseRegister.rpt
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crItemWiseInvoiceSummary_30042013.rpt
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crTaxRegister.rpt
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crInvoice.rpt
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crInvoiceRegister.rpt
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crItemWiseInvoiceSummary.rpt
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormGen.GenForm.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormCmn.CmnChangePassword.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormCmn.CmnCreate1stFAYear.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormCmn.CmnHelp.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormCmn.CmnLogin.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormCmn.CmnPopUp.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstCompany.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstInvoiceSeries.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstItem.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstParty.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstSetup.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstTax.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.mdiBillingSystem.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysServerInfoLocalBrowser.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormPar.MstFAYear.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstUser.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormRpt.RptDialog.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormRpt.RptPreview.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysBackup.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysBuildIndex.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysMenuMaintainence.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysServerInfoLocal.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysServerInfoNetwork.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysSystemMaintainence.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysUserRightsGrigView.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnUnknownPaymentEntry.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnBankEntry.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnInvoiceEntry.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.PopUp.TrnInvoicePrint.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.PopUp.TrnPartySave.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormUtl.UtlAbout.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Properties.Resources.resources
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.csproj.GenerateResource.Cache
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.exe
+E:\Running projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.pdb
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\bin\Debug\BillingSystem.exe.config
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\bin\Debug\BillingSystem.exe
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\bin\Debug\BillingSystem.pdb
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\bin\Debug\AxInterop.MSHierarchicalFlexGridLib.dll
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\bin\Debug\DGControl.dll
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\bin\Debug\Interop.MSHierarchicalFlexGridLib.dll
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\bin\Debug\JAYA.VB.dll
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\bin\Debug\DGControl.pdb
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\bin\Debug\JAYA.VB.pdb
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\bin\Debug\MSDATASRC.dll
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\bin\Debug\stdole.dll
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\bin\Debug\Interop.ADODB.dll
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\bin\Debug\Interop.ADOX.dll
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\ResolveAssemblyReference.cache
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\Interop.ADODB.dll
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\Interop.ADOX.dll
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.csproj.ResolveComReference.cache
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crCompanyMaster.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crFAYearMaster.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crInvoiceSeriesMaster.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crItemMaster.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crPartyMaster.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crUserMaster.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crCollectionDuringCurrentPeriod.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crCurrentBillsAgainstAdvanceReceipt.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crSundryPartySaleForThePeriod.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crCollectionDuringThisPeriod.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crCollectionDuringPreviousPeriod.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crOutstandingAmountForThePeriod.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crSundryPartyReconcilation.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crSundryPartySalesCumOutstanding.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crAccountReconciliation.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crInvoice.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crItemWiseSaleDetaails.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crPartyCategoryWiseMonthlySaleSummary.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crPartyCategoryWiseSales.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crSalesDistribution.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crDetailsCollectionType.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crBankStDateWiseRegister.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crPendingCCAvenueTransactions.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crBillWiseOutstanding.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crListOfUnknownDeposits.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crAccountsEntryDateWiseRegister.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crCategoryWiseRegister.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crItemWiseInvoiceSummary_30042013.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crSundryPartySale.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crTaxRegister.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crInvoiceRegister.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crItemWiseInvoiceSummary.rpt
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormGen.GenForm.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormCmn.CmnChangePassword.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormCmn.CmnCreate1stFAYear.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormCmn.CmnHelp.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormCmn.CmnLogin.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormCmn.CmnPopUp.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstCompany.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstInvoiceSeries.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstItem.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstParty.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstSetup.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstTax.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.mdiBillingSystem.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysServerInfoLocalBrowser.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormPar.MstFAYear.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstUser.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormRpt.RptDialog.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormRpt.RptPreview.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysBackup.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysBuildIndex.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysMenuMaintainence.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysServerInfoLocal.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysServerInfoNetwork.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysSystemMaintainence.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysUserRightsGrigView.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnSendEmailAgainstInvoice.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnUnknownPaymentEntry.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnBankEntry.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnInvoiceEntry.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.PopUp.TrnInvoicePrint.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.PopUp.TrnPartySave.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormUtl.UtlAbout.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Properties.Resources.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.csproj.GenerateResource.Cache
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.exe
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.pdb
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnOnlineOffflineInvoiceEntry.resources
+D:\Running Projects\PDS BILLING\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.PopUp.TrnOnlineOfflineEmailVerification.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\bin\Debug\BillingSystem.exe.config
+D:\Running Projects\NETProj Billing System\BillingSystem\bin\Debug\BillingSystem.exe
+D:\Running Projects\NETProj Billing System\BillingSystem\bin\Debug\BillingSystem.pdb
+D:\Running Projects\NETProj Billing System\BillingSystem\bin\Debug\DGControl.dll
+D:\Running Projects\NETProj Billing System\BillingSystem\bin\Debug\ICSharpCode.SharpZipLib.dll
+D:\Running Projects\NETProj Billing System\BillingSystem\bin\Debug\DGControl.pdb
+D:\Running Projects\NETProj Billing System\BillingSystem\bin\Debug\stdole.dll
+D:\Running Projects\NETProj Billing System\BillingSystem\bin\Debug\Interop.ADODB.dll
+D:\Running Projects\NETProj Billing System\BillingSystem\bin\Debug\Interop.ADOX.dll
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\ResolveAssemblyReference.cache
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\Interop.ADODB.dll
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\Interop.ADOX.dll
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.csproj.ResolveComReference.cache
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crCompanyMaster.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crFAYearMaster.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crInvoiceSeriesMaster.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crItemMaster.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crPartyMaster.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crUserMaster.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crCollectionDuringCurrentPeriod.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crCurrentBillsAgainstAdvanceReceipt.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crSundryPartySaleForThePeriod.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crCollectionDuringThisPeriod.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crCollectionDuringPreviousPeriod.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crOutstandingAmountForThePeriod.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crSundryPartyReconcilation.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crSundryPartySalesCumOutstanding.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crAccountReconciliation.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crInvoice.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crItemWiseSaleDetaails.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crPartyCategoryWiseMonthlySaleSummary.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crPartyCategoryWiseSales.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crSalesDistribution.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crDetailsCollectionType.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crBankStDateWiseRegister.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crPendingCCAvenueTransactions.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crBillWiseOutstanding.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crListOfUnknownDeposits.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crAccountsEntryDateWiseRegister.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crCategoryWiseRegister.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crItemWiseInvoiceSummary_30042013.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crSundryPartySale.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crTaxRegister.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crInvoiceRegister.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crItemWiseInvoiceSummary.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormGen.GenForm.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormCmn.CmnChangePassword.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormCmn.CmnCreate1stFAYear.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormCmn.CmnHelp.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormCmn.CmnLogin.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormCmn.CmnPopUp.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstEmailCategory.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstCompany.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstInvoiceSeries.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstItem.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstParty.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstSetup.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstTax.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.mdiBillingSystem.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysServerInfoLocalBrowser.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormPar.MstFAYear.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstUser.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormRpt.RptDialog.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormRpt.RptPreview.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysBackup.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysBuildIndex.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysMenuMaintainence.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysServerInfoLocal.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysServerInfoNetwork.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysSystemMaintainence.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysUserRightsGrigView.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnOnlineOffflineInvoiceEntry.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnSendEmailAgainstInvoice.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnUnknownPaymentEntry.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnBankEntry.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnInvoiceEntry.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.PopUp.TrnOnlineOfflineEmailVerification.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.PopUp.TrnInvoicePrint.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.PopUp.TrnPartySave.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormUtl.UtlAbout.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Properties.Resources.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.csproj.GenerateResource.Cache
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.exe
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.pdb
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnSerialNoStatus.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnRequestCD.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnDepstchCD.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnCollection.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnExcelImportIncremental.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crInvoicePaymentStatus.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crOutstandingPayment.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crTaggedCollectionEntry.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crUnknownCollectionEntry.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crPartyListSales.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crInvoiceStatus.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\bin\Debug\BillingSystem.exe.config
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\bin\Debug\BillingSystem.exe
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\bin\Debug\BillingSystem.pdb
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\bin\Debug\DGControl.dll
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\bin\Debug\DGControl.pdb
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\bin\Debug\stdole.dll
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\bin\Debug\Interop.ADODB.dll
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\bin\Debug\Interop.ADOX.dll
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\ResolveAssemblyReference.cache
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\Interop.ADODB.dll
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\Interop.ADOX.dll
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.csproj.ResolveComReference.cache
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crCompanyMaster.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crFAYearMaster.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crInvoiceSeriesMaster.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crItemMaster.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crPartyMaster.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crUserMaster.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crReconciliationStatement.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crAdjustmentRegister.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crUnknownPaymentsList.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crUnReconciliedCollectionList.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crDailyCollectionSummary.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crReconciliationDetail.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crPaymentStatusSummary.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crPaymentStatusDetail.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crCollectionWiseTaggedInvoices.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crCollectionDuringCurrentPeriod.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crCurrentBillsAgainstAdvanceReceipt.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crInvoicePaymentStatus.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crInvoiceStatus.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crOutstandingPayment.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crPartyListSales.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crSundryPartySaleForThePeriod.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crCollectionDuringThisPeriod.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crCollectionDuringPreviousPeriod.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crOutstandingAmountForThePeriod.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crSundryPartyReconcilation.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crSundryPartySalesCumOutstanding.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crAccountReconciliation.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crInvoice.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crItemWiseSaleDetaails.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crPartyCategoryWiseMonthlySaleSummary.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crPartyCategoryWiseSales.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crSalesDistribution.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crDetailsCollectionType.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crBankStDateWiseRegister.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crPendingCCAvenueTransactions.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crBillWiseOutstanding.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crListOfUnknownDeposits.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crAccountsEntryDateWiseRegister.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crCategoryWiseRegister.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crItemWiseInvoiceSummary_30042013.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crSundryPartySale.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crTaggedCollectionEntry.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crTaxRegister.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crInvoiceRegister.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crItemWiseInvoiceSummary.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crUnknownCollectionEntry.rpt
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormGen.GenForm.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormCmn.CmnChangePassword.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormCmn.CmnCreate1stFAYear.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormCmn.CmnHelp.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormCmn.CmnLogin.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormCmn.CmnPopUp.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstEmailCategory.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstCompany.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstInvoiceSeries.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstItem.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstParty.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstSetup.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstTax.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.mdiBillingSystem.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysServerInfoLocalBrowser.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormPar.MstFAYear.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstUser.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormRpt.RptDialog.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormRpt.RptPreview.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysBackup.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysBuildIndex.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysMenuMaintainence.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysServerInfoLocal.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysServerInfoNetwork.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysSystemMaintainence.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysUserRightsGrigView.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnOpeningInvoiceEntry.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnAdjustment.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnCollection.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnDepstchCD.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnExcelImportIncremental.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnRequestCD.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnSerialNoStatus.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnOnlineOffflineInvoiceEntry.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnSendEmailAgainstInvoice.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnUnknownPaymentEntry.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnBankEntry.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnInvoiceEntry.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.PopUp.TrnOnlineOfflineEmailVerification.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.PopUp.TrnInvoicePrint.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.PopUp.TrnPartySave.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormUtl.UtlAbout.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Properties.Resources.resources
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.csproj.GenerateResource.Cache
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.exe
+D:\Running Projects\NETProj Billing System\Net Proj Billing System Proj From Anik Updt From 2015_04_06\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.pdb
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\bin\Debug\BillingSystem.exe.config
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\bin\Debug\BillingSystem.exe
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\bin\Debug\BillingSystem.pdb
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\bin\Debug\DGControl.dll
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\bin\Debug\DGControl.pdb
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\bin\Debug\stdole.dll
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\bin\Debug\Interop.ADODB.dll
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\bin\Debug\Interop.ADOX.dll
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\ResolveAssemblyReference.cache
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\Interop.ADODB.dll
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\Interop.ADOX.dll
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.csproj.ResolveComReference.cache
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crCompanyMaster.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crFAYearMaster.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crInvoiceSeriesMaster.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crItemMaster.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crPartyMaster.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Listing.crUserMaster.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crEmailCheckList.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crDespatchStatus.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crTallyReconciliation.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crCategoryWiseVatCstSale.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crPaymentTypeWiseOutstandingSummary.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crAdvanceCollectionRegister.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crOutstandingCumUnknown.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crSundryPartyCollectionMiniStatement.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crSudryPartyOutstandingSummary.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crPeriodicCollectionSummary.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crReconciliationStatement.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crAdjustmentRegister.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crUnknownPaymentsList.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crUnReconciliedCollectionList.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crDailyCollectionSummary.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crReconciliationDetail.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crPaymentStatusSummary.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crPaymentStatusDetail.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crCollectionWiseTaggedInvoices.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crCollectionDuringCurrentPeriod.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crCurrentBillsAgainstAdvanceReceipt.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crInvoicePaymentStatus.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crInvoiceStatus.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crOutstandingPayment.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crPartyListSales.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crSundryPartySaleForThePeriod.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crCollectionDuringThisPeriod.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crCollectionDuringPreviousPeriod.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crOutstandingAmountForThePeriod.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crSundryPartyReconcilation.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crSundryPartySalesCumOutstanding.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crAccountReconciliation.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crInvoice.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crItemWiseSaleDetaails.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crPartyCategoryWiseMonthlySaleSummary.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crPartyCategoryWiseSales.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crSalesDistribution.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crDetailsCollectionType.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crBankStDateWiseRegister.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crPendingCCAvenueTransactions.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crBillWiseOutstanding.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crListOfUnknownDeposits.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crAccountsEntryDateWiseRegister.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crCategoryWiseRegister.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crItemWiseInvoiceSummary_30042013.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crSundryPartySale.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crTaggedCollectionEntry.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crTaxRegister.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crInvoiceRegister.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crItemWiseInvoiceSummary.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crUnknownCollectionEntry.rpt
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormGen.GenForm.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormCmn.CmnChangePassword.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormCmn.CmnCreate1stFAYear.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormCmn.CmnHelp.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormCmn.CmnLogin.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormCmn.CmnPopUp.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstEmailCategory.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstCompany.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstInvoiceSeries.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstItem.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstParty.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstSetup.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstTax.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.mdiBillingSystem.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysServerInfoLocalBrowser.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormPar.MstFAYear.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormMst.NormalEntries.MstUser.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormRpt.RptDialog.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormRpt.RptPreview.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysBackup.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysBuildIndex.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysMenuMaintainence.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysServerInfoLocal.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysServerInfoNetwork.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysSystemMaintainence.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormSys.SysUserRightsGrigView.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnOpeningInvoiceEntry.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnAdjustment.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnCollection.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnDepstchCD.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnExcelImportIncremental.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnRequestCD.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnSerialNoStatus.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnOnlineOffflineInvoiceEntry.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnSendEmailAgainstInvoice.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnUnknownPaymentEntry.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnBankEntry.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnInvoiceEntry.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.PopUp.TrnOnlineOfflineEmailVerification.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.PopUp.TrnInvoicePrint.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.PopUp.TrnPartySave.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormUtl.UtlAbout.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Properties.Resources.resources
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.csproj.GenerateResource.Cache
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.exe
+D:\Running Projects\NETProj Billing System\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.pdb
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crEmailCheckList.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crDespatchStatus.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crTallyReconciliation.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crCategoryWiseVatCstSale.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crPaymentTypeWiseOutstandingSummary.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crAdvanceCollectionRegister.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crOutstandingCumUnknown.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crSundryPartyCollectionMiniStatement.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crSudryPartyOutstandingSummary.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crPeriodicCollectionSummary.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crReconciliationStatement.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crAdjustmentRegister.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crUnknownPaymentsList.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crUnReconciliedCollectionList.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crDailyCollectionSummary.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crReconciliationDetail.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crPaymentStatusSummary.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crPaymentStatusDetail.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.Reports.Transaction.INVOICE.crCollectionWiseTaggedInvoices.rpt
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnOpeningInvoiceEntry.resources
+D:\Running Projects\NETProj Billing System\BillingSystem\obj\Debug\BillingSystem.FormTrn.NormalEntries.TrnAdjustment.resources
